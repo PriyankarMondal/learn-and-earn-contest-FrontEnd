@@ -1,0 +1,20 @@
+@import 'tailwindcss';
+@source "./pages/AdminDashboard.jsx";
+@source "./pages/StudentDashboard.jsx";
+
+@theme {
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --color-mint-bg: #f7faf1;
+}
+
+html {
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
