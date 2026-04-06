@@ -1,4 +1,4 @@
-export function WelcomeBanner({ userName = 'Alex Rivera', earnings = '$1,420' }) {
+export function WelcomeBanner({ userName = 'Alex Rivera', earnings = '₹1,420' }) {
   return (
     <div className="relative mb-6 flex flex-col justify-between overflow-hidden rounded-2xl bg-gradient-to-r from-[#4d7013] to-[#82c600] p-8 text-white shadow-sm md:flex-row md:items-center">
       {/* Abstract Background Design */}

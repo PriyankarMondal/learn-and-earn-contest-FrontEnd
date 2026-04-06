@@ -1,9 +1,9 @@
 import { History } from 'lucide-react'
 
 const pastContests = [
-  { name: 'Smart Contract Audit v2', submitted: 'Sep 14, 2023', score: '88/100', earnings: '$320.00', rank: '#12', status: 'COMPLETED' },
-  { name: 'Sustainability Report Design', submitted: 'Aug 29, 2023', score: '95/100', earnings: '$450.00', rank: '#03', status: 'COMPLETED' },
-  { name: 'E-commerce API Integration', submitted: 'Aug 12, 2023', score: '72/100', earnings: '$0.00', rank: '#145', status: 'FAILED' },
+  { name: 'Smart Contract Audit v2', submitted: 'Sep 14, 2023', score: '88/100', earnings: '₹320.00', rank: '#12', status: 'COMPLETED' },
+  { name: 'Sustainability Report Design', submitted: 'Aug 29, 2023', score: '95/100', earnings: '₹450.00', rank: '#03', status: 'COMPLETED' },
+  { name: 'E-commerce API Integration', submitted: 'Aug 12, 2023', score: '72/100', earnings: '₹0.00', rank: '#145', status: 'FAILED' },
 ]
 
 export function PastContestsTable() {
@@ -39,7 +39,7 @@ export function PastContestsTable() {
                 <td className="p-4 font-bold text-gray-900">{row.name}</td>
                 <td className="p-4 text-gray-500">{row.submitted}</td>
                 <td className="p-4 font-bold text-gray-800">{row.score}</td>
-                <td className="p-4 font-bold text-emerald-600">{row.earnings !== '$0.00' ? row.earnings : <span className="text-gray-400">{row.earnings}</span>}</td>
+                <td className="p-4 font-bold text-emerald-600">{row.earnings !== '₹0.00' ? row.earnings : <span className="text-gray-400">{row.earnings}</span>}</td>
                 <td className="p-4 font-bold text-gray-900">{row.rank}</td>
                 <td className="p-4">
                   <span className={`px-2.5 py-1 rounded text-[9px] font-bold uppercase tracking-wider ${row.status === 'COMPLETED' ? 'bg-lime-100 text-lime-700' : 'bg-gray-100 text-gray-600'}`}>

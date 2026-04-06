@@ -49,6 +49,15 @@ function ClockIcon() {
 }
 
 export function FeaturedContests() {
+  const handleParticipate = () => {
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true'
+    if (isLoggedIn) {
+      window.location.hash = '#/dashboard'
+    } else {
+      window.location.hash = '#/login'
+    }
+  }
+
   return (
     <section className="bg-mint-bg py-12 sm:py-16 lg:py-20" id="leaderboard">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
@@ -82,7 +91,7 @@ export function FeaturedContests() {
                   {c.tag}
                 </span>
               </div>
-              <h3 className="mt-3 text-base font-bold leading-snug text-gray-900 sm:mt-4 sm:text-lg">
+              <h3 className="mt-3 text-base font-bold leading-snug text-gray-900 sm:mt-4 sm:text-lg min-h-[3.5rem] flex items-center">
                 {c.title}
               </h3>
               <p className="mt-2 text-sm font-semibold text-lime-600">{c.prize}</p>
@@ -90,7 +99,11 @@ export function FeaturedContests() {
                 <ClockIcon />
                 {c.ends}
               </p>
-              <Button variant="amber" className="mt-5 w-full touch-manipulation py-3 sm:mt-6">
+              <Button
+                variant="amber"
+                className="mt-5 w-full touch-manipulation py-3 sm:mt-6"
+                onClick={handleParticipate}
+              >
                 Participate
               </Button>
             </article>

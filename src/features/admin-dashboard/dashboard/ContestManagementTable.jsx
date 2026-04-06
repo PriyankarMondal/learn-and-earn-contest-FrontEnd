@@ -8,7 +8,7 @@ const activeContestsData = [
 
 export function ContestManagementTable() {
   return (
-    <div className="mb-10 bg-white rounded-xl shadow-sm border border-gray-100 p-6 overflow-hidden">
+    <div className="mb-10 bg-[#f4f8eb] rounded-xl shadow-sm border border-gray-100/50 p-6 overflow-hidden">
       <div className="flex justify-between items-center mb-6">
         <h3 className="flex items-center gap-2 text-[13px] font-extrabold uppercase tracking-widest text-gray-900">
            <LayoutTemplate className="w-4 h-4 text-[#82c600]" />

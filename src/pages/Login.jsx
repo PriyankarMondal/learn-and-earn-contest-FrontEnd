@@ -35,8 +35,12 @@ export function Login() {
     e.preventDefault()
     // Handle login API Call
     if (form.email.startsWith('admin')) {
+      localStorage.setItem('isLoggedIn', 'true')
+      localStorage.setItem('userRole', 'admin')
       window.location.hash = '#/admin'
     } else {
+      localStorage.setItem('isLoggedIn', 'true')
+      localStorage.setItem('userRole', 'student')
       window.location.hash = '#/dashboard'
     }
   }

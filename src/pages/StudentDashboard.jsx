@@ -1,11 +1,11 @@
 import { DashboardSidebar, studentSidebarLinks, studentBottomLinks } from '../components/layout/DashboardSidebar'
 import { DashboardTopbar } from '../components/layout/DashboardTopbar'
-import { WelcomeBanner } from '../features/student-dashboard/WelcomeBanner'
-import { StudentStats } from '../features/student-dashboard/StudentStats'
-import { ActiveContestsList } from '../features/student-dashboard/ActiveContestsList'
-import { SubmissionsSidePanel } from '../features/student-dashboard/SubmissionsSidePanel'
-import { RecentActivity } from '../features/student-dashboard/RecentActivity'
-import { PastContestsTable } from '../features/student-dashboard/PastContestsTable'
+import { WelcomeBanner } from '../features/student-dashboard/dashboard/WelcomeBanner'
+import { StudentStats } from '../features/student-dashboard/dashboard/StudentStats'
+import { ActiveContestsList } from '../features/student-dashboard/dashboard/ActiveContestsList'
+import { SubmissionsSidePanel } from '../features/student-dashboard/dashboard/SubmissionsSidePanel'
+import { RecentActivity } from '../features/student-dashboard/dashboard/RecentActivity'
+import { PastContestsTable } from '../features/student-dashboard/dashboard/PastContestsTable'
 
 export function StudentDashboard() {
   return (
@@ -17,7 +17,7 @@ export function StudentDashboard() {
 
         <div className="flex-1 overflow-auto p-4 sm:p-6 lg:p-8">
           <div className="mx-auto max-w-7xl">
-            <WelcomeBanner userName="Alex Rivera" earnings="$1,420" />
+            <WelcomeBanner userName="Alex Rivera" earnings="₹1,420" />
             <StudentStats />
 
             <div className="flex flex-col xl:flex-row xl:items-start gap-8">

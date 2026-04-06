@@ -18,7 +18,7 @@ export function SubmissionsSidePanel() {
                <div className="text-xs text-gray-500 mt-2">Oct 22, 2023</div>
              </div>
              <div className="flex flex-col items-end gap-2">
-               <span className="text-emerald-600 font-bold text-sm">+$50</span>
+               <span className="text-emerald-600 font-bold text-sm">+₹50</span>
                <span className="bg-emerald-100 text-emerald-700 px-2.5 py-0.5 rounded text-[10px] font-bold border border-emerald-200 uppercase tracking-widest">Graded</span>
              </div>
           </div>
@@ -49,11 +49,11 @@ export function SubmissionsSidePanel() {
 
         <div className="flex flex-col gap-4">
           {[
-            { rank: '01', name: 'Sarah Jenkins', score: '$2,840', avatar: 'SJ', highlight: false },
-            { rank: '02', name: 'Marcus Vane', score: '$2,100', avatar: 'MV', highlight: false },
-            { rank: '03', name: 'Elena Ruiz', score: '$1,950', avatar: 'ER', highlight: false },
-            { rank: '04', name: 'Alex Rivera', score: '$1,420', avatar: 'AR', highlight: true },
-            { rank: '05', name: 'John Doe', score: '$1,380', avatar: 'JD', highlight: false },
+            { rank: '01', name: 'Sarah Jenkins', score: '₹2,840', avatar: 'SJ', highlight: false },
+            { rank: '02', name: 'Marcus Vane', score: '₹2,100', avatar: 'MV', highlight: false },
+            { rank: '03', name: 'Elena Ruiz', score: '₹1,950', avatar: 'ER', highlight: false },
+            { rank: '04', name: 'Alex Rivera', score: '₹1,420', avatar: 'AR', highlight: true },
+            { rank: '05', name: 'John Doe', score: '₹1,380', avatar: 'JD', highlight: false },
           ].map((user) => (
             <div key={user.rank} className={`flex items-center justify-between p-2 rounded-lg ${user.highlight ? 'bg-[#e4e9d3] ring-1 ring-[#c0d892]' : ''}`}>
               <div className="flex items-center gap-3">

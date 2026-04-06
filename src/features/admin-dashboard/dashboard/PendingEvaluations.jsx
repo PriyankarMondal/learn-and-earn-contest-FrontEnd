@@ -9,7 +9,7 @@ const evaluationsData = [
 
 export function PendingEvaluations() {
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 overflow-hidden">
+    <div className="bg-[#f4f8eb] rounded-xl shadow-sm border border-gray-100/50 p-6 overflow-hidden">
       <div className="flex justify-between items-center mb-6">
         <h3 className="flex items-center gap-2 text-[13px] font-extrabold uppercase tracking-widest text-gray-900">
            <AlertCircle className="w-4 h-4 text-red-500" />

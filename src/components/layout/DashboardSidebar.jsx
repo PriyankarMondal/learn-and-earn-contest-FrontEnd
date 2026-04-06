@@ -13,10 +13,10 @@ import {
 import { BrandLogo } from '../common/BrandLogo'
 
 export const studentSidebarLinks = [
-  { label: 'Dashboard', icon: LayoutDashboard, href: '#/dashboard', active: true },
-  { label: 'My Contests', icon: Trophy, href: '#/dashboard' },
-  { label: 'Submissions', icon: FileText, href: '#/dashboard' },
-  { label: 'Profile', icon: User, href: '#/dashboard' },
+  { label: 'Dashboard', icon: LayoutDashboard, href: '#/dashboard' },
+  { label: 'My Contests', icon: Trophy, href: '#/my-contests' },
+  { label: 'Submissions', icon: FileText, href: '#/submissions' },
+  { label: 'Profile', icon: User, href: '#/profile' },
 ]
 
 export const studentBottomLinks = [
@@ -25,21 +25,32 @@ export const studentBottomLinks = [
 ]
 
 export const adminSidebarLinks = [
-  { label: 'Dashboard', icon: LayoutDashboard, href: '#/admin', active: true },
-  { label: 'Contests', icon: Trophy, href: '#/admin' },
-  { label: 'Submissions', icon: FileText, href: '#/admin' },
-  { label: 'Users', icon: Users, href: '#/admin' },
-  { label: 'Leaderboard', icon: Trophy, href: '#/admin' },
+  { label: 'Dashboard', icon: LayoutDashboard, href: '#/admin' },
+  { label: 'Contests', icon: Trophy, href: '#/admin/contests' },
+  { label: 'Submissions', icon: FileText, href: '#/admin/submissions' },
+  { label: 'Users', icon: Users, href: '#/admin/users' },
+  { label: 'Leaderboard', icon: Trophy, href: '#/admin/leaderboard' },
 ]
 
 export const adminBottomLinks = [
-  { label: 'Settings', icon: Settings, href: '#/admin' },
+  { label: 'Settings', icon: Settings, href: '#/admin/settings' },
   { label: 'Logout', icon: LogOut, text: 'text-gray-800', href: '#/login' },
 ]
 
 export function DashboardSidebar({ links, bottomLinks, userRole = 'student' }) {
+  const currentHash = window.location.hash || '#/dashboard';
+  
+  const handleAction = (label) => {
+    if (label === 'Logout') {
+      localStorage.removeItem('isLoggedIn')
+      localStorage.removeItem('userRole')
+      window.location.hash = '#/login'
+      window.location.reload()
+    }
+  }
+
   return (
-    <aside className="hidden w-[240px] shrink-0 flex-col justify-between border-r border-[#e2e8d5] bg-[#f0f6e6] px-4 py-8 md:flex max-h-screen sticky top-0">
+    <aside className={`hidden w-[240px] shrink-0 flex-col justify-between bg-[#f0f6e6] px-4 py-8 md:flex max-h-screen sticky top-0 ${userRole === 'admin' ? '' : 'border-r border-[#e2e8d5]'}`}>
       <div>
         <div className="mb-8 px-2">
            <BrandLogo className="h-8 w-auto" />
@@ -65,20 +76,25 @@ export function DashboardSidebar({ links, bottomLinks, userRole = 'student' }) {
         )}
 
         <nav className="flex flex-col gap-1.5">
-          {links.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              className={`flex items-center gap-3 rounded-lg px-4 py-3 text-sm transition-colors ${
-                link.active
-                  ? 'bg-white shadow-sm text-[#446611] font-bold border border-[#e2e8d5]'
-                  : 'text-gray-600 font-semibold hover:bg-[#e4ebce] hover:text-[#446611]'
-              }`}
-            >
-              <link.icon className={`h-5 w-5 ${link.active ? 'text-[#82c600]' : 'text-gray-400'}`} />
-              {link.label}
-            </a>
-          ))}
+          {links.map((link) => {
+            const isActive = link.href === currentHash;
+            return (
+              <a
+                key={link.label}
+                href={link.href}
+                className={`flex items-center gap-3 rounded-lg px-4 py-3 text-sm transition-colors ${
+                  isActive
+                    ? userRole === 'admin'
+                      ? 'bg-[#e4ebce] text-[#71ac00] font-bold border border-transparent'
+                      : 'bg-white shadow-sm text-[#446611] font-bold border border-[#e2e8d5]'
+                    : 'text-gray-600 font-semibold hover:bg-[#e4ebce] hover:text-[#446611] border border-transparent'
+                }`}
+              >
+                <link.icon className={`h-5 w-5 ${isActive ? 'text-[#82c600]' : 'text-gray-400'}`} />
+                {link.label}
+              </a>
+            );
+          })}
         </nav>
       </div>
 
@@ -87,6 +103,7 @@ export function DashboardSidebar({ links, bottomLinks, userRole = 'student' }) {
           <a
             key={link.label}
             href={link.href}
+            onClick={() => handleAction(link.label)}
             className={`flex items-center gap-3 rounded-lg px-4 py-2.5 text-sm font-semibold transition-colors ${link.bg || 'hover:bg-gray-100'} ${link.text || 'text-gray-600'}`}
           >
             <link.icon className="h-5 w-5 opacity-80" />

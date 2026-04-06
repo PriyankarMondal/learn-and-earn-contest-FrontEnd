@@ -1,10 +1,13 @@
+import { useState } from 'react'
 import { Trophy, ClipboardEdit, CheckCircle } from 'lucide-react'
 
 export function AdminSidePanel() {
+  const [selectedPlace, setSelectedPlace] = useState(null)
+
   return (
     <div className="flex flex-col gap-6">
       {/* Elite Leaderboard */}
-      <div className="rounded-xl border border-[#e2e8d5]/50 bg-[#f1f4e8] p-6 shadow-[inset_0_1px_rgba(255,255,255,0.8)]">
+      <div className="rounded-xl border border-gray-100/50 bg-[#f4f8eb] p-6 shadow-[inset_0_1px_rgba(255,255,255,0.8)]">
         <h3 className="mb-5 flex items-center gap-2 text-[11px] font-extrabold uppercase tracking-widest text-[#d97706]">
           <Trophy className="h-4 w-4" />
           Elite Leaderboard
@@ -19,21 +22,21 @@ export function AdminSidePanel() {
               <span className="text-xs font-black text-amber-500">01</span>
               <span className="text-sm font-bold text-gray-900">Alex Rivera</span>
             </div>
-            <span className="bg-[#82c600] text-white text-[10px] font-bold px-2 py-0.5 rounded">$500</span>
+            <span className="bg-[#82c600] text-white text-[10px] font-bold px-2 py-0.5 rounded">₹500</span>
           </div>
           <div className="flex items-center justify-between p-2.5 rounded-lg">
             <div className="flex items-center gap-3">
               <span className="text-xs font-bold text-gray-400">02</span>
               <span className="text-sm font-semibold text-gray-700">Elena Ruiz</span>
             </div>
-            <span className="text-gray-500 text-[10px] font-bold">$300</span>
+            <span className="text-gray-500 text-[10px] font-bold">₹300</span>
           </div>
           <div className="flex items-center justify-between p-2.5 rounded-lg">
             <div className="flex items-center gap-3">
               <span className="text-xs font-bold text-gray-400">03</span>
               <span className="text-sm font-semibold text-gray-700">Marcus Thorne</span>
             </div>
-            <span className="text-gray-500 text-[10px] font-bold">$200</span>
+            <span className="text-gray-500 text-[10px] font-bold">₹200</span>
           </div>
         </div>
 
@@ -46,20 +49,20 @@ export function AdminSidePanel() {
               <span className="text-xs font-black text-amber-500">01</span>
               <span className="text-sm font-bold text-gray-900">Sarah Chen</span>
             </div>
-            <span className="bg-[#82c600] text-white text-[10px] font-bold px-2 py-0.5 rounded">$750</span>
+            <span className="bg-[#82c600] text-white text-[10px] font-bold px-2 py-0.5 rounded">₹750</span>
           </div>
           <div className="flex items-center justify-between p-2.5 rounded-lg">
             <div className="flex items-center gap-3">
               <span className="text-xs font-bold text-gray-400">02</span>
               <span className="text-sm font-semibold text-gray-700">David Kim</span>
             </div>
-            <span className="text-gray-500 text-[10px] font-bold">$450</span>
+            <span className="text-gray-500 text-[10px] font-bold">₹450</span>
           </div>
         </div>
       </div>
 
       {/* Score Submission */}
-      <div className="rounded-xl border border-[#d6e0b7] bg-[#e4ebce] p-6 shadow-sm relative overflow-hidden">
+      <div className="rounded-xl border border-gray-100/50 bg-[#eef4db] p-6 shadow-sm relative overflow-hidden">
          <div className="absolute right-[-10%] top-[-10%] w-[120px] h-[120px] opacity-[0.04] pointer-events-none">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
          </div>
@@ -99,9 +102,24 @@ export function AdminSidePanel() {
         <div className="mb-6">
           <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#5c8020] block mb-2">Declare As Winner</span>
           <div className="flex gap-2">
-            <button className="flex-1 bg-white border-2 border-amber-400 text-amber-500 text-[9px] font-black uppercase py-2 rounded-lg shadow-sm">1st Place</button>
-            <button className="flex-1 bg-white border border-gray-200 text-gray-400 text-[9px] font-black uppercase py-2 rounded-lg">2nd Place</button>
-            <button className="flex-1 bg-white border border-gray-200 text-gray-400 text-[9px] font-black uppercase py-2 rounded-lg">3rd Place</button>
+            <button
+               onClick={() => setSelectedPlace(1)}
+               className={`flex-1 transition-all border-2 py-2 rounded-lg shadow-sm text-[9px] font-black uppercase ${selectedPlace === 1 ? 'bg-amber-400 border-amber-500 text-white' : 'bg-white border-amber-400 text-amber-500'}`}
+            >
+               1st Place
+            </button>
+            <button
+               onClick={() => setSelectedPlace(2)}
+               className={`flex-1 transition-all border py-2 rounded-lg text-[9px] font-black uppercase ${selectedPlace === 2 ? 'bg-gray-400 border-gray-500 text-white' : 'bg-white border-gray-200 text-gray-400'}`}
+            >
+               2nd Place
+            </button>
+            <button
+               onClick={() => setSelectedPlace(3)}
+               className={`flex-1 transition-all border py-2 rounded-lg text-[9px] font-black uppercase ${selectedPlace === 3 ? 'bg-gray-400 border-gray-500 text-white' : 'bg-white border-gray-200 text-gray-400'}`}
+            >
+               3rd Place
+            </button>
           </div>
         </div>
 

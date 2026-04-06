@@ -44,6 +44,15 @@ export function Hero() {
     return () => clearInterval(id)
   }, [count])
 
+  const handleApplyNow = () => {
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true'
+    if (isLoggedIn) {
+      window.location.hash = '#/dashboard'
+    } else {
+      window.location.hash = '#/login'
+    }
+  }
+
   return (
     <section className="px-3 pt-2 sm:px-4 sm:pt-4 md:px-6">
       <div className="relative mx-auto w-full min-w-0 max-w-6xl overflow-hidden rounded-xl min-h-[420px] sm:min-h-[480px] sm:rounded-2xl md:min-h-[520px] lg:min-h-[580px]">
@@ -90,7 +99,11 @@ export function Hero() {
           </div>
 
           <div className="mt-6 flex w-full max-w-md flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:gap-4">
-            <Button variant="amber" className="w-full touch-manipulation px-6 py-3 sm:w-auto">
+            <Button
+              variant="amber"
+              className="w-full touch-manipulation px-6 py-3 sm:w-auto"
+              onClick={handleApplyNow}
+            >
               Apply Now
             </Button>
             <Button variant="outline" className="w-full touch-manipulation px-6 py-3 sm:w-auto">

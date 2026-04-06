@@ -8,11 +8,11 @@ export function AdminHeader() {
         <p className="text-sm font-medium text-gray-500 mt-1">Real-time academic performance & metrics.</p>
       </div>
       <div className="flex gap-4 items-center">
-        <button className="flex items-center gap-2 rounded-xl bg-white px-5 py-2.5 text-sm font-bold text-gray-700 hover:bg-gray-50 border border-gray-200 shadow-sm transition-colors">
+        <button className="flex items-center gap-2 rounded-full bg-[#e4e9d3] px-6 py-2.5 text-sm font-bold text-gray-700 hover:bg-[#d6e0b7] transition-colors">
           <Download className="h-4 w-4" />
           Export SRS
         </button>
-        <button className="flex items-center gap-2 rounded-xl bg-[#82c600] px-5 py-2.5 text-sm font-bold text-white hover:bg-[#71ac00] shadow-sm transition-colors">
+        <button className="flex items-center gap-2 rounded-full bg-[#82c600] px-6 py-2.5 text-sm font-bold text-white hover:bg-[#71ac00] shadow-sm transition-colors">
           <Plus className="h-4 w-4" />
           Create New Contest
         </button>
