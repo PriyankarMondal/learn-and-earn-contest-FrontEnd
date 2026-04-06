@@ -4,7 +4,7 @@ export function SubmissionsHeader() {
   return (
     <div className="mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
       <div>
-        <div className="text-[10px] font-extrabold uppercase tracking-widest text-[#82c600] mb-1">
+        <div className="text-[10px] font-extrabold uppercase tracking-widest text-[#82C600] mb-1">
           Academic Portfolio
         </div>
         <h1 className="text-3xl font-bold tracking-tight text-gray-900">
@@ -25,3 +25,4 @@ export function SubmissionsHeader() {
     </div>
   )
 }
+

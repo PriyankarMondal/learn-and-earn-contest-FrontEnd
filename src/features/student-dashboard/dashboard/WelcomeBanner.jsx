@@ -1,6 +1,6 @@
 export function WelcomeBanner({ userName = 'Alex Rivera', earnings = '₹1,420' }) {
   return (
-    <div className="relative mb-6 flex flex-col justify-between overflow-hidden rounded-2xl bg-gradient-to-r from-[#4d7013] to-[#82c600] p-8 text-white shadow-sm md:flex-row md:items-center">
+    <div className="relative mb-6 flex flex-col justify-between overflow-hidden rounded-2xl bg-gradient-to-r from-[#4d7013] to-[#82C600] p-8 text-white shadow-sm md:flex-row md:items-center">
       {/* Abstract Background Design */}
       <div className="pointer-events-none absolute -right-10 -top-20 h-[300px] w-[300px] opacity-10">
         <svg viewBox="0 0 100 100" fill="currentColor">
@@ -25,7 +25,7 @@ export function WelcomeBanner({ userName = 'Alex Rivera', earnings = '₹1,420' 
             </div>
             <div className="text-4xl font-black">{earnings}</div>
           </div>
-          <div className="rounded-full bg-[#f9bd1c] w-12 h-12 flex flex-col items-center justify-center text-amber-950 shadow-sm">
+          <div className="rounded-full bg-[#F9BD1C] w-12 h-12 flex flex-col items-center justify-center text-amber-950 shadow-sm">
             <span className="text-[11px] font-bold leading-none">+21%</span>
             <span className="text-[7px] font-extrabold uppercase leading-none mt-0.5">this month</span>
           </div>
@@ -34,3 +34,4 @@ export function WelcomeBanner({ userName = 'Alex Rivera', earnings = '₹1,420' 
     </div>
   )
 }
+

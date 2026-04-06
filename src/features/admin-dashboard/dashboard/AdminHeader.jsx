@@ -12,7 +12,7 @@ export function AdminHeader() {
           <Download className="h-4 w-4" />
           Export SRS
         </button>
-        <button className="flex items-center gap-2 rounded-full bg-[#82c600] px-6 py-2.5 text-sm font-bold text-white hover:bg-[#71ac00] shadow-sm transition-colors">
+        <button className="flex items-center gap-2 rounded-full bg-[#82C600] px-6 py-2.5 text-sm font-bold text-white hover:bg-[#71ac00] shadow-sm transition-colors">
           <Plus className="h-4 w-4" />
           Create New Contest
         </button>
@@ -20,3 +20,4 @@ export function AdminHeader() {
     </div>
   )
 }
+

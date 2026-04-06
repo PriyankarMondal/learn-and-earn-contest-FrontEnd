@@ -17,7 +17,7 @@ function GenderSelect({ value, onChange }) {
     <select
       value={value}
       onChange={onChange}
-      className="min-w-0 w-full rounded-lg border border-gray-200 bg-white px-4 py-3 text-sm text-gray-800 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30"
+      className="min-w-0 w-full rounded-lg border-transparent bg-slate-50 px-4 py-3 text-sm text-gray-800 placeholder-gray-500 outline-none transition-colors focus:border-lime-500 focus:bg-white focus:ring-4 focus:ring-lime-500/10"
       aria-label="Select gender"
     >
       <option value="">Select gender</option>
@@ -119,7 +119,7 @@ export function Register() {
                   value={form.fullName}
                   onChange={updateField('fullName')}
                   placeholder="Enter your full name"
-                  className="bg-white"
+                  className="w-full bg-slate-50 border-transparent focus:border-lime-500 focus:bg-white"
                   required
                 />
               </div>
@@ -133,7 +133,7 @@ export function Register() {
                   value={form.email}
                   onChange={updateField('email')}
                   placeholder="email@example.com"
-                  className="bg-white"
+                  className="w-full bg-slate-50 border-transparent focus:border-lime-500 focus:bg-white"
                   required
                 />
               </div>
@@ -148,7 +148,7 @@ export function Register() {
                     value={form.phone}
                     onChange={updateField('phone')}
                     placeholder="+91 00000-00000"
-                    className="bg-white"
+                    className="w-full bg-slate-50 border-transparent focus:border-lime-500 focus:bg-white"
                     required
                   />
                 </div>
@@ -174,7 +174,7 @@ export function Register() {
                     value={form.password}
                     onChange={updateField('password')}
                     placeholder="••••••••"
-                    className="w-full bg-white pr-10"
+                    className="w-full bg-slate-50 border-transparent pr-10 focus:border-lime-500 focus:bg-white"
                     required
                   />
                   <button

@@ -3,7 +3,7 @@ import { Lightbulb } from 'lucide-react'
 export function EurekaMoment() {
   return (
     <div className="mt-6 rounded-2xl bg-[#fcdbb4] p-6 shadow-sm border border-[#f3cca0] flex gap-4 items-start">
-      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#2d1b06] text-[#f9bd1c] shadow-sm">
+      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#2d1b06] text-[#F9BD1C] shadow-sm">
         <Lightbulb className="h-5 w-5" />
       </div>
       <div>
@@ -15,3 +15,4 @@ export function EurekaMoment() {
     </div>
   )
 }
+

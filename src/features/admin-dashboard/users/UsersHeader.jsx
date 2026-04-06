@@ -12,7 +12,7 @@ export function UsersHeader() {
           <Download className="h-4 w-4" />
           Export Directory
         </button>
-        <button className="flex items-center gap-2 rounded-xl bg-[#82c600] px-5 py-3 text-sm font-bold text-white hover:bg-[#71ac00] shadow-sm transition-colors ring-1 ring-[#71ac00]/20">
+        <button className="flex items-center gap-2 rounded-xl bg-[#82C600] px-5 py-3 text-sm font-bold text-white hover:bg-[#71ac00] shadow-sm transition-colors ring-1 ring-[#71ac00]/20">
           <Plus className="h-4 w-4" />
           New Student
         </button>
@@ -20,3 +20,4 @@ export function UsersHeader() {
     </div>
   )
 }
+

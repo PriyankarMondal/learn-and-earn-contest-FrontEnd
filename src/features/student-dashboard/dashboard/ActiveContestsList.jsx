@@ -9,7 +9,7 @@ const activeContestsData = [
     reward: '₹200',
     tags: [{ label: 'Ending Soon', bg: 'bg-amber-100 text-amber-800' }, { label: 'Hard', bg: 'bg-red-100 text-red-800' }],
     button: 'SUBMIT WORK',
-    btnVariant: 'bg-[#f9bd1c] hover:bg-[#e6ae1a] text-amber-950',
+    btnVariant: 'bg-[#F9BD1C] hover:bg-[#e6ae1a] text-amber-950',
     image: 'bg-slate-900',
   },
   {
@@ -20,7 +20,7 @@ const activeContestsData = [
     reward: '₹150',
     tags: [{ label: 'Open', bg: 'bg-lime-200 text-lime-800' }, { label: 'Medium', bg: 'bg-gray-200 text-gray-800' }],
     button: 'PARTICIPATE',
-    btnVariant: 'bg-[#82c600] hover:bg-[#71ac00] text-white',
+    btnVariant: 'bg-[#82C600] hover:bg-[#71ac00] text-white',
     image: 'bg-slate-800',
   }
 ]
@@ -90,3 +90,4 @@ export function ActiveContestsList() {
     </div>
   )
 }
+

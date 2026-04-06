@@ -4,7 +4,7 @@ const statsData = [
   { label: 'Joined', value: '12', subtext: 'Contests', icon: Users, color: 'text-lime-600', bg: 'bg-[#e7edd3]' },
   { label: 'Active', value: '03', subtext: 'In Progress', icon: Zap, color: 'text-amber-500', bg: 'bg-[#f0ecc5]' },
   { label: 'Submission', value: '01', subtext: 'Pending', icon: ClipboardList, color: 'text-amber-700', bg: 'bg-[#eedbc5]' },
-  { label: 'Earnings', value: '₹1,420', subtext: '+8% 📈', icon: Wallet, color: 'text-emerald-600', bg: 'bg-[#d3ede2]' },
+  { label: 'Earnings', value: '₹1,420', subtext: '+8% 📈', icon: Wallet, color: 'text-lime-600', bg: 'bg-[#d3ede2]' },
 ]
 
 export function StudentStats() {
@@ -32,3 +32,4 @@ export function StudentStats() {
     </div>
   )
 }
+

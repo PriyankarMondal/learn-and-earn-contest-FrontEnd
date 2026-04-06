@@ -23,6 +23,19 @@ export function Navbar() {
     window.location.reload() // Reload to ensure all components update
   }
 
+  function handleNavClick(e, link) {
+    if (link.label === 'Leaderboard' || link.label === 'Rewards') {
+      e.preventDefault()
+      const isLoggedInRef = localStorage.getItem('isLoggedIn') === 'true'
+      if (isLoggedInRef) {
+        window.location.hash = '#/dashboard'
+      } else {
+        window.location.hash = '#/login'
+      }
+    }
+    // For other links like 'Curriculum', allow default anchor behavior
+  }
+
   return (
     <header className="sticky top-0 z-50 border-b border-gray-100 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/90">
       <div className="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-3 sm:px-6 md:flex-row md:items-center md:justify-between md:gap-6">
@@ -71,6 +84,7 @@ export function Navbar() {
             <a
               key={link.href}
               href={link.href}
+              onClick={(e) => handleNavClick(e, link)}
               className="touch-manipulation whitespace-nowrap text-xs font-medium text-gray-700 hover:text-lime-600 sm:text-sm"
             >
               {link.label}

@@ -58,7 +58,7 @@ export function SubmissionsTable() {
                 <td className="py-5 px-4 text-xs font-semibold text-gray-500 whitespace-nowrap">{row.date}</td>
                 <td className="py-5 px-4">
                   <div className="flex items-center gap-2">
-                    <Code className="h-4 w-4 text-emerald-600 hover:text-emerald-700 cursor-pointer" />
+                    <Code className="h-4 w-4 text-lime-600 hover:text-lime-700 cursor-pointer" />
                     <ExternalLink className="h-4 w-4 text-lime-600 hover:text-lime-700 cursor-pointer" />
                   </div>
                 </td>
@@ -106,3 +106,4 @@ export function SubmissionsTable() {
     </div>
   )
 }
+

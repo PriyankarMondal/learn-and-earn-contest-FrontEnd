@@ -34,7 +34,7 @@ export function ActiveParticipations() {
                 <span className="rounded-md bg-amber-100 px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-wider text-amber-800">
                   In Progress
                 </span>
-                <span className="text-[11px] font-bold text-[#82c600]">React Advanced Masterclass</span>
+                <span className="text-[11px] font-bold text-[#82C600]">React Advanced Masterclass</span>
               </div>
               <h3 className="mb-3 text-2xl font-bold leading-tight text-gray-900">
                 Advanced State Management Challenge
@@ -56,7 +56,7 @@ export function ActiveParticipations() {
             </div>
 
             <div>
-              <button className="inline-flex items-center gap-2 rounded-lg bg-[#82c600] px-6 py-3 text-sm font-bold text-white shadow-sm transition-colors hover:bg-[#71ac00]">
+              <button className="inline-flex items-center gap-2 rounded-lg bg-[#82C600] px-6 py-3 text-sm font-bold text-white shadow-sm transition-colors hover:bg-[#71ac00]">
                 Submit Work
                 <ArrowRight className="h-4 w-4" />
               </button>
@@ -76,7 +76,7 @@ export function ActiveParticipations() {
             Mobile Application for Digital Education Systems.
           </p>
           <div className="mt-auto">
-            <button className="w-full rounded-lg bg-white px-6 py-3 text-sm font-bold text-[#82c600] shadow-sm transition-colors hover:bg-gray-50 text-center">
+            <button className="w-full rounded-lg bg-white px-6 py-3 text-sm font-bold text-[#82C600] shadow-sm transition-colors hover:bg-gray-50 text-center">
               View Submission
             </button>
           </div>
@@ -85,3 +85,4 @@ export function ActiveParticipations() {
     </div>
   )
 }
+

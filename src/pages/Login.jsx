@@ -5,19 +5,19 @@ import { Button } from '../components/ui/Button'
 import { Input } from '../components/ui/Input'
 
 const MailIcon = ({ className }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><rect width="20" height="16" x="2" y="4" rx="2" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /></svg>
 )
 
 const LockIcon = ({ className }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><rect width="18" height="11" x="3" y="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg>
 )
 
 const CapIcon = ({ className }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" className={className}><path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2.81-1.53V17h2V8.45L12 3z"/></svg>
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" className={className}><path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2.81-1.53V17h2V8.45L12 3z" /></svg>
 )
 
 const RibbonIcon = ({ className }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M12 15l-3.09 1.62.59-3.45L7 10.74l3.46-.5L12 7l1.54 3.24 3.46.5-2.5 2.43.59 3.45z"/><path d="M12 15v8l-4-2-4 2v-8"/></svg>
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M12 15l-3.09 1.62.59-3.45L7 10.74l3.46-.5L12 7l1.54 3.24 3.46.5-2.5 2.43.59 3.45z" /><path d="M12 15v8l-4-2-4 2v-8" /></svg>
 )
 
 export function Login() {
@@ -171,13 +171,13 @@ export function Login() {
               </Button>
 
               <div className="pt-6 text-center text-[13px] text-gray-600">
-                Not a member of the vanguard?{' '}
+                Not a member?{' '}
                 <a href="#/register" className="font-bold text-lime-500 hover:underline">
-                  Request Access
+                  Register here
                 </a>
               </div>
             </form>
-            
+
             <div className="mt-20 flex justify-center gap-6">
               <a href="#/" className="text-[10px] font-bold uppercase tracking-widest text-gray-400 hover:text-gray-600">Privacy Policy</a>
               <a href="#/" className="text-[10px] font-bold uppercase tracking-widest text-gray-400 hover:text-gray-600">Terms of Service</a>

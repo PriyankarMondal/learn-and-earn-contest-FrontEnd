@@ -38,7 +38,7 @@ export function ActiveContestsList() {
           <h3 className="text-xl font-bold text-gray-900 tracking-tight">Active Contest Management</h3>
           <p className="text-sm font-medium text-gray-500 mt-1">Review and manage ongoing academic challenges</p>
         </div>
-        <button className="flex items-center gap-2 bg-[#82c600] text-white px-5 py-2.5 rounded-lg text-sm font-bold shadow-sm hover:bg-[#71ac00] transition-colors">
+        <button className="flex items-center gap-2 bg-[#82C600] text-white px-5 py-2.5 rounded-lg text-sm font-bold shadow-sm hover:bg-[#71ac00] transition-colors">
           <Plus className="w-4 h-4" />
           Create New Contest
         </button>
@@ -101,3 +101,4 @@ export function ActiveContestsList() {
     </div>
   )
 }
+

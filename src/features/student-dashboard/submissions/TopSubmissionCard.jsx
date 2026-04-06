@@ -2,7 +2,7 @@ import { Award } from 'lucide-react'
 
 export function TopSubmissionCard() {
   return (
-    <div className="relative mb-8 overflow-hidden rounded-2xl bg-gradient-to-br from-[#689f00] to-[#82c600] p-6 sm:p-8 text-white shadow-md">
+    <div className="relative mb-8 overflow-hidden rounded-2xl bg-gradient-to-br from-[#689f00] to-[#82C600] p-6 sm:p-8 text-white shadow-md">
       {/* Abstract Background Icon */}
       <div className="pointer-events-none absolute -right-4 top-1/2 -translate-y-1/2 opacity-20 hidden sm:block">
         <Award className="h-64 w-64" strokeWidth={1} />
@@ -21,7 +21,7 @@ export function TopSubmissionCard() {
 
         <div className="flex-1 flex flex-col justify-center py-2">
           <div className="flex flex-wrap gap-2 mb-4">
-            <span className="rounded bg-[#f9bd1c] px-3 py-1 text-[9px] font-black uppercase tracking-widest text-amber-950 shadow-sm">
+            <span className="rounded bg-[#F9BD1C] px-3 py-1 text-[9px] font-black uppercase tracking-widest text-amber-950 shadow-sm">
               3rd Place Winner
             </span>
             <span className="rounded bg-white/20 px-3 py-1 text-[9px] font-black uppercase tracking-widest text-white backdrop-blur-sm">
@@ -52,7 +52,7 @@ export function TopSubmissionCard() {
           </div>
 
           <div>
-            <button className="rounded-lg bg-[#f9bd1c] px-8 py-3.5 text-xs font-black uppercase tracking-widest text-amber-950 transition-colors hover:bg-[#e6ae1a] shadow-sm">
+            <button className="rounded-lg bg-[#F9BD1C] px-8 py-3.5 text-xs font-black uppercase tracking-widest text-amber-950 transition-colors hover:bg-[#e6ae1a] shadow-sm">
               View Results
             </button>
           </div>
@@ -61,3 +61,4 @@ export function TopSubmissionCard() {
     </div>
   )
 }
+

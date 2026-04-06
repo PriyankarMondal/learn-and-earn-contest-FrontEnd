@@ -27,6 +27,18 @@ export function Footer() {
     }
   }
 
+  function handleNavClick(e, link) {
+    if (link.label === 'Leaderboard' || link.label === 'Rewards') {
+      e.preventDefault()
+      const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true'
+      if (isLoggedIn) {
+        window.location.hash = '#/dashboard'
+      } else {
+        window.location.hash = '#/login'
+      }
+    }
+  }
+
   return (
     <footer className="border-t border-gray-200 bg-gray-50">
       <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-12 lg:py-16">
@@ -71,6 +83,7 @@ export function Footer() {
                 <li key={link.label}>
                   <a
                     href={link.href}
+                    onClick={(e) => handleNavClick(e, link)}
                     className="text-sm text-gray-600 hover:text-lime-600 touch-manipulation"
                   >
                     {link.label}

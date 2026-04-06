@@ -9,7 +9,7 @@ import { Plus } from 'lucide-react'
 const AdminTopbarTabs = () => (
   <nav className="flex items-center gap-6 pt-1">
     <a href="#/admin" className="text-sm font-bold text-gray-500 hover:text-gray-800 border-b-2 border-transparent pb-2 px-1 transition-colors">Overview</a>
-    <a href="#/admin/contests" className="text-sm font-bold text-[#82c600] border-b-2 border-[#82c600] pb-2 px-1">Contests</a>
+    <a href="#/admin/contests" className="text-sm font-bold text-[#82C600] border-b-2 border-[#82C600] pb-2 px-1">Contests</a>
     <a href="#/admin" className="text-sm font-bold text-gray-500 hover:text-gray-800 border-b-2 border-transparent pb-2 px-1 transition-colors">Reports</a>
   </nav>
 )
@@ -17,7 +17,7 @@ const AdminTopbarTabs = () => (
 export function AdminContests() {
   const contestsBottomLinks = [
     ...adminBottomLinks.filter(l => l.label !== 'Logout'),
-    { label: 'Create Contest', icon: Plus, bg: 'bg-[#82c600]', text: 'text-white', href: '#/admin/contests' },
+    { label: 'Create Contest', icon: Plus, bg: 'bg-[#82C600]', text: 'text-white', href: '#/admin/contests' },
     adminBottomLinks.find(l => l.label === 'Logout')
   ].filter(Boolean)
 
@@ -53,3 +53,4 @@ export function AdminContests() {
     </div>
   )
 }
+

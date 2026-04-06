@@ -7,10 +7,10 @@ const variantClasses = {
   amberLg:
     'bg-amber-400 px-8 py-4 text-lg font-semibold text-gray-900 hover:bg-amber-500 focus-visible:ring-amber-300',
   outline:
-    'border-2 border-lime-500 bg-white text-lime-600 hover:bg-lime-50 focus-visible:ring-lime-400',
-  lime: 'bg-lime-500 text-white hover:bg-lime-600 focus-visible:ring-lime-300',
+    'border-2 border-amber-400 bg-white text-gray-900 hover:bg-amber-50 focus-visible:ring-amber-300',
+  lime: 'bg-amber-400 text-gray-900 hover:bg-amber-500 focus-visible:ring-amber-300',
   limeIcon:
-    'shrink-0 bg-lime-500 p-3 text-white hover:bg-lime-600 focus-visible:ring-lime-300',
+    'shrink-0 bg-amber-400 p-3 text-gray-900 hover:bg-amber-500 focus-visible:ring-amber-300',
 }
 
 const baseClasses =

@@ -15,9 +15,9 @@ export function PastContestsTable() {
           Past Contests & History
         </h2>
         <div className="text-[10px] font-extrabold uppercase tracking-widest text-[#5c8020] flex items-center gap-2">
-          <button className="hover:bg-lime-100 p-1 rounded">&lt;</button>
+          <button className="hover:bg-amber-100 p-1.5 rounded-md transition-colors text-amber-700 font-bold">&lt;</button>
           PAGE 1 OF 4
-          <button className="hover:bg-lime-100 p-1 rounded">&gt;</button>
+          <button className="hover:bg-amber-100 p-1.5 rounded-md transition-colors text-amber-700 font-bold">&gt;</button>
         </div>
       </div>
 
@@ -39,7 +39,7 @@ export function PastContestsTable() {
                 <td className="p-4 font-bold text-gray-900">{row.name}</td>
                 <td className="p-4 text-gray-500">{row.submitted}</td>
                 <td className="p-4 font-bold text-gray-800">{row.score}</td>
-                <td className="p-4 font-bold text-emerald-600">{row.earnings !== '₹0.00' ? row.earnings : <span className="text-gray-400">{row.earnings}</span>}</td>
+                <td className="p-4 font-bold text-lime-600">{row.earnings !== '₹0.00' ? row.earnings : <span className="text-gray-400">{row.earnings}</span>}</td>
                 <td className="p-4 font-bold text-gray-900">{row.rank}</td>
                 <td className="p-4">
                   <span className={`px-2.5 py-1 rounded text-[9px] font-bold uppercase tracking-wider ${row.status === 'COMPLETED' ? 'bg-lime-100 text-lime-700' : 'bg-gray-100 text-gray-600'}`}>
@@ -54,3 +54,4 @@ export function PastContestsTable() {
     </div>
   )
 }
+

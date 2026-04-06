@@ -5,6 +5,10 @@
 @theme {
   --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
   --color-mint-bg: #f7faf1;
+  --color-lime-500: #82C600;
+  --color-lime-600: #71ac00;
+  --color-amber-400: #F9BD1C;
+  --color-amber-500: #e0aa19;
 }
 
 html {

@@ -3,7 +3,7 @@ import { AlertCircle, Code, ExternalLink, ScrollText } from 'lucide-react'
 const evaluationsData = [
   { contest: 'Cloud Architecture 2024', student: 'Alex Rivera', avatar: 'AR', bg: 'bg-lime-500', date: 'Dec 10, 2024', repo: true, live: true },
   { contest: 'Data Structures Bites', student: 'Elena Ruiz', avatar: 'ER', bg: 'bg-amber-500', date: 'Dec 11, 2024', repo: true, live: false },
-  { contest: 'React Systems Design', student: 'Sarah Chen', avatar: 'SC', bg: 'bg-emerald-500', date: 'Dec 12, 2024', repo: true, live: true },
+  { contest: 'React Systems Design', student: 'Sarah Chen', avatar: 'SC', bg: 'bg-lime-500', date: 'Dec 12, 2024', repo: true, live: true },
   { contest: 'Intro to Next Logic', student: 'Marcus Thorne', avatar: 'MT', bg: 'bg-slate-500', date: 'Dec 12, 2024', repo: true, live: true },
 ]
 
@@ -48,13 +48,13 @@ export function PendingEvaluations() {
                 </td>
                 <td className="py-4 text-xs font-semibold text-gray-500">{row.date}</td>
                 <td className="py-4">
-                   <button className="flex items-center gap-1.5 text-xs font-bold text-emerald-600 hover:text-emerald-700 bg-emerald-50 px-2 py-1 rounded">
+                   <button className="flex items-center gap-1.5 text-xs font-bold text-amber-700 hover:text-amber-800 bg-amber-100 px-2.5 py-1 rounded-lg transition-colors border border-amber-200">
                      <Code className="w-3.5 h-3.5" /> Repo
                    </button>
                 </td>
                 <td className="py-4">
                    {row.live ? (
-                     <button className="flex items-center gap-1.5 text-xs font-bold text-lime-600 hover:text-lime-700 bg-lime-50 px-2 py-1 rounded">
+                     <button className="flex items-center gap-1.5 text-xs font-bold text-amber-700 hover:text-amber-800 bg-amber-100 px-2.5 py-1 rounded-lg transition-colors border border-amber-200">
                        <ExternalLink className="w-3.5 h-3.5" /> Live
                      </button>
                    ) : (
@@ -62,7 +62,7 @@ export function PendingEvaluations() {
                    )}
                 </td>
                 <td className="py-4 text-center">
-                  <button className="h-8 w-8 inline-flex items-center justify-center rounded-lg bg-gray-100 text-gray-400 hover:bg-[#82c600] hover:text-white transition-colors">
+                  <button className="h-8 w-8 inline-flex items-center justify-center rounded-lg bg-gray-100 text-gray-400 hover:bg-amber-400 hover:text-gray-900 transition-colors border border-transparent hover:border-amber-500/20">
                     <ScrollText className="w-4 h-4" />
                   </button>
                 </td>
@@ -74,3 +74,5 @@ export function PendingEvaluations() {
     </div>
   )
 }
+
+

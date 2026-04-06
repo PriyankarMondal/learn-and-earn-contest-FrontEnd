@@ -13,7 +13,7 @@ export function AdminSidePanel() {
           Elite Leaderboard
         </h3>
 
-        <div className="mb-2 text-[10px] font-extrabold uppercase tracking-widest text-[#82c600]">
+        <div className="mb-2 text-[10px] font-extrabold uppercase tracking-widest text-[#82C600]">
           Cloud Architecture 2024
         </div>
         <div className="flex flex-col gap-2 mb-6">
@@ -22,7 +22,7 @@ export function AdminSidePanel() {
               <span className="text-xs font-black text-amber-500">01</span>
               <span className="text-sm font-bold text-gray-900">Alex Rivera</span>
             </div>
-            <span className="bg-[#82c600] text-white text-[10px] font-bold px-2 py-0.5 rounded">₹500</span>
+            <span className="bg-[#82C600] text-white text-[10px] font-bold px-2 py-0.5 rounded">₹500</span>
           </div>
           <div className="flex items-center justify-between p-2.5 rounded-lg">
             <div className="flex items-center gap-3">
@@ -40,7 +40,7 @@ export function AdminSidePanel() {
           </div>
         </div>
 
-        <div className="mb-2 text-[10px] font-extrabold uppercase tracking-widest text-[#82c600]">
+        <div className="mb-2 text-[10px] font-extrabold uppercase tracking-widest text-[#82C600]">
           React Systems Design
         </div>
         <div className="flex flex-col gap-2">
@@ -49,7 +49,7 @@ export function AdminSidePanel() {
               <span className="text-xs font-black text-amber-500">01</span>
               <span className="text-sm font-bold text-gray-900">Sarah Chen</span>
             </div>
-            <span className="bg-[#82c600] text-white text-[10px] font-bold px-2 py-0.5 rounded">₹750</span>
+            <span className="bg-[#82C600] text-white text-[10px] font-bold px-2 py-0.5 rounded">₹750</span>
           </div>
           <div className="flex items-center justify-between p-2.5 rounded-lg">
             <div className="flex items-center gap-3">
@@ -123,7 +123,7 @@ export function AdminSidePanel() {
           </div>
         </div>
 
-        <button className="w-full bg-[#82c600] flex justify-center items-center gap-2 text-white font-bold uppercase tracking-widest py-3.5 rounded-xl shadow-md hover:bg-[#71ac00] transition-colors text-xs relative overflow-hidden">
+        <button className="w-full bg-[#82C600] flex justify-center items-center gap-2 text-white font-bold uppercase tracking-widest py-3.5 rounded-xl shadow-md hover:bg-[#71ac00] transition-colors text-xs relative overflow-hidden">
            <CheckCircle className="w-4 h-4" />
            Submit Evaluation
            <div className="absolute right-0 bottom-0 bg-[#5c8020] p-2 rounded-tl-xl">
@@ -134,3 +134,4 @@ export function AdminSidePanel() {
     </div>
   )
 }
+

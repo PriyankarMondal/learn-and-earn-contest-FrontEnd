@@ -67,7 +67,7 @@ export function PendingEvaluationsList() {
                 </td>
                 <td className="py-4">
                   <div className="flex items-center gap-3">
-                    <a href="#" className="flex items-center gap-1 text-[10px] font-bold text-[#82c600] hover:text-[#71ac00]">
+                    <a href="#" className="flex items-center gap-1 text-[10px] font-bold text-[#82C600] hover:text-[#71ac00]">
                       <Code className="w-3 h-3" /> GitHub
                     </a>
                     <a href="#" className="flex items-center gap-1 text-[10px] font-bold text-amber-500 hover:text-amber-600">
@@ -76,7 +76,7 @@ export function PendingEvaluationsList() {
                   </div>
                 </td>
                 <td className="py-4 text-right pr-2">
-                  <button className="bg-[#82c600] hover:bg-[#71ac00] text-white text-[10px] font-bold uppercase tracking-widest px-4 py-2 rounded-lg shadow-sm transition-colors">
+                  <button className="bg-[#82C600] hover:bg-[#71ac00] text-white text-[10px] font-bold uppercase tracking-widest px-4 py-2 rounded-lg shadow-sm transition-colors">
                     Evaluate
                   </button>
                 </td>
@@ -92,3 +92,4 @@ export function PendingEvaluationsList() {
     </div>
   )
 }
+

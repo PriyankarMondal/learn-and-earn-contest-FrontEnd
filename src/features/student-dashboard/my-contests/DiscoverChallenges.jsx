@@ -10,8 +10,8 @@ const discoverData = [
     diff: 'HARD',
     diffColor: 'bg-red-50 text-red-500',
     icon: Database,
-    iconColor: 'text-emerald-500 bg-emerald-50 border-emerald-100',
-    btnVariant: 'bg-[#f9bd1c] hover:bg-[#e6ae1a] text-amber-950',
+    iconColor: 'text-lime-500 bg-lime-50 border-lime-100',
+    btnVariant: 'bg-[#F9BD1C] hover:bg-[#e6ae1a] text-amber-950',
   },
   {
     tag: 'Web Development',
@@ -23,7 +23,7 @@ const discoverData = [
     diffColor: 'bg-indigo-50 text-indigo-500',
     icon: Monitor,
     iconColor: 'text-lime-500 bg-lime-50 border-lime-100',
-    btnVariant: 'bg-[#f9bd1c] hover:bg-[#e6ae1a] text-amber-950',
+    btnVariant: 'bg-[#F9BD1C] hover:bg-[#e6ae1a] text-amber-950',
   },
   {
     tag: 'UI/UX Design',
@@ -35,7 +35,7 @@ const discoverData = [
     diffColor: 'bg-red-50 text-red-500',
     icon: Palette,
     iconColor: 'text-lime-500 bg-lime-50 border-lime-100',
-    btnVariant: 'bg-[#f9bd1c] hover:bg-[#e6ae1a] text-amber-950',
+    btnVariant: 'bg-[#F9BD1C] hover:bg-[#e6ae1a] text-amber-950',
   },
   {
     tag: 'Digital Marketing',
@@ -47,7 +47,7 @@ const discoverData = [
     diffColor: 'bg-slate-100 text-slate-500',
     icon: Megaphone,
     iconColor: 'text-lime-500 bg-lime-50 border-lime-100',
-    btnVariant: 'bg-[#f9bd1c] hover:bg-[#e6ae1a] text-amber-950',
+    btnVariant: 'bg-[#F9BD1C] hover:bg-[#e6ae1a] text-amber-950',
   },
 ]
 
@@ -56,10 +56,10 @@ export function DiscoverChallenges() {
     <div className="mb-10">
       <div className="mb-6 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="h-6 w-1 rounded-full bg-[#82c600]"></div>
+          <div className="h-6 w-1 rounded-full bg-[#82C600]"></div>
           <h2 className="text-xl font-bold text-gray-900 tracking-tight">Discover New Challenges</h2>
         </div>
-        <a href="#/dashboard" className="text-[11px] font-extrabold uppercase tracking-widest text-[#82c600] hover:underline">
+        <a href="#/dashboard" className="text-[11px] font-extrabold uppercase tracking-widest text-[#82C600] hover:underline">
           View All &gt;
         </a>
       </div>
@@ -76,7 +76,7 @@ export function DiscoverChallenges() {
                   {item.diff}
                 </span>
               </div>
-              <div className="mb-2 text-[10px] font-bold uppercase tracking-widest text-[#82c600]">
+              <div className="mb-2 text-[10px] font-bold uppercase tracking-widest text-[#82C600]">
                 {item.tag}
               </div>
               <h3 className="text-base font-bold text-gray-900 leading-snug mb-8">
@@ -105,3 +105,5 @@ export function DiscoverChallenges() {
     </div>
   )
 }
+
+

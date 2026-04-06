@@ -100,7 +100,7 @@ export function UsersTable() {
       <div className="bg-white px-6 py-4 flex items-center justify-between border-t border-gray-100">
         <div className="flex items-center gap-3">
            <button className="p-2 rounded-lg hover:bg-gray-100 transition-colors border border-gray-200 text-gray-400"><ChevronLeft className="w-4 h-4" /></button>
-           <button className="px-3.5 py-1.5 rounded-lg bg-[#82c600] text-white text-xs font-bold shadow-sm">1</button>
+           <button className="px-3.5 py-1.5 rounded-lg bg-[#82C600] text-white text-xs font-bold shadow-sm">1</button>
            <button className="px-3.5 py-1.5 rounded-lg hover:bg-gray-100 text-gray-600 text-xs font-bold transition-colors">2</button>
            <button className="px-3.5 py-1.5 rounded-lg hover:bg-gray-100 text-gray-600 text-xs font-bold transition-colors">3</button>
            <span className="text-gray-400 px-2">...</span>
@@ -118,3 +118,4 @@ export function UsersTable() {
     </div>
   )
 }
+

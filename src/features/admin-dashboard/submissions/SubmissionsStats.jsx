@@ -2,7 +2,7 @@ export function SubmissionsStats() {
   const stats = [
     { label: 'TOTAL SUBMISSIONS', value: '1,234', trend: '~12%', trendColor: 'text-lime-600', accent: 'bg-lime-500' },
     { label: 'PENDING EVALUATION', value: '89', tag: 'CRITICAL', tagBg: 'bg-[#dc2626]', accent: 'bg-[#dc2626]' },
-    { label: 'EVALUATED TODAY', value: '24', subtext: '/ daily goal 30', accent: 'bg-emerald-500' },
+    { label: 'EVALUATED TODAY', value: '24', subtext: '/ daily goal 30', accent: 'bg-lime-500' },
     { label: 'WINNER SLOTS FILLED', value: '12/42', progress: 30, accent: 'bg-amber-400' },
   ]
 
@@ -35,3 +35,4 @@ export function SubmissionsStats() {
     </div>
   )
 }
+

@@ -16,7 +16,7 @@ export function ProfileHeader() {
               className="h-full w-full object-cover"
             />
           </div>
-          <button className="absolute -bottom-2 -right-2 flex h-8 w-8 items-center justify-center rounded-full bg-[#f9bd1c] text-amber-950 shadow hover:bg-[#e6ae1a] transition-colors">
+          <button className="absolute -bottom-2 -right-2 flex h-8 w-8 items-center justify-center rounded-full bg-[#F9BD1C] text-amber-950 shadow hover:bg-[#e6ae1a] transition-colors">
             <Pencil className="h-3.5 w-3.5" strokeWidth={3} />
           </button>
         </div>
@@ -44,7 +44,7 @@ export function ProfileHeader() {
              ₹1,420
           </div>
           <div className="flex items-center gap-1.5 text-[9px] font-bold text-gray-500 uppercase tracking-widest">
-            <TrendingUp className="h-3 w-3 text-emerald-600" />
+            <TrendingUp className="h-3 w-3 text-lime-600" />
             +12% from last month
           </div>
         </div>
@@ -52,3 +52,5 @@ export function ProfileHeader() {
     </div>
   )
 }
+
+

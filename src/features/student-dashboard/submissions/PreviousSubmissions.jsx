@@ -6,21 +6,21 @@ const submissionsData = [
     title: 'Neural Architecture Design',
     reward: '₹800',
     tag: 'SUBMITTED - PENDING EVALUATION',
-    tagClass: 'bg-[#f9bd1c] text-amber-950',
+    tagClass: 'bg-[#F9BD1C] text-amber-950',
     stats: [
       { label: 'SUBMITTED', value: '2 days ago' },
       { label: 'TYPE', value: 'Model Design' }
     ],
     buttonText: 'VIEW SUBMISSION',
     buttonIcon: ArrowRight,
-    buttonClass: 'bg-[#f9bd1c] hover:bg-[#e6ae1a] text-amber-950',
+    buttonClass: 'bg-[#F9BD1C] hover:bg-[#e6ae1a] text-amber-950',
   },
   {
     icon: TrendingUp,
     title: 'Market Sentiment Analysis',
     reward: '₹650',
     tag: 'GRADED',
-    tagClass: 'bg-[#82c600] text-white',
+    tagClass: 'bg-[#82C600] text-white',
     stats: [
       { label: 'SCORE', value: '88/100' },
       { label: 'RANK', value: '#12' },
@@ -35,7 +35,7 @@ const submissionsData = [
     title: 'Algorithm Optimization',
     reward: '₹1,200',
     tag: 'GRADED',
-    tagClass: 'bg-[#82c600] text-white',
+    tagClass: 'bg-[#82C600] text-white',
     stats: [
       { label: 'SCORE', value: '74/100' },
       { label: 'RANK', value: '#45' },
@@ -66,7 +66,7 @@ export function PreviousSubmissions() {
               {item.title}
             </h3>
             <div className="text-[11px] font-bold text-gray-400 mb-6">
-              Reward: <span className="text-[#82c600]">{item.reward}</span>
+              Reward: <span className="text-[#82C600]">{item.reward}</span>
             </div>
           </div>
 
@@ -90,3 +90,4 @@ export function PreviousSubmissions() {
     </div>
   )
 }
+

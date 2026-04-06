@@ -2,8 +2,8 @@ import { Users, GraduationCap, ShieldCheck, AlertCircle } from 'lucide-react'
 
 export function UsersStats() {
   const stats = [
-    { label: 'Total Users', value: '2,548', tag: '+12%', icon: Users, accent: 'bg-[#82c600]' },
-    { label: 'Active Students', value: '1,892', tag: 'ACTIVE', icon: GraduationCap, accent: 'bg-emerald-500' },
+    { label: 'Total Users', value: '2,548', tag: '+12%', icon: Users, accent: 'bg-[#82C600]' },
+    { label: 'Active Students', value: '1,892', tag: 'ACTIVE', icon: GraduationCap, accent: 'bg-lime-500' },
     { label: 'Administrators', value: '12', icon: ShieldCheck, accent: 'bg-lime-600' },
     { label: 'Pending Verification', value: '128', icon: AlertCircle, accent: 'bg-amber-400', critical: true },
   ]
@@ -20,7 +20,7 @@ export function UsersStats() {
               <stat.icon className="h-5 w-5" />
             </div>
             {stat.tag && (
-              <span className={`text-[9px] font-black tracking-widest px-2 py-0.5 rounded ${stat.tag === '+12%' ? 'text-lime-600 bg-lime-50/50' : 'text-emerald-600 bg-emerald-50/50'}`}>
+              <span className={`text-[9px] font-black tracking-widest px-2 py-0.5 rounded ${stat.tag === '+12%' ? 'text-lime-600 bg-lime-50/50' : 'text-lime-600 bg-lime-50/50'}`}>
                 {stat.tag}
               </span>
             )}
@@ -36,3 +36,5 @@ export function UsersStats() {
     </div>
   )
 }
+
+

@@ -1,7 +1,7 @@
 import { Medal } from 'lucide-react'
 
 const eliteData = [
-  { rank: '1ST RANK', name: 'Dr. Julianne Frye', prize: '₹2,900', medalColor: 'text-yellow-500', numColor: 'bg-yellow-500', cardBg: 'bg-[#f4f8eb]', outline: 'border-[#d6e0b7]' },
+  { rank: '1ST RANK', name: 'Dr. Julianne Frye', prize: '₹2,900', medalColor: 'text-amber-500', numColor: 'bg-amber-500', cardBg: 'bg-[#f4f8eb]', outline: 'border-[#d6e0b7]' },
   { rank: '2ND RANK', name: 'Liam Davies', prize: '₹1,200', medalColor: 'text-gray-400', numColor: 'bg-gray-400', cardBg: 'bg-white', outline: 'border-gray-100' },
   { rank: '3RD RANK', name: 'Kenji Sato', prize: '₹600', medalColor: 'text-amber-600', numColor: 'bg-amber-600', cardBg: 'bg-white', outline: 'border-gray-100' },
 ]
@@ -36,10 +36,12 @@ export function EliteWinnersPanel() {
       </div>
 
       <div className="mt-8">
-        <a href="#/admin/leaderboard" className="text-[10px] font-extrabold uppercase tracking-widest text-[#82c600] hover:text-[#71ac00] flex items-center gap-1 transition-colors">
+        <a href="#/admin/leaderboard" className="text-[10px] font-extrabold uppercase tracking-widest text-[#82C600] hover:text-[#71ac00] flex items-center gap-1 transition-colors">
           View Full Leaderboard &rarr;
         </a>
       </div>
     </div>
   )
 }
+
+

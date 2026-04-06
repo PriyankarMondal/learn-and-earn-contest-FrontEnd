@@ -14,7 +14,7 @@ export function ContestFilters() {
           key={filter.label}
           className={`flex items-center justify-center rounded-full px-5 py-2 text-sm font-semibold transition-colors ${
             filter.active
-              ? 'bg-[#82c600] text-white shadow-sm'
+              ? 'bg-[#82C600] text-white shadow-sm'
               : 'bg-[#e4ebce] text-gray-600 hover:bg-[#d6e0b7] hover:text-[#446611]'
           }`}
         >
@@ -24,3 +24,4 @@ export function ContestFilters() {
     </div>
   )
 }
+

@@ -3,7 +3,7 @@ import { Award, Users, Activity, AlertCircle } from 'lucide-react'
 const adminStatsData = [
   { label: 'Metrics', value: '142', subval: 'Total Contests', icon: Award, text: 'text-lime-600', line: 'bg-lime-500', labelBg: 'bg-[#f0f6e6]' },
   { label: 'Reach', value: '18.5k', subval: 'Total Participants', icon: Users, text: 'text-amber-500', line: 'bg-amber-400', labelBg: 'bg-[#fff7ed]' },
-  { label: 'Activity', value: '1,234', subval: 'Submissions Received', icon: Activity, text: 'text-emerald-600', line: 'bg-emerald-500', labelBg: 'bg-[#ecfdf5]' },
+  { label: 'Activity', value: '1,234', subval: 'Submissions Received', icon: Activity, text: 'text-lime-600', line: 'bg-lime-500', labelBg: 'bg-[#ecfdf5]' },
   { label: 'Attention', value: '89', subval: 'Pending Evaluations', icon: AlertCircle, text: 'text-red-500', line: 'bg-red-500', labelBg: 'bg-[#fef2f2]' },
 ]
 
@@ -29,3 +29,4 @@ export function AdminStats() {
     </div>
   )
 }
+

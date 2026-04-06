@@ -6,7 +6,7 @@ export function SubmissionsSidePanel() {
       {/* Submissions Status */}
       <div className="rounded-xl border border-[#e2e8d5]/50 bg-[#f1f4e8] p-6 shadow-[inset_0_1px_rgba(255,255,255,0.8)]">
         <h3 className="mb-5 flex items-center gap-2 text-[11px] font-extrabold uppercase tracking-widest text-gray-500">
-          <ClipboardCheck className="h-4 w-4 text-[#82c600]" />
+          <ClipboardCheck className="h-4 w-4 text-[#82C600]" />
           Submissions Status
         </h3>
 
@@ -18,8 +18,8 @@ export function SubmissionsSidePanel() {
                <div className="text-xs text-gray-500 mt-2">Oct 22, 2023</div>
              </div>
              <div className="flex flex-col items-end gap-2">
-               <span className="text-emerald-600 font-bold text-sm">+₹50</span>
-               <span className="bg-emerald-100 text-emerald-700 px-2.5 py-0.5 rounded text-[10px] font-bold border border-emerald-200 uppercase tracking-widest">Graded</span>
+               <span className="text-lime-600 font-bold text-sm">+₹50</span>
+               <span className="bg-lime-100 text-lime-700 px-2.5 py-0.5 rounded text-[10px] font-bold border border-lime-200 uppercase tracking-widest">Graded</span>
              </div>
           </div>
 
@@ -79,3 +79,5 @@ export function SubmissionsSidePanel() {
     </div>
   )
 }
+
+

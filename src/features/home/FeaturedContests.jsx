@@ -6,7 +6,7 @@ const contests = [
     title: 'Advanced MERN E-commerce',
     prize: '₹5,000 PRIZE POOL',
     ends: 'Ends in 12 Days',
-    iconBg: 'bg-emerald-100 text-emerald-700',
+    iconBg: 'bg-lime-100 text-lime-700',
     icon: '🛒',
   },
   {
@@ -67,12 +67,12 @@ export function FeaturedContests() {
 
         <div className="mt-2 flex flex-col items-center gap-3 text-center sm:flex-row sm:items-end sm:justify-between sm:text-left">
           <h2 className="text-2xl font-bold text-gray-900 sm:text-3xl lg:text-4xl">Featured Contests</h2>
-          <a
-            href="#"
-            className="shrink-0 text-sm font-medium text-lime-600 hover:underline touch-manipulation"
+          <button
+            onClick={handleParticipate}
+            className="shrink-0 text-sm font-medium text-lime-600 hover:underline touch-manipulation cursor-pointer border-none bg-transparent"
           >
             view all projects →
-          </a>
+          </button>
         </div>
 
         <div className="mt-8 grid grid-cols-1 gap-5 sm:mt-10 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4">
@@ -113,3 +113,4 @@ export function FeaturedContests() {
     </section>
   )
 }
+

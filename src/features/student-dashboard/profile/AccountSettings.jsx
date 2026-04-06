@@ -15,7 +15,7 @@ export function AccountSettings() {
   return (
     <div className="mt-8 rounded-2xl border border-[#e2e8d5] bg-[#f0f6e6] p-8 shadow-sm">
       <h2 className="mb-6 flex items-center gap-2 text-lg font-bold text-gray-900">
-        <Settings className="w-5 h-5 text-[#82c600]" />
+        <Settings className="w-5 h-5 text-[#82C600]" />
         Account Settings
       </h2>
 
@@ -99,3 +99,4 @@ export function AccountSettings() {
     </div>
   )
 }
+
