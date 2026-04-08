@@ -3,6 +3,9 @@ import { BrandLogo } from '../components/common/BrandLogo'
 import registerBGImg from '../assets/registerBGimg.png'
 import { Button } from '../components/ui/Button'
 import { Input } from '../components/ui/Input'
+import { apiRequest } from '../api/fetch'
+import { registerUser } from '../api/auth.api'
+
 
 const EyeIcon = ({ className }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" /><circle cx="12" cy="12" r="3" /></svg>
@@ -21,9 +24,9 @@ function GenderSelect({ value, onChange }) {
       aria-label="Select gender"
     >
       <option value="">Select gender</option>
-      <option value="male">Male</option>
-      <option value="female">Female</option>
-      <option value="other">Other</option>
+      <option value="Male">Male</option>
+      <option value="Female">Female</option>
+      <option value="Other">Other</option>
     </select>
   )
 }
@@ -31,9 +34,9 @@ function GenderSelect({ value, onChange }) {
 export function Register() {
   const [showPassword, setShowPassword] = useState(false)
   const [form, setForm] = useState({
-    fullName: '',
+    name: '',
     email: '',
-    phone: '',
+    number: '',
     gender: '',
     password: '',
   })
@@ -42,15 +45,24 @@ export function Register() {
     return (e) => setForm((f) => ({ ...f, [key]: e.target.value }))
   }
 
-  function handleSubmit(e) {
-    e.preventDefault()
-    if (form.email.startsWith('admin')) {
-      window.location.hash = '#/admin'
-    } else {
-      window.location.hash = '#/dashboard'
-    }
-  }
+  async function handleSubmit(e) {
+  e.preventDefault();
 
+  try {
+    const res = await registerUser(form);
+
+    console.log(res);
+
+    // ✅ If here → success
+    alert(res.message || "Registration successful!");
+
+    window.location.hash = "#/login";
+
+  } catch (error) {
+    // ❌ If error → failed request
+    alert(error.message || "Registration failed. Please try again.");
+  }
+}
   return (
     <div className="min-h-screen bg-white">
       <div className="flex min-h-screen flex-col md:flex-row">
@@ -116,8 +128,8 @@ export function Register() {
                   Full Name
                 </label>
                 <Input
-                  value={form.fullName}
-                  onChange={updateField('fullName')}
+                  value={form.name}
+                  onChange={updateField('name')}
                   placeholder="Enter your full name"
                   className="w-full bg-slate-50 border-transparent focus:border-lime-500 focus:bg-white"
                   required
@@ -145,8 +157,8 @@ export function Register() {
                   </label>
                   <Input
                     type="tel"
-                    value={form.phone}
-                    onChange={updateField('phone')}
+                    value={form.number}
+                    onChange={updateField('number')}
                     placeholder="+91 00000-00000"
                     className="w-full bg-slate-50 border-transparent focus:border-lime-500 focus:bg-white"
                     required

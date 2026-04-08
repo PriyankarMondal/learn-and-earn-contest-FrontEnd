@@ -3,6 +3,7 @@ import { BrandLogo } from '../components/common/BrandLogo'
 import registerBGImg from '../assets/registerBGimg.png'
 import { Button } from '../components/ui/Button'
 import { Input } from '../components/ui/Input'
+import { loginUser } from '../api/auth.api'
 
 const MailIcon = ({ className }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><rect width="20" height="16" x="2" y="4" rx="2" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /></svg>
@@ -24,24 +25,29 @@ export function Login() {
   const [form, setForm] = useState({
     email: '',
     password: '',
-    remember: false,
+    // remember: false,
   })
 
   function updateField(key) {
-    return (e) => setForm((f) => ({ ...f, [key]: e.target.type === 'checkbox' ? e.target.checked : e.target.value }))
+    return (e) => setForm((f) => ({ ...f, [key]: e.target.value }))
   }
 
-  function handleSubmit(e) {
-    e.preventDefault()
-    // Handle login API Call
-    if (form.email.startsWith('admin')) {
-      localStorage.setItem('isLoggedIn', 'true')
-      localStorage.setItem('userRole', 'admin')
-      window.location.hash = '#/admin'
-    } else {
-      localStorage.setItem('isLoggedIn', 'true')
-      localStorage.setItem('userRole', 'student')
-      window.location.hash = '#/dashboard'
+  async function handleSubmit(e) {
+    e.preventDefault();
+
+    try {
+      const res = await loginUser(form);
+
+      console.log(res);
+
+      // ✅ If here → success
+      alert(res.message);
+
+      window.location.hash = "#/dashboard";
+
+    } catch (error) {
+      // ❌ If error → failed request
+      alert(error.message);
     }
   }
 
