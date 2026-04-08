@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { BrandLogo } from '../common/BrandLogo'
 import { Button } from '../ui/Button'
 import { Input } from '../ui/Input'
@@ -18,6 +19,7 @@ const supportLinks = [
 ]
 
 export function Footer() {
+  const navigate = useNavigate()
   const [email, setEmail] = useState('')
 
   function handleNewsletterSubmit(e) {
@@ -32,9 +34,9 @@ export function Footer() {
       e.preventDefault()
       const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true'
       if (isLoggedIn) {
-        window.location.hash = '#/dashboard'
+        navigate('/dashboard')
       } else {
-        window.location.hash = '#/login'
+        navigate('/login')
       }
     }
   }

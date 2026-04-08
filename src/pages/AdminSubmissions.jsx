@@ -9,8 +9,8 @@ import { Plus } from 'lucide-react'
 
 export function AdminSubmissions() {
   const submissionsBottomLinks = [
-    ...adminBottomLinks.filter(l => l.label !== 'Logout'),
-    { label: 'Create New Contest', icon: Plus, bg: 'bg-[#4d6b00]', text: 'text-white', href: '#/admin/submissions' },
+    ...adminBottomLinks.filter(l => l.label !== 'Logout').map(l => ({ ...l, href: l.href.replace('#', '') })),
+    { label: 'Create New Contest', icon: Plus, bg: 'bg-[#4d6b00]', text: 'text-white', href: '/admin/submissions' },
     adminBottomLinks.find(l => l.label === 'Logout')
   ].filter(Boolean)
 

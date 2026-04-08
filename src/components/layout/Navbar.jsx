@@ -1,15 +1,19 @@
 import { useEffect, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { BrandLogo } from '../common/BrandLogo'
 import { Button } from '../ui/Button'
+import { Menu, X } from 'lucide-react'
 
 const navLinks = [
-  { label: 'Curriculum', href: '#curriculum' },
-  { label: 'Leaderboard', href: '#leaderboard' },
-  { label: 'Rewards', href: '#rewards' },
+  { label: 'Curriculum', href: '#curriculum', isAnchor: true },
+  { label: 'Leaderboard', href: '/dashboard' },
+  { label: 'Rewards', href: '/dashboard' },
 ]
 
 export function Navbar() {
+  const navigate = useNavigate()
   const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   useEffect(() => {
     setIsLoggedIn(localStorage.getItem('isLoggedIn') === 'true')
@@ -19,91 +23,81 @@ export function Navbar() {
     localStorage.removeItem('isLoggedIn')
     localStorage.removeItem('userRole')
     setIsLoggedIn(false)
-    window.location.hash = '#'
-    window.location.reload() // Reload to ensure all components update
+    navigate('/')
+    window.location.reload()
   }
 
   function handleNavClick(e, link) {
+    setIsMenuOpen(false)
+    
+    // For specific dashboard links that require login
     if (link.label === 'Leaderboard' || link.label === 'Rewards') {
-      e.preventDefault()
       const isLoggedInRef = localStorage.getItem('isLoggedIn') === 'true'
-      if (isLoggedInRef) {
-        window.location.hash = '#/dashboard'
-      } else {
-        window.location.hash = '#/login'
+      if (!isLoggedInRef) {
+        e.preventDefault()
+        navigate('/login')
       }
     }
-    // For other links like 'Curriculum', allow default anchor behavior
   }
 
   return (
     <header className="sticky top-0 z-50 border-b border-gray-100 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/90">
-      <div className="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-3 sm:px-6 md:flex-row md:items-center md:justify-between md:gap-6">
-        {/* Mobile: logo + auth on one row | Desktop: logo only in this group */}
-        <div className="flex w-full items-center justify-between md:w-auto md:justify-start">
-          <a href="#" className="shrink-0 touch-manipulation">
-            <BrandLogo className="h-7 max-h-9 w-auto sm:h-11 sm:max-h-none" />
-          </a>
-          <div className="flex shrink-0 items-center gap-2 sm:gap-3 md:hidden">
-            {!isLoggedIn ? (
-              <>
-                <a
-                  href="#/login"
-                  className="text-xs font-medium text-gray-700 hover:text-lime-600 sm:text-sm"
-                >
-                  Login
-                </a>
-                <Button
-                  variant="lime"
-                  className="px-3 py-1.5 text-xs sm:px-5 sm:py-2 sm:text-sm"
-                  onClick={() => {
-                    window.location.hash = '#/register'
-                  }}
-                >
-                  Register
-                </Button>
-              </>
-            ) : (
-              <Button
-                variant="outline"
-                className="px-3 py-1.5 text-xs sm:px-5 sm:py-2 sm:text-sm"
-                onClick={handleLogout}
-              >
-                Logout
-              </Button>
-            )}
-          </div>
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
+        {/* Left: Logo & Hamburger button for mobile */}
+        <div className="flex items-center gap-4">
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="rounded-lg p-2 text-gray-500 hover:bg-gray-100 md:hidden"
+            aria-label="Toggle menu"
+          >
+            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
+          <Link to="/" className="shrink-0 touch-manipulation" onClick={() => setIsMenuOpen(false)}>
+            <BrandLogo className="h-7 max-h-9 w-auto sm:h-9" />
+          </Link>
         </div>
 
-        {/* Center links */}
-        <nav
-          className="flex min-w-0 flex-1 flex-wrap items-center justify-center gap-x-3 gap-y-2 sm:gap-x-6 md:gap-x-8 lg:gap-x-10"
-          aria-label="Main"
-        >
+        {/* Center: Links (Desktop only) */}
+        <nav className="hidden items-center gap-8 md:flex">
           {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              onClick={(e) => handleNavClick(e, link)}
-              className="touch-manipulation whitespace-nowrap text-xs font-medium text-gray-700 hover:text-lime-600 sm:text-sm"
-            >
-              {link.label}
-            </a>
+            link.isAnchor ? (
+              <a
+                key={link.href}
+                href={link.href}
+                className="touch-manipulation whitespace-nowrap text-sm font-medium text-gray-700 hover:text-lime-600 transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                {link.label}
+              </a>
+            ) : (
+              <Link
+                key={link.href}
+                to={link.href}
+                onClick={(e) => handleNavClick(e, link)}
+                className="touch-manipulation whitespace-nowrap text-sm font-medium text-gray-700 hover:text-lime-600 transition-colors"
+              >
+                {link.label}
+              </Link>
+            )
           ))}
         </nav>
 
-        {/* Desktop / tablet auth */}
-        <div className="hidden shrink-0 items-center gap-3 sm:gap-4 md:flex">
+        {/* Right: Auth Buttons */}
+        <div className="flex items-center gap-2 sm:gap-4">
           {!isLoggedIn ? (
             <>
-              <a href="#/login" className="text-sm font-medium text-gray-700 hover:text-lime-600">
+              <Link
+                to="/login"
+                className="text-xs font-semibold text-gray-700 hover:text-lime-600 sm:text-sm"
+              >
                 Login
-              </a>
+              </Link>
               <Button
                 variant="lime"
-                className="px-4 py-2 text-sm sm:px-5"
+                className="px-3 py-1.5 text-xs sm:px-5 sm:py-2 sm:text-sm"
                 onClick={() => {
-                  window.location.hash = '#/register'
+                  navigate('/register')
+                  setIsMenuOpen(false)
                 }}
               >
                 Register
@@ -111,15 +105,15 @@ export function Navbar() {
             </>
           ) : (
             <>
-              <a
-                href="#/dashboard"
-                className="text-sm font-medium text-gray-700 hover:text-lime-600"
+              <Link
+                to="/dashboard"
+                className="text-xs font-semibold text-gray-700 hover:text-lime-600 sm:text-sm"
               >
                 Dashboard
-              </a>
+              </Link>
               <Button
                 variant="outline"
-                className="px-4 py-2 text-sm sm:px-5"
+                className="px-3 py-1.5 text-xs sm:px-5 sm:py-2 sm:text-sm"
                 onClick={handleLogout}
               >
                 Logout
@@ -128,6 +122,59 @@ export function Navbar() {
           )}
         </div>
       </div>
+
+      {/* Mobile Drawer */}
+      {isMenuOpen && (
+        <>
+          <div
+            className="fixed inset-0 top-[61px] z-40 bg-black/20 backdrop-blur-sm md:hidden"
+            onClick={() => setIsMenuOpen(false)}
+          />
+          <nav className="absolute left-0 right-0 top-[61px] z-50 border-b border-gray-100 bg-white p-6 shadow-xl md:hidden">
+            <div className="flex flex-col gap-5">
+              {navLinks.map((link) => (
+                link.isAnchor ? (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setIsMenuOpen(false)}
+                    className="flex items-center text-base font-semibold text-gray-800 hover:text-lime-600"
+                  >
+                    {link.label}
+                  </a>
+                ) : (
+                  <Link
+                    key={link.href}
+                    to={link.href}
+                    onClick={(e) => handleNavClick(e, link)}
+                    className="flex items-center text-base font-semibold text-gray-800 hover:text-lime-600"
+                  >
+                    {link.label}
+                  </Link>
+                )
+              ))}
+              {!isLoggedIn && (
+                <Link
+                  to="/login"
+                  onClick={() => setIsMenuOpen(false)}
+                  className="mt-2 border-t border-gray-100 pt-5 text-base font-semibold text-gray-800"
+                >
+                  Login
+                </Link>
+              )}
+              {isLoggedIn && (
+                <Link
+                  to="/dashboard"
+                  onClick={() => setIsMenuOpen(false)}
+                  className="mt-2 border-t border-gray-100 pt-5 text-base font-semibold text-gray-800"
+                >
+                  Go to Dashboard
+                </Link>
+              )}
+            </div>
+          </nav>
+        </>
+      )}
     </header>
   )
 }

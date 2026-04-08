@@ -14,17 +14,6 @@ export function DashboardLayout({ children, userRole = 'student', links: customL
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen)
   const closeSidebar = () => setIsSidebarOpen(false)
 
-  // Close sidebar on window resize if it's open
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 768) {
-        setIsSidebarOpen(false)
-      }
-    }
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
-  }, [])
-
   // Close sidebar when clicking a link (optional but recommended for mobile)
   useEffect(() => {
     const handleHashChange = () => setIsSidebarOpen(false)
@@ -33,7 +22,7 @@ export function DashboardLayout({ children, userRole = 'student', links: customL
   }, [])
 
   return (
-    <div className="flex min-h-screen bg-[#f6f9f3] font-sans text-gray-800">
+    <div className="flex h-screen overflow-hidden bg-[#f6f9f3] font-sans text-gray-800">
       {/* Sidebar Component */}
       <DashboardSidebar 
         links={links} 
@@ -43,23 +32,25 @@ export function DashboardLayout({ children, userRole = 'student', links: customL
         onClose={closeSidebar} 
       />
 
-      {/* Backdrop for mobile */}
+      {/* Backdrop for all screen sizes */}
       {isSidebarOpen && (
         <div 
-          className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm transition-opacity md:hidden"
+          className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm transition-opacity"
           onClick={closeSidebar}
         />
       )}
 
-      <main className="flex-1 flex flex-col min-w-0">
+      <main className="flex-1 flex flex-col min-w-0 overflow-hidden">
         <DashboardTopbar 
           userRole={userRole} 
           onMenuClick={toggleSidebar}
+          isSidebarOpen={isSidebarOpen}
+          className="sticky top-0 z-20"
           {...props}
         />
 
-        <div className="flex-1 overflow-auto p-4 sm:p-6 lg:p-8">
-          <div className="mx-auto w-full max-w-[1600px]">
+        <div className="flex-1 overflow-y-auto overflow-x-hidden p-4 sm:p-6 lg:p-8">
+          <div className="mx-auto w-full max-w-6xl">
             {children}
           </div>
         </div>

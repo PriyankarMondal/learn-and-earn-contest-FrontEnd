@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { HashRouter, Routes, Route, useLocation, useNavigate } from 'react-router-dom'
 import { Navbar } from './components/layout/Navbar'
 import { Hero } from './features/home/Hero'
 import { HowItWorks } from './features/home/HowItWorks'
@@ -18,100 +18,59 @@ import { MyContests } from './pages/MyContests'
 import { Submissions } from './pages/Submissions'
 import { Profile } from './pages/Profile'
 
-function App() {
-  const [activeRoute, setActiveRoute] = useState(() => {
-    const hash = window.location.hash
-    if (hash === '#/register') return 'register'
-    if (hash === '#/login') return 'login'
-    if (hash === '#/admin/contests') return 'adminContests'
-    if (hash === '#/admin/submissions') return 'adminSubmissions'
-    if (hash === '#/admin/users') return 'adminUsers'
-    if (hash === '#/admin/leaderboard') return 'adminLeaderboard'
-    if (hash.startsWith('#/admin')) return 'admin'
-    if (hash === '#/dashboard') return 'dashboard'
-    if (hash === '#/my-contests') return 'myContests'
-    if (hash === '#/submissions') return 'submissions'
-    if (hash === '#/profile') return 'profile'
-    return 'home'
-  })
+// --- Layouts ---
 
-  useEffect(() => {
-    function onHashChange() {
-      const hash = window.location.hash
-      if (hash === '#/register') setActiveRoute('register')
-      else if (hash === '#/login') setActiveRoute('login')
-      else if (hash === '#/admin/contests') setActiveRoute('adminContests')
-      else if (hash === '#/admin/submissions') setActiveRoute('adminSubmissions')
-      else if (hash === '#/admin/users') setActiveRoute('adminUsers')
-      else if (hash === '#/admin/leaderboard') setActiveRoute('adminLeaderboard')
-      else if (hash.startsWith('#/admin')) setActiveRoute('admin')
-      else if (hash === '#/dashboard') setActiveRoute('dashboard')
-      else if (hash === '#/my-contests') setActiveRoute('myContests')
-      else if (hash === '#/submissions') setActiveRoute('submissions')
-      else if (hash === '#/profile') setActiveRoute('profile')
-      else setActiveRoute('home')
-    }
+function HomeLayout() {
+  const location = useLocation()
 
-    window.addEventListener('hashchange', onHashChange)
-    return () => window.removeEventListener('hashchange', onHashChange)
-  }, [])
-
-  if (activeRoute === 'register') {
-    return <Register />
-  }
-
-  if (activeRoute === 'login') {
-    return <Login />
-  }
-
-  if (activeRoute === 'adminLeaderboard') {
-    return <AdminLeaderboard />
-  }
-
-  if (activeRoute === 'adminUsers') {
-    return <AdminUsers />
-  }
-
-  if (activeRoute === 'adminSubmissions') {
-    return <AdminSubmissions />
-  }
-
-  if (activeRoute === 'adminContests') {
-    return <AdminContests />
-  }
-
-  if (activeRoute === 'admin') {
-    return <AdminDashboard />
-  }
-
-  if (activeRoute === 'dashboard') {
-    return <StudentDashboard />
-  }
-
-  if (activeRoute === 'myContests') {
-    return <MyContests />
-  }
-
-  if (activeRoute === 'submissions') {
-    return <Submissions />
-  }
-
-  if (activeRoute === 'profile') {
-    return <Profile />
-  }
+  // Logic to show modals over home page
+  const isLoginModal = location.pathname === '/login'
+  const isRegisterModal = location.pathname === '/register'
 
   return (
-    <div className="min-h-screen min-w-0 bg-white font-sans text-gray-800 antialiased">
+    <div className="flex h-screen flex-col overflow-hidden bg-white font-sans text-gray-800 antialiased">
       <Navbar />
-      <main>
+      <main className="flex-1 overflow-y-auto">
         <Hero />
         <HowItWorks />
         <FeaturedContests />
         <Testimonials />
         <CtaBanner />
+        <Footer />
       </main>
-      <Footer />
+
+      {/* Auth Modals rendered as overlays */}
+      {isLoginModal && <Login />}
+      {isRegisterModal && <Register />}
     </div>
+  )
+}
+
+// --- Main App ---
+
+function App() {
+  return (
+    <HashRouter>
+      <Routes>
+        {/* Landing Page & Auth Modals */}
+        <Route path="/" element={<HomeLayout />} />
+        <Route path="/login" element={<HomeLayout />} />
+        <Route path="/register" element={<HomeLayout />} />
+
+        {/* Admin Dashboard Routes */}
+        <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/admin/contests" element={<AdminContests />} />
+        <Route path="/admin/submissions" element={<AdminSubmissions />} />
+        <Route path="/admin/users" element={<AdminUsers />} />
+        <Route path="/admin/leaderboard" element={<AdminLeaderboard />} />
+
+        {/* Student Dashboard Routes */}
+        <Route path="/dashboard" element={<StudentDashboard />} />
+        <Route path="/my-contests" element={<MyContests />} />
+        <Route path="/submissions" element={<Submissions />} />
+        <Route path="/profile" element={<Profile />} />
+      </Routes>
+    </HashRouter>
   )
 }
 

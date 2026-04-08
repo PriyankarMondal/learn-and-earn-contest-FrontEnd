@@ -1,4 +1,5 @@
 import { Database, Monitor, Palette, Megaphone } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 const discoverData = [
   {
@@ -59,9 +60,9 @@ export function DiscoverChallenges() {
           <div className="h-6 w-1 rounded-full bg-[#82C600]"></div>
           <h2 className="text-xl font-bold text-gray-900 tracking-tight">Discover New Challenges</h2>
         </div>
-        <a href="#/dashboard" className="text-[11px] font-extrabold uppercase tracking-widest text-[#82C600] hover:underline">
+        <Link to="/dashboard" className="text-[11px] font-extrabold uppercase tracking-widest text-[#82C600] hover:underline">
           View All &gt;
-        </a>
+        </Link>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">

@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom'
 import { Button } from '../../components/ui/Button'
 
 const contests = [
@@ -49,12 +50,13 @@ function ClockIcon() {
 }
 
 export function FeaturedContests() {
+  const navigate = useNavigate()
   const handleParticipate = () => {
     const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true'
     if (isLoggedIn) {
-      window.location.hash = '#/dashboard'
+      navigate('/dashboard')
     } else {
-      window.location.hash = '#/login'
+      navigate('/login')
     }
   }
 

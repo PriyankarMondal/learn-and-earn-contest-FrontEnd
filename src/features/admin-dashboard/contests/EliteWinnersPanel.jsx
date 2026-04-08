@@ -1,4 +1,5 @@
 import { Medal } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 const eliteData = [
   { rank: '1ST RANK', name: 'Dr. Julianne Frye', prize: '₹2,900', medalColor: 'text-amber-500', numColor: 'bg-amber-500', cardBg: 'bg-[#f4f8eb]', outline: 'border-[#d6e0b7]' },
@@ -36,9 +37,9 @@ export function EliteWinnersPanel() {
       </div>
 
       <div className="mt-8">
-        <a href="#/admin/leaderboard" className="text-[10px] font-extrabold uppercase tracking-widest text-[#82C600] hover:text-[#71ac00] flex items-center gap-1 transition-colors">
+        <Link to="/admin/leaderboard" className="text-[10px] font-extrabold uppercase tracking-widest text-[#82C600] hover:text-[#71ac00] flex items-center gap-1 transition-colors">
           View Full Leaderboard &rarr;
-        </a>
+        </Link>
       </div>
     </div>
   )

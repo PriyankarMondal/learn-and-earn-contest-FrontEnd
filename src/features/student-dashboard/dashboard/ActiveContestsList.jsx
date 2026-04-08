@@ -1,4 +1,5 @@
 import { Clock, Award } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 const activeContestsData = [
   {
@@ -35,9 +36,9 @@ export function ActiveContestsList() {
           </svg>
           Active Contests
         </h2>
-        <a href="#/dashboard" className="text-[10px] font-extrabold uppercase tracking-widest text-[#5c8020] hover:underline">
+        <Link to="/dashboard" className="text-[10px] font-extrabold uppercase tracking-widest text-[#5c8020] hover:underline">
           View All
-        </a>
+        </Link>
       </div>
 
       <div className="flex flex-col gap-4">

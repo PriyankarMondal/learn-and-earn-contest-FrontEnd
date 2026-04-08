@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { DashboardLayout } from '../components/layout/DashboardLayout'
 import { UsersHeader } from '../features/admin-dashboard/users/UsersHeader'
 import { UsersStats } from '../features/admin-dashboard/users/UsersStats'
@@ -14,9 +15,9 @@ export function AdminUsers() {
       userAvatarUrl="https://img.freepik.com/free-photo/portrait-successful-mid-adult-doctor-with-crossed-arms_1262-12865.jpg"
       rightNav={
         <nav className="flex items-center gap-6 pt-1 mr-8">
-           <a href="#/admin/users" className="text-[11px] font-black text-[#82C600] border-b-2 border-[#82C600] pb-2 px-1 uppercase tracking-widest">Overview</a>
-           <a href="#/admin/users" className="text-[11px] font-black text-gray-400 hover:text-gray-800 border-b-2 border-transparent pb-2 px-1 transition-colors uppercase tracking-widest">Reports</a>
-           <a href="#/admin/users" className="text-[11px] font-black text-gray-400 hover:text-gray-800 border-b-2 border-transparent pb-2 px-1 transition-colors uppercase tracking-widest">Support</a>
+           <Link to="/admin/users" className="text-[11px] font-black text-[#82C600] border-b-2 border-[#82C600] pb-2 px-1 uppercase tracking-widest">Overview</Link>
+           <Link to="/admin/users" className="text-[11px] font-black text-gray-400 hover:text-gray-800 border-b-2 border-transparent pb-2 px-1 transition-colors uppercase tracking-widest">Reports</Link>
+           <Link to="/admin/users" className="text-[11px] font-black text-gray-400 hover:text-gray-800 border-b-2 border-transparent pb-2 px-1 transition-colors uppercase tracking-widest">Support</Link>
         </nav>
       } 
     >

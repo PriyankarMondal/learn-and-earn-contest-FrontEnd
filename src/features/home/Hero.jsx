@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Button } from '../../components/ui/Button'
 import heroImg1 from '../../assets/heroImg1.avif'
 import heroImg2 from '../../assets/heroImg2.avif'
@@ -34,6 +35,7 @@ const slides = [
 const AUTO_MS = 6000
 
 export function Hero() {
+  const navigate = useNavigate()
   const [active, setActive] = useState(0)
   const count = slides.length
 
@@ -47,9 +49,9 @@ export function Hero() {
   const handleApplyNow = () => {
     const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true'
     if (isLoggedIn) {
-      window.location.hash = '#/dashboard'
+      navigate('/dashboard')
     } else {
-      window.location.hash = '#/login'
+      navigate('/login')
     }
   }
 

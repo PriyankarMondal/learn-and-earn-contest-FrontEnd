@@ -1,12 +1,14 @@
+import { useNavigate } from 'react-router-dom'
 import { Button } from '../../components/ui/Button'
 
 export function CtaBanner() {
+  const navigate = useNavigate()
   const handleGetStarted = () => {
     const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true'
     if (isLoggedIn) {
-      window.location.hash = '#/dashboard'
+      navigate('/dashboard')
     } else {
-      window.location.hash = '#/login'
+      navigate('/login')
     }
   }
 
