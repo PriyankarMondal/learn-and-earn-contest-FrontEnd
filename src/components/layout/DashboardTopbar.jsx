@@ -1,6 +1,6 @@
-import { Bell, Search } from 'lucide-react'
+import { Bell, Search, Menu } from 'lucide-react'
 
-export function DashboardTopbar({ rightNav, userRole = 'student', searchPlaceholder, userName, userSubtext, userAvatarUrl }) {
+export function DashboardTopbar({ rightNav, userRole = 'student', searchPlaceholder, userName, userSubtext, userAvatarUrl, onMenuClick }) {
   const defaultPlaceholder = userRole === 'admin' ? "Command Search..." : "Explore contests, skills, or mentors..."
   const displayTitle = userName || (userRole === 'admin' ? 'Admin Panel' : 'Alex Rivera')
   const displaySubtext = userSubtext || (userRole === 'admin' ? 'Super Admin' : 'Scholar ID: 834Q')
@@ -8,8 +8,16 @@ export function DashboardTopbar({ rightNav, userRole = 'student', searchPlacehol
   const displayAvatar = userAvatarUrl || `https://ui-avatars.com/api/?name=${avatarName}&background=446611&color=fff`
   
   return (
-    <header className={`flex h-20 shrink-0 items-center justify-between bg-[#f6f9f3] px-8 ${userRole === 'admin' ? '' : 'border-b border-[#e2e8d5]'}`}>
-      <div className="flex flex-1 items-center gap-8">
+    <header className={`flex h-20 shrink-0 items-center justify-between bg-[#f6f9f3] px-4 sm:px-8 ${userRole === 'admin' ? '' : 'border-b border-[#e2e8d5]'}`}>
+      <div className="flex flex-1 items-center gap-4 sm:gap-8">
+        {/* Hamburger Menu - Visible on Mobile */}
+        <button 
+          onClick={onMenuClick}
+          className="rounded-lg p-2 text-gray-500 hover:bg-gray-100 md:hidden"
+        >
+          <Menu className="h-6 w-6" />
+        </button>
+
         <div className="relative w-full max-w-lg">
           <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
           <input

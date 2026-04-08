@@ -43,7 +43,17 @@ export function Login() {
       // ✅ If here → success
       alert(res.message);
 
-      window.location.hash = "#/dashboard";
+      // Store session info
+      localStorage.setItem("isLoggedIn", "true");
+      localStorage.setItem("userRole", res.user.role === "Admin" ? "admin" : "student");
+      localStorage.setItem("userId", res.user.id);
+
+      // Role-based redirection
+      if (res.user.role === "Admin") {
+        window.location.hash = "#/admin";
+      } else {
+        window.location.hash = "#/dashboard";
+      }
 
     } catch (error) {
       // ❌ If error → failed request

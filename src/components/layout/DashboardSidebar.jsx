@@ -8,7 +8,8 @@ import {
   BookOpen,
   FileText,
   User,
-  PlusCircle
+  PlusCircle,
+  X
 } from 'lucide-react'
 import { BrandLogo } from '../common/BrandLogo'
 
@@ -37,7 +38,7 @@ export const adminBottomLinks = [
   { label: 'Logout', icon: LogOut, text: 'text-gray-800', href: '#/login' },
 ]
 
-export function DashboardSidebar({ links, bottomLinks, userRole = 'student' }) {
+export function DashboardSidebar({ links, bottomLinks, userRole = 'student', isOpen = false, onClose }) {
   const currentHash = window.location.hash || '#/dashboard';
 
   const handleAction = (label) => {
@@ -50,15 +51,25 @@ export function DashboardSidebar({ links, bottomLinks, userRole = 'student' }) {
   }
 
   return (
-    <aside className={`hidden w-[240px] shrink-0 flex-col justify-between bg-[#f0f6e6] px-4 py-8 md:flex max-h-screen sticky top-0 ${userRole === 'admin' ? '' : 'border-r border-[#e2e8d5]'}`}>
+    <aside className={`fixed inset-y-0 left-0 z-50 flex w-[260px] transform flex-col justify-between bg-[#f0f6e6] px-4 py-8 transition-transform duration-300 ease-in-out md:static md:flex md:translate-x-0 ${isOpen ? 'translate-x-0' : '-translate-x-full'
+      } ${userRole === 'admin' ? '' : 'border-r border-[#e2e8d5]'}`}>
       <div>
-        <div className="mb-8 px-2">
-          <BrandLogo className="h-8 w-auto" />
-          {userRole === 'admin' && (
-            <div className="mt-2 text-[8px] font-extrabold uppercase tracking-widest text-[#5c8020]">
-              Admin Control
-            </div>
-          )}
+        <div className="mb-8 flex items-center justify-between px-2">
+          <div>
+            <BrandLogo className="h-8 w-auto" />
+            {userRole === 'admin' && (
+              <div className="mt-2 text-[8px] font-extrabold uppercase tracking-widest text-[#5c8020]">
+                Admin Control
+              </div>
+            )}
+          </div>
+          {/* Close button for mobile */}
+          <button
+            onClick={onClose}
+            className="rounded-lg p-1.5 text-gray-400 hover:bg-gray-100 md:hidden"
+          >
+            <X className="h-6 w-6" />
+          </button>
         </div>
 
         {/* {userRole === 'student' && (
