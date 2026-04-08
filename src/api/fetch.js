@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:8000";
+const BASE_URL = "https://learn-and-earn-contest-backend.onrender.com";
 
 // generic request function
 export const apiRequest = async (url, method = "GET", body = null) => {
