@@ -4,7 +4,6 @@ import { BrandLogo } from '../common/BrandLogo'
 export function DashboardTopbar({ className = '', rightNav, userRole = 'student', searchPlaceholder, userName, userSubtext, userAvatarUrl, onMenuClick, isSidebarOpen }) {
   const defaultPlaceholder = userRole === 'admin' ? "Command Search..." : "Explore contests, skills, or mentors..."
   const displayTitle = userName || (userRole === 'admin' ? 'Admin Panel' : 'Alex Rivera')
-  const displaySubtext = userSubtext || (userRole === 'admin' ? 'Super Admin' : 'Scholar ID: 834Q')
   const avatarName = userName ? userName.split(' ').join('+') : (userRole === 'admin' ? 'Admin' : 'Alex+Rivera')
   const displayAvatar = userAvatarUrl || `https://ui-avatars.com/api/?name=${avatarName}&background=446611&color=fff`
   
@@ -50,11 +49,11 @@ export function DashboardTopbar({ className = '', rightNav, userRole = 'student'
 
           <div className="flex cursor-pointer items-center gap-3 border-l border-gray-200 pl-6 group">
             <div className="text-right whitespace-nowrap hidden min-[400px]:block">
-              <div className="text-sm font-bold text-gray-900 group-hover:text-[#446611]">
-                {displayTitle}
+              <div className="text-[9px] font-extrabold uppercase tracking-widest text-[#5c8020]">
+                Welcome
               </div>
-              <div className="text-[9px] font-extrabold uppercase tracking-widest text-[#5c8020] mt-0.5">
-                {displaySubtext}
+              <div className="text-sm font-bold text-gray-900 group-hover:text-[#446611] mt-0.5">
+                {displayTitle}
               </div>
             </div>
             <div className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-full border-2 border-lime-300 bg-lime-100">

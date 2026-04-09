@@ -16,14 +16,15 @@ import { BrandLogo } from '../common/BrandLogo'
 
 export const studentSidebarLinks = [
   { label: 'Dashboard', icon: LayoutDashboard, href: '/dashboard' },
-  { label: 'My Contests', icon: Trophy, href: '/my-contests' },
+  { label: 'Explore Contests', icon: Trophy, href: '/all-contests' },
+  { label: 'My Contests', icon: BookOpen, href: '/my-contests' },
   { label: 'Submissions', icon: FileText, href: '/submissions' },
   { label: 'Profile', icon: User, href: '/profile' },
 ]
 
 export const studentBottomLinks = [
   { label: 'New Submission', icon: PlusCircle, bg: 'bg-amber-400', text: 'text-gray-900', href: '/dashboard' },
-  { label: 'Logout', icon: LogOut, text: 'text-red-500', href: '/login' },
+  { label: 'Logout', icon: LogOut, text: 'text-red-500', href: '/logout' },
 ]
 
 export const adminSidebarLinks = [
@@ -36,7 +37,7 @@ export const adminSidebarLinks = [
 
 export const adminBottomLinks = [
   { label: 'Settings', icon: Settings, href: '/admin/settings' },
-  { label: 'Logout', icon: LogOut, text: 'text-gray-800', href: '/login' },
+  { label: 'Logout', icon: LogOut, text: 'text-gray-800', href: '/logout' },
 ]
 
 export function DashboardSidebar({ links, bottomLinks, userRole = 'student', isOpen = false, onClose }) {
@@ -46,10 +47,7 @@ export function DashboardSidebar({ links, bottomLinks, userRole = 'student', isO
 
   const handleAction = (label) => {
     if (label === 'Logout') {
-      localStorage.removeItem('isLoggedIn')
-      localStorage.removeItem('userRole')
-      navigate('/')
-      window.location.reload()
+      navigate('/logout')
     }
   }
 

@@ -101,13 +101,20 @@ export function FeaturedContests() {
                 <ClockIcon />
                 {c.ends}
               </p>
-              <Button
-                variant="amber"
-                className="mt-5 w-full touch-manipulation py-3 sm:mt-6"
-                onClick={handleParticipate}
-              >
-                Participate
-              </Button>
+              <div className="mt-5 flex flex-col gap-2 sm:mt-6">
+                <Button
+                  variant="amber"
+                  className="w-full touch-manipulation py-3 text-xs font-bold uppercase tracking-wider"
+                  onClick={handleParticipate}
+                >
+                  Participate
+                </Button>
+                <button
+                  className="w-full py-2 text-[11px] font-bold text-gray-400 hover:text-gray-600 uppercase tracking-widest transition-colors"
+                >
+                  See Details
+                </button>
+              </div>
             </article>
           ))}
         </div>

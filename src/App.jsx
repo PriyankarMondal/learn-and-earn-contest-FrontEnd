@@ -17,6 +17,8 @@ import { StudentDashboard } from './pages/StudentDashboard'
 import { MyContests } from './pages/MyContests'
 import { Submissions } from './pages/Submissions'
 import { Profile } from './pages/Profile'
+import { AllContests } from './pages/AllContests'
+import { Logout } from './pages/Logout'
 
 // --- Layouts ---
 
@@ -56,6 +58,7 @@ function App() {
         <Route path="/" element={<HomeLayout />} />
         <Route path="/login" element={<HomeLayout />} />
         <Route path="/register" element={<HomeLayout />} />
+        <Route path="/logout" element={<Logout />} />
 
         {/* Admin Dashboard Routes */}
         <Route path="/admin" element={<AdminDashboard />} />
@@ -66,6 +69,7 @@ function App() {
 
         {/* Student Dashboard Routes */}
         <Route path="/dashboard" element={<StudentDashboard />} />
+        <Route path="/all-contests" element={<AllContests />} />
         <Route path="/my-contests" element={<MyContests />} />
         <Route path="/submissions" element={<Submissions />} />
         <Route path="/profile" element={<Profile />} />

@@ -20,11 +20,7 @@ export function Navbar() {
   }, [])
 
   function handleLogout() {
-    localStorage.removeItem('isLoggedIn')
-    localStorage.removeItem('userRole')
-    setIsLoggedIn(false)
-    navigate('/')
-    window.location.reload()
+    navigate('/logout')
   }
 
   function handleNavClick(e, link) {
