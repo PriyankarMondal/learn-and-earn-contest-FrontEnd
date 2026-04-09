@@ -31,6 +31,7 @@ const RibbonIcon = ({ className }) => (
 export function Login() {
   const navigate = useNavigate()
   const [showPassword, setShowPassword] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   const [form, setForm] = useState({
     email: '',
     password: '',
@@ -46,6 +47,7 @@ export function Login() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    setIsLoading(true);
 
     try {
       const res = await loginUser(form);
@@ -61,6 +63,8 @@ export function Login() {
       }
     } catch (error) {
       toast.error(error.message);
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -143,6 +147,7 @@ export function Login() {
                       value={form.email}
                       onChange={updateField('email')}
                       placeholder="scholar@vanguard.edu"
+                      disabled={isLoading}
                       className="w-full bg-slate-50 border-transparent pr-10 focus:border-lime-500 focus:bg-white"
                       required
                     />
@@ -155,7 +160,7 @@ export function Login() {
                 <div className="text-left">
                   <div className="flex items-center justify-between mb-2">
                     <label className="block text-[11px] font-bold uppercase tracking-wider text-gray-700">Password</label>
-                    <button type="button" className="text-[11px] font-bold uppercase tracking-wider text-lime-500 hover:text-lime-600">Forgot?</button>
+                    <button type="button" className="text-[11px] font-bold uppercase tracking-wider text-lime-500 hover:text-lime-600 transition-colors">Forgot?</button>
                   </div>
                   <div className="relative">
                     <Input
@@ -163,17 +168,23 @@ export function Login() {
                       value={form.password}
                       onChange={updateField('password')}
                       placeholder="••••••••••••"
+                      disabled={isLoading}
                       className="w-full bg-slate-50 border-transparent pr-10 focus:border-lime-500 focus:bg-white"
                       required
                     />
-                    <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400">
+                    <button type="button" onClick={() => setShowPassword(!showPassword)} disabled={isLoading} className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400">
                       {showPassword ? <EyeOffIcon /> : <EyeIcon />}
                     </button>
                   </div>
                 </div>
 
-                <Button variant="amber" type="submit" className="w-full rounded-lg py-3.5 font-bold uppercase tracking-widest text-[13px]">
-                  Login to Dashboard
+                <Button 
+                  variant="amber" 
+                  type="submit" 
+                  disabled={isLoading}
+                  className="w-full rounded-lg py-3.5 font-bold uppercase tracking-widest text-[13px] disabled:opacity-50"
+                >
+                  {isLoading ? 'Authenticating...' : 'Login to Dashboard'}
                 </Button>
 
                 <div className="pt-6 text-center text-[13px] text-gray-600">

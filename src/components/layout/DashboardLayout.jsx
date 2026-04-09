@@ -49,7 +49,7 @@ export function DashboardLayout({ children, userRole = 'student', links: customL
           {...props}
         />
 
-        <div className="flex-1 overflow-y-auto overflow-x-hidden p-4 sm:p-6 lg:p-8">
+        <div className="flex-1 overflow-y-auto overflow-x-hidden p-3 sm:p-6 lg:p-8">
           <div className="mx-auto w-full max-w-6xl">
             {children}
           </div>

@@ -58,7 +58,7 @@ export function Navbar() {
           {navLinks.map((link) => (
             link.isAnchor ? (
               <a
-                key={link.href}
+                key={link.label}
                 href={link.href}
                 className="touch-manipulation whitespace-nowrap text-sm font-medium text-gray-700 hover:text-lime-600 transition-colors"
                 onClick={() => setIsMenuOpen(false)}
@@ -67,7 +67,7 @@ export function Navbar() {
               </a>
             ) : (
               <Link
-                key={link.href}
+                key={link.label}
                 to={link.href}
                 onClick={(e) => handleNavClick(e, link)}
                 className="touch-manipulation whitespace-nowrap text-sm font-medium text-gray-700 hover:text-lime-600 transition-colors"
@@ -131,7 +131,7 @@ export function Navbar() {
               {navLinks.map((link) => (
                 link.isAnchor ? (
                   <a
-                    key={link.href}
+                    key={link.label}
                     href={link.href}
                     onClick={() => setIsMenuOpen(false)}
                     className="flex items-center text-base font-semibold text-gray-800 hover:text-lime-600"
@@ -140,7 +140,7 @@ export function Navbar() {
                   </a>
                 ) : (
                   <Link
-                    key={link.href}
+                    key={link.label}
                     to={link.href}
                     onClick={(e) => handleNavClick(e, link)}
                     className="flex items-center text-base font-semibold text-gray-800 hover:text-lime-600"
