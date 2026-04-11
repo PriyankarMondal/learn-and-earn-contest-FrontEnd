@@ -1,59 +1,19 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button } from '../../../components/ui/Button'
-import { Database, Palette, Globe, Layout, Megaphone, Code2, Clock } from 'lucide-react'
+import { Database, Palette, Globe, Layout, Megaphone, Code2, Loader2, Eye } from 'lucide-react'
 import { ContestDetails } from './ContestDetails'
+import { fetchContests } from '../../../api/student.api'
+import { toast } from 'react-toastify'
 
-const contestsData = [
-  {
-    tag: 'MERN',
-    title: 'Advanced MERN E-commerce',
-    prize: '₹5,000 PRIZE POOL',
-    ends: 'Ends in 12 Days',
-    iconBg: 'bg-lime-100 text-lime-700',
-    icon: Database,
-  },
-  {
-    tag: 'DESIGN',
-    title: 'UI Kit Challenge',
-    prize: '₹2,500 PRIZE POOL',
-    ends: 'Ends in 8 Days',
-    iconBg: 'bg-violet-100 text-violet-700',
-    icon: Palette,
-  },
-  {
-    tag: 'WEB',
-    title: 'SaaS Platform Sprint',
-    prize: '₹3,000 PRIZE POOL',
-    ends: 'Ends in 20 Days',
-    iconBg: 'bg-sky-100 text-sky-700',
-    icon: Globe,
-  },
-  {
-    tag: 'GRAPHIC',
-    title: 'Brand Identity Concept',
-    prize: '₹1,500 PRIZE POOL',
-    ends: 'Ends in 5 Days',
-    iconBg: 'bg-amber-100 text-amber-700',
-    icon: Layout,
-  },
-  {
-    tag: 'MARKETING',
-    title: 'Growth Viral Strategy',
-    prize: '₹4,000 PRIZE POOL',
-    ends: 'Ends in 15 Days',
-    iconBg: 'bg-cyan-100 text-cyan-700',
-    icon: Megaphone,
-  },
-  {
-    tag: 'FULLSTACK',
-    title: 'Real-time Chat Engine',
-    prize: '₹2,800 PRIZE POOL',
-    ends: 'Ends in 10 Days',
-    iconBg: 'bg-indigo-100 text-indigo-700',
-    icon: Code2,
-  }
-]
+const categoryIcons = {
+  'MERN Stack': { icon: Database, bg: 'bg-lime-100 text-lime-700' },
+  'UI/UX Design': { icon: Palette, bg: 'bg-violet-100 text-violet-700' },
+  'Web Development': { icon: Globe, bg: 'bg-sky-100 text-sky-700' },
+  'Graphics Design': { icon: Layout, bg: 'bg-amber-100 text-amber-700' },
+  'Marketing': { icon: Megaphone, bg: 'bg-cyan-100 text-cyan-700' },
+  'Fullstack': { icon: Code2, bg: 'bg-indigo-100 text-indigo-700' }
+}
 
 function ClockIcon() {
   return (
@@ -69,28 +29,45 @@ function ClockIcon() {
 }
 
 export function AllContestsList() {
-  const navigate = useNavigate()
+  const [contests, setContests] = useState([])
+  const [loading, setLoading] = useState(true)
   const [selectedContest, setSelectedContest] = useState(null)
-  const [modalView, setModalView] = useState('details')
 
-  const handleParticipate = (contest) => {
-    setSelectedContest(contest)
-    setModalView('participate')
+  const loadContests = async () => {
+    try {
+      const data = await fetchContests()
+      setContests(data)
+    } catch (error) {
+      toast.error('Failed to load contests')
+    } finally {
+      setLoading(false)
+    }
   }
 
-  const handleSeeDetails = (contest) => {
+  useEffect(() => {
+    loadContests()
+  }, [])
+
+  const handleOpenDetails = (contest) => {
     setSelectedContest(contest)
-    setModalView('details')
+  }
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center p-20">
+        <Loader2 className="w-8 h-8 text-lime-500 animate-spin" />
+      </div>
+    )
   }
 
   return (
-    <section className="bg-transparent pb-12 sm:pb-16 lg:pb-20">
-      <div className="mx-auto max-w-6xl">
+    <section className="bg-transparent pb-12 sm:pb-16 lg:pb-20 text-left">
+      <div className="mx-auto max-w-6xl text-left">
         <p className="text-[10px] font-semibold uppercase tracking-widest text-lime-600 sm:text-xs">
           Discover opportunities
         </p>
 
-        <div className="mt-2 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+        <div className="mt-2 flex flex-col sm:flex-row sm:items-end justify-between gap-4 text-left">
           <div>
             <h2 className="text-2xl font-bold text-gray-900 sm:text-3xl lg:text-4xl">Explore Contests</h2>
             <p className="mt-2 text-gray-500 text-sm font-medium">Browse and apply to the latest industry-leading contests</p>
@@ -108,61 +85,66 @@ export function AllContestsList() {
           </div>
         </div>
 
-        <div className="mt-8 grid grid-cols-1 gap-5 sm:mt-10 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 xl:grid-cols-4">
-          {contestsData.map((c, idx) => (
-            <article
-              key={idx}
-              className="flex flex-col rounded-2xl bg-white p-4 shadow-sm ring-1 ring-gray-100 sm:p-5 transition-transform hover:-translate-y-1 hover:shadow-md duration-300"
-            >
-              <div className="flex items-start justify-between gap-2">
-                <span
-                  className={`flex h-10 w-10 items-center justify-center rounded-lg ${c.iconBg}`}
-                >
-                  <c.icon className="h-5 w-5" />
-                </span>
-                <span className="rounded-full bg-lime-100 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-lime-700">
-                  {c.tag}
-                </span>
-              </div>
+        <div className="mt-8 grid grid-cols-1 gap-5 sm:mt-10 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 xl:grid-cols-4 text-left">
+          {contests.map((c) => {
+            const config = categoryIcons[c.category] || categoryIcons['Web Development']
+            const Icon = config.icon
+            
+            return (
+              <article
+                key={c._id}
+                className="flex flex-col rounded-2xl bg-white p-4 shadow-sm ring-1 ring-gray-100 sm:p-5 transition-transform hover:-translate-y-1 hover:shadow-md duration-300 text-left"
+              >
+                <div className="flex items-start justify-between gap-2 text-left">
+                  <span
+                    className={`flex h-10 w-10 items-center justify-center rounded-lg ${config.bg}`}
+                  >
+                    <Icon className="h-5 w-5" />
+                  </span>
+                  <span className="rounded-full bg-lime-100 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-lime-700">
+                    {c.category}
+                  </span>
+                </div>
 
-              <h3 className="mt-3 text-base font-bold leading-snug text-gray-900 sm:mt-4 sm:text-lg min-h-[3.5rem] flex items-start">
-                {c.title}
-              </h3>
+                <h3 className="mt-3 text-base font-bold leading-snug text-gray-900 sm:mt-4 sm:text-lg min-h-[3.5rem] flex items-start text-left">
+                  {c.title}
+                </h3>
 
-              <p className="mt-2 text-sm font-semibold text-lime-600 tracking-tight">{c.prize}</p>
+                <p className="mt-2 text-sm font-semibold text-lime-600 tracking-tight">₹{c.prizeMoney} PRIZE POOL</p>
 
-              <p className="mt-2 flex items-center gap-1.5 text-[11px] font-medium text-gray-500">
-                <ClockIcon />
-                {c.ends}
-              </p>
+                <p className="mt-2 flex items-center gap-1.5 text-[11px] font-medium text-gray-500 text-left">
+                  <ClockIcon />
+                  {c.status === 'running' ? `Ends ${new Date(c.endDate).toLocaleDateString()}` : c.status}
+                </p>
 
-              <div className="mt-6 flex flex-col gap-2">
-                <Button
-                  variant="amber"
-                  className="w-full py-3 text-xs font-bold uppercase tracking-wider"
-                  onClick={() => handleParticipate(c)}
-                >
-                  Participate
-                </Button>
+                <div className="mt-6 flex flex-col gap-2">
+                  <Button
+                    variant="amber"
+                    className="w-full py-3 text-xs font-bold uppercase tracking-wider"
+                    onClick={() => handleOpenDetails(c)}
+                    disabled={c.status !== 'running'}
+                  >
+                    {c.status === 'running' ? 'Participate' : 'Closed'}
+                  </Button>
 
-                <button
-                  onClick={() => handleSeeDetails(c)}
-                  className="w-full py-2 text-[11px] font-bold text-gray-400 hover:text-gray-600 uppercase tracking-widest transition-colors"
-                >
-                  See Details
-                </button>
-              </div>
-            </article>
-          ))}
+                  <button
+                    onClick={() => handleOpenDetails(c)}
+                    className="w-full py-2.5 flex items-center justify-center gap-2 text-[11px] font-black text-gray-500 hover:text-[#82C600] uppercase tracking-widest transition-all hover:bg-slate-50 rounded-xl"
+                  >
+                    <Eye className="w-4 h-4" />
+                    See Details
+                  </button>
+                </div>
+              </article>
+            )
+          })}
         </div>
       </div>
 
-      {/* Unified Modal (Overview Only) */}
+      {/* Contest Details Modal */}
       {selectedContest && (
         <ContestDetails
           contest={selectedContest}
-          initialView="details"
-          showTabs={false}
           onClose={() => setSelectedContest(null)}
         />
       )}

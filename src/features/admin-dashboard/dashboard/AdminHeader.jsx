@@ -1,6 +1,6 @@
 import { Download, Plus } from 'lucide-react'
 
-export function AdminHeader() {
+export function AdminHeader({ onCreateContest }) {
   return (
     <div className="mb-6 flex flex-col justify-between gap-4 md:flex-row md:items-end">
       <div>
@@ -12,7 +12,10 @@ export function AdminHeader() {
           <Download className="h-4 w-4" />
           Export SRS
         </button>
-        <button className="flex items-center gap-2 rounded-full bg-[#82C600] px-6 py-2.5 text-sm font-bold text-white hover:bg-[#71ac00] shadow-sm transition-colors">
+        <button 
+          onClick={onCreateContest}
+          className="flex items-center gap-2 rounded-full bg-[#82C600] px-6 py-2.5 text-sm font-bold text-white hover:bg-[#71ac00] shadow-sm transition-all active:scale-95"
+        >
           <Plus className="h-4 w-4" />
           Create New Contest
         </button>

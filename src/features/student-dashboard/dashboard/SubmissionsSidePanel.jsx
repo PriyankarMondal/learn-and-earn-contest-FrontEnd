@@ -49,11 +49,11 @@ export function SubmissionsSidePanel() {
 
         <div className="flex flex-col gap-4">
           {[
-            { rank: '01', name: 'Sarah Jenkins', score: '₹2,840', avatar: 'SJ', highlight: false },
-            { rank: '02', name: 'Marcus Vane', score: '₹2,100', avatar: 'MV', highlight: false },
-            { rank: '03', name: 'Elena Ruiz', score: '₹1,950', avatar: 'ER', highlight: false },
-            { rank: '04', name: 'Alex Rivera', score: '₹1,420', avatar: 'AR', highlight: true },
-            { rank: '05', name: 'John Doe', score: '₹1,380', avatar: 'JD', highlight: false },
+            { rank: '01', name: 'Siddharth Sharma', score: '₹2,840', avatar: 'SS', highlight: false },
+            { rank: '02', name: 'Rahul Verma', score: '₹2,100', avatar: 'RV', highlight: false },
+            { rank: '03', name: 'Anjali Singh', score: '₹1,950', avatar: 'AS', highlight: false },
+            { rank: '04', name: 'Priyankar Mondal', score: '₹1,420', avatar: 'PM', highlight: true },
+            { rank: '05', name: 'Amit Das', score: '₹1,380', avatar: 'AD', highlight: false },
           ].map((user) => (
             <div key={user.rank} className={`flex items-center justify-between p-2 rounded-lg ${user.highlight ? 'bg-[#e4e9d3] ring-1 ring-[#c0d892]' : ''}`}>
               <div className="flex items-center gap-3">

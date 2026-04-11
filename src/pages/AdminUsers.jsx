@@ -10,9 +10,9 @@ export function AdminUsers() {
     <DashboardLayout 
       userRole="admin"
       searchPlaceholder="Search academic records..."
-      userName="Welcome, Admin"
-      userSubtext="LEAD REGISTRAR"
-      userAvatarUrl="https://img.freepik.com/free-photo/portrait-successful-mid-adult-doctor-with-crossed-arms_1262-12865.jpg"
+      userName="Priyankar Mondal"
+      userSubtext="SYSTEM ADMINISTRATOR"
+      userAvatarUrl={`https://ui-avatars.com/api/?name=Priyankar+Mondal&background=446611&color=fff`}
       rightNav={
         <nav className="flex items-center gap-6 pt-1 mr-8">
            <Link to="/admin/users" className="text-[11px] font-black text-[#82C600] border-b-2 border-[#82C600] pb-2 px-1 uppercase tracking-widest">Overview</Link>

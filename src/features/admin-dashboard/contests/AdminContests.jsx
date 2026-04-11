@@ -1,9 +1,11 @@
+import { useState } from 'react'
 import { DashboardLayout } from '../../../components/layout/DashboardLayout'
 import { adminBottomLinks } from '../../../components/layout/DashboardSidebar'
 import { ContestsMetrics } from './ContestsMetrics'
 import { ActiveContestsList } from './ActiveContestsList'
 import { PendingEvaluationsList } from './PendingEvaluationsList'
 import { EliteWinnersPanel } from './EliteWinnersPanel'
+import { CreateContestModal } from './CreateContestModal'
 import { Plus } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
@@ -16,9 +18,17 @@ const AdminTopbarTabs = () => (
 )
 
 export function AdminContests() {
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false)
+
   const contestsBottomLinks = [
     ...adminBottomLinks.filter(l => l.label !== 'Logout').map(l => ({ ...l, href: l.href.replace('#', '') })),
-    { label: 'Create Contest', icon: Plus, bg: 'bg-[#82C600]', text: 'text-white', href: '/admin/contests' },
+    { 
+      label: 'Create Contest', 
+      icon: Plus, 
+      bg: 'bg-[#82C600]', 
+      text: 'text-white', 
+      onClick: () => setIsCreateModalOpen(true) 
+    },
     adminBottomLinks.find(l => l.label === 'Logout')
   ].filter(Boolean)
 
@@ -42,6 +52,10 @@ export function AdminContests() {
           <EliteWinnersPanel />
         </div>
       </div>
+
+      {isCreateModalOpen && (
+        <CreateContestModal onClose={() => setIsCreateModalOpen(false)} />
+      )}
     </DashboardLayout>
   )
 }

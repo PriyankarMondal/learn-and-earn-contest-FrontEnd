@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { Bell, Search, Menu, X } from 'lucide-react'
 import { useState } from 'react'
 import { BrandLogo } from '../common/BrandLogo'
@@ -6,8 +7,8 @@ export function DashboardTopbar({ className = '', rightNav, userRole = 'student'
   const [isSearchOpen, setIsSearchOpen] = useState(false)
 
   const defaultPlaceholder = userRole === 'admin' ? "Command Search..." : "Explore contests, skills, or mentors..."
-  const displayTitle = userName || (userRole === 'admin' ? 'Admin Panel' : 'Alex Rivera')
-  const avatarName = userName ? userName.split(' ').join('+') : (userRole === 'admin' ? 'Admin' : 'Alex+Rivera')
+  const displayTitle = userName || (userRole === 'admin' ? 'Priyankar Mondal' : 'Priyankar Mondal')
+  const avatarName = userName ? userName.split(' ').join('+') : (userRole === 'admin' ? 'Priyankar+Mondal' : 'Priyankar+Mondal')
   const displayAvatar = userAvatarUrl || `https://ui-avatars.com/api/?name=${avatarName}&background=446611&color=fff`
 
   return (
@@ -79,7 +80,10 @@ export function DashboardTopbar({ className = '', rightNav, userRole = 'student'
               <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-red-500 ring-2 ring-[#f6f9f3]"></span>
             </button>
 
-            <div className="flex cursor-pointer items-center gap-3 border-l border-gray-200 pl-3 sm:pl-6 group">
+            <Link 
+              to={userRole === 'admin' ? '/admin/profile' : '/profile'}
+              className="flex cursor-pointer items-center gap-3 border-l border-gray-200 pl-3 sm:pl-6 group transition-all active:scale-95"
+            >
               <div className="text-right whitespace-nowrap hidden sm:block">
                 <div className="text-[9px] font-extrabold uppercase tracking-widest text-[#5c8020]">
                   Welcome
@@ -88,14 +92,14 @@ export function DashboardTopbar({ className = '', rightNav, userRole = 'student'
                   {displayTitle}
                 </div>
               </div>
-              <div className="flex h-9 w-9 sm:h-10 sm:w-10 shrink-0 items-center justify-center overflow-hidden rounded-full border-2 border-lime-300 bg-lime-100 transition-transform active:scale-95">
+              <div className="flex h-9 w-9 sm:h-10 sm:w-10 shrink-0 items-center justify-center overflow-hidden rounded-full border-2 border-lime-300 bg-lime-100 transition-transform group-hover:scale-105">
                 <img
                   src={displayAvatar}
                   alt="Avatar"
                   className="h-full w-full object-cover"
                 />
               </div>
-            </div>
+            </Link>
           </div>
         )}
       </div>

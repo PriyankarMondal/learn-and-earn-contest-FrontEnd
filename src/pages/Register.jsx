@@ -143,7 +143,7 @@ export function Register() {
                   <Input
                     value={form.name}
                     onChange={updateField('name')}
-                    placeholder="Enter your full name"
+                    placeholder="e.g., Priyankar Mondal"
                     className="w-full bg-slate-50 border-transparent focus:border-lime-500 focus:bg-white"
                     required
                   />
@@ -156,7 +156,7 @@ export function Register() {
                       type="email"
                       value={form.email}
                       onChange={updateField('email')}
-                      placeholder="email@example.com"
+                      placeholder="p.mondal@academy.edu.in"
                       className="w-full bg-slate-50 border-transparent focus:border-lime-500 focus:bg-white"
                       required
                     />
@@ -167,7 +167,7 @@ export function Register() {
                       type="tel"
                       value={form.number}
                       onChange={updateField('number')}
-                      placeholder="999-999-9999"
+                      placeholder="+91 98765 43210"
                       className="w-full bg-slate-50 border-transparent focus:border-lime-500 focus:bg-white"
                       required
                     />

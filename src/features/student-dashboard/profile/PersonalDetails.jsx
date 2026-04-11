@@ -14,7 +14,7 @@ export function PersonalDetails() {
             Full Name
           </label>
           <div className="rounded-xl border border-transparent bg-[#e4ebce] px-4 py-3 text-sm font-semibold text-gray-900 shadow-sm focus-within:border-[#82C600] focus-within:ring-1 focus-within:ring-[#82C600]">
-            <input type="text" defaultValue="Alex Sterling" className="w-full bg-transparent outline-none" />
+            <input type="text" defaultValue="Priyankar Mondal" className="w-full bg-transparent outline-none" />
           </div>
         </div>
 
@@ -23,7 +23,7 @@ export function PersonalDetails() {
             Institutional Email
           </label>
           <div className="rounded-xl border border-transparent bg-[#e4ebce] px-4 py-3 text-sm font-semibold text-gray-900 shadow-sm focus-within:border-[#82C600] focus-within:ring-1 focus-within:ring-[#82C600]">
-            <input type="email" defaultValue="a.sterling@academy.edu" className="w-full bg-transparent outline-none" />
+            <input type="email" defaultValue="p.mondal@academy.edu.in" className="w-full bg-transparent outline-none" />
           </div>
         </div>
 
@@ -32,7 +32,7 @@ export function PersonalDetails() {
             Phone Number
           </label>
           <div className="rounded-xl border border-transparent bg-[#e4ebce] px-4 py-3 text-sm font-semibold text-gray-900 shadow-sm focus-within:border-[#82C600] focus-within:ring-1 focus-within:ring-[#82C600]">
-            <input type="text" defaultValue="+1 (555) 000-0000" className="w-full bg-transparent outline-none text-gray-500" />
+            <input type="text" defaultValue="+91 98765 43210" className="w-full bg-transparent outline-none text-gray-500" />
           </div>
         </div>
 

@@ -33,6 +33,7 @@ export const adminSidebarLinks = [
   { label: 'Submissions', icon: FileText, href: '/admin/submissions' },
   { label: 'Users', icon: Users, href: '/admin/users' },
   { label: 'Leaderboard', icon: Trophy, href: '/admin/leaderboard' },
+  { label: 'Profile', icon: User, href: '/admin/profile' },
 ]
 
 export const adminBottomLinks = [
@@ -96,17 +97,22 @@ export function DashboardSidebar({ links, bottomLinks, userRole = 'student', isO
       </div>
 
       <div className="flex flex-col gap-2 pt-8">
-        {bottomLinks.map((link) => (
-          <Link
-            key={link.label}
-            to={link.href}
-            onClick={() => handleAction(link.label)}
-            className={`flex items-center gap-3 rounded-lg px-4 py-2.5 text-sm font-semibold transition-colors ${link.bg || 'hover:bg-gray-100'} ${link.text || 'text-gray-600'}`}
-          >
-            <link.icon className="h-5 w-5 opacity-80" />
-            {link.label}
-          </Link>
-        ))}
+        {bottomLinks.map((link) => {
+          const isButton = !!link.onClick;
+          const Component = isButton ? 'button' : Link;
+          const componentProps = isButton ? { type: 'button', onClick: link.onClick } : { to: link.href, onClick: () => handleAction(link.label) };
+
+          return (
+            <Component
+              key={link.label}
+              {...componentProps}
+              className={`flex w-full items-center gap-3 rounded-lg px-4 py-2.5 text-sm font-semibold transition-colors ${link.bg || 'hover:bg-gray-100'} ${link.text || 'text-gray-600'}`}
+            >
+              <link.icon className="h-5 w-5 opacity-80" />
+              {link.label}
+            </Component>
+          );
+        })}
       </div>
     </aside>
   )

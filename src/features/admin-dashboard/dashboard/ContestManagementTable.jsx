@@ -6,7 +6,7 @@ const activeContestsData = [
   { name: 'Intro to Next Logic', desc: 'FOUNDATION SERIES', diff: 'EASY', diffColor: 'text-lime-500 bg-lime-50', date: 'Dec 05, 2024', participants: '4,800', subs: '3,240', status: 'ACTIVE', statusColor: 'bg-lime-100 text-lime-700' },
 ]
 
-export function ContestManagementTable() {
+export function ContestManagementTable({ onCreateContest }) {
   return (
     <div className="mb-10 bg-[#f4f8eb] rounded-xl shadow-sm border border-gray-100/50 p-6 overflow-hidden">
       <div className="flex justify-between items-center mb-6">
@@ -14,7 +14,10 @@ export function ContestManagementTable() {
            <LayoutTemplate className="w-4 h-4 text-[#82C600]" />
            Active Contest Management
         </h3>
-        <button className="flex items-center gap-1.5 bg-[#82C600] text-white px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-[#71ac00] transition-colors">
+        <button 
+          onClick={onCreateContest}
+          className="flex items-center gap-1.5 bg-[#82C600] text-white px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-[#71ac00] transition-all active:scale-95"
+        >
           <Plus className="w-3.5 h-3.5" />
           Create New Contest
         </button>
