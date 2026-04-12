@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button } from '../../../components/ui/Button'
-import { Database, Palette, Globe, Layout, Megaphone, Code2, Loader2, Eye } from 'lucide-react'
+import { Database, Palette, Globe, Layout, Megaphone, Code2, Loader2, Eye, CheckCircle2 } from 'lucide-react'
 import { ContestDetails } from './ContestDetails'
-import { fetchContests } from '../../../api/student.api'
+import { apiRequest } from '../../../api/fetch'
 import { toast } from 'react-toastify'
 
 const categoryIcons = {
@@ -18,12 +18,7 @@ const categoryIcons = {
 function ClockIcon() {
   return (
     <svg className="h-4 w-4 shrink-0 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-      />
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
     </svg>
   )
 }
@@ -32,10 +27,12 @@ export function AllContestsList() {
   const [contests, setContests] = useState([])
   const [loading, setLoading] = useState(true)
   const [selectedContest, setSelectedContest] = useState(null)
+  const [searchQuery, setSearchQuery] = useState('')
 
   const loadContests = async () => {
     try {
-      const data = await fetchContests()
+      setLoading(true)
+      const data = await apiRequest('/student/v1/contests')
       setContests(data)
     } catch (error) {
       toast.error('Failed to load contests')
@@ -48,9 +45,10 @@ export function AllContestsList() {
     loadContests()
   }, [])
 
-  const handleOpenDetails = (contest) => {
-    setSelectedContest(contest)
-  }
+  const filteredContests = contests.filter(c => 
+    c.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    c.category.toLowerCase().includes(searchQuery.toLowerCase())
+  )
 
   if (loading) {
     return (
@@ -76,6 +74,8 @@ export function AllContestsList() {
           <div className="relative shrink-0">
             <input
               type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search contests..."
               className="pl-10 pr-4 py-2 border border-gray-200 rounded-xl text-sm outline-none focus:border-lime-500 transition-colors w-full sm:w-64 bg-white"
             />
@@ -86,7 +86,7 @@ export function AllContestsList() {
         </div>
 
         <div className="mt-8 grid grid-cols-1 gap-5 sm:mt-10 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 xl:grid-cols-4 text-left">
-          {contests.map((c) => {
+          {filteredContests.map((c) => {
             const config = categoryIcons[c.category] || categoryIcons['Web Development']
             const Icon = config.icon
             
@@ -96,39 +96,45 @@ export function AllContestsList() {
                 className="flex flex-col rounded-2xl bg-white p-4 shadow-sm ring-1 ring-gray-100 sm:p-5 transition-transform hover:-translate-y-1 hover:shadow-md duration-300 text-left"
               >
                 <div className="flex items-start justify-between gap-2 text-left">
-                  <span
-                    className={`flex h-10 w-10 items-center justify-center rounded-lg ${config.bg}`}
-                  >
+                  <span className={`flex h-10 w-10 items-center justify-center rounded-lg ${config.bg}`}>
                     <Icon className="h-5 w-5" />
                   </span>
-                  <span className="rounded-full bg-lime-100 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-lime-700">
-                    {c.category}
+                  <span className={`rounded-full px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider ${
+                    c.isJoined ? 'bg-amber-100 text-amber-700' : 'bg-lime-100 text-lime-700'
+                  }`}>
+                    {c.isJoined ? 'Joined' : c.category}
                   </span>
                 </div>
 
-                <h3 className="mt-3 text-base font-bold leading-snug text-gray-900 sm:mt-4 sm:text-lg min-h-[3.5rem] flex items-start text-left">
+                <h3 className="mt-3 text-base font-bold leading-snug text-gray-900 sm:mt-4 sm:text-lg min-h-[3.5rem] flex items-start text-left line-clamp-2">
                   {c.title}
                 </h3>
 
-                <p className="mt-2 text-sm font-semibold text-lime-600 tracking-tight">₹{c.prizeMoney} PRIZE POOL</p>
+                <p className="mt-2 text-sm font-semibold text-lime-600 tracking-tight">₹{c.prizeMoney || 0} PRIZE POOL</p>
 
                 <p className="mt-2 flex items-center gap-1.5 text-[11px] font-medium text-gray-500 text-left">
                   <ClockIcon />
-                  {c.status === 'running' ? `Ends ${new Date(c.endDate).toLocaleDateString()}` : c.status}
+                  {c.status === 'running' ? `Ends ${new Date(c.endDate).toLocaleDateString()}` : c.status.toUpperCase()}
                 </p>
 
                 <div className="mt-6 flex flex-col gap-2">
                   <Button
-                    variant="amber"
-                    className="w-full py-3 text-xs font-bold uppercase tracking-wider"
-                    onClick={() => handleOpenDetails(c)}
+                    variant={c.isJoined ? 'outline' : 'amber'}
+                    className="w-full py-3 text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2"
+                    onClick={() => setSelectedContest(c)}
                     disabled={c.status !== 'running'}
                   >
-                    {c.status === 'running' ? 'Participate' : 'Closed'}
+                    {c.isJoined ? (
+                      <>
+                        Joined <CheckCircle2 className="w-3 h-3" />
+                      </>
+                    ) : (
+                      c.status === 'running' ? 'Participate' : 'Closed'
+                    )}
                   </Button>
 
                   <button
-                    onClick={() => handleOpenDetails(c)}
+                    onClick={() => setSelectedContest(c)}
                     className="w-full py-2.5 flex items-center justify-center gap-2 text-[11px] font-black text-gray-500 hover:text-[#82C600] uppercase tracking-widest transition-all hover:bg-slate-50 rounded-xl"
                   >
                     <Eye className="w-4 h-4" />
@@ -139,13 +145,21 @@ export function AllContestsList() {
             )
           })}
         </div>
+
+        {filteredContests.length === 0 && (
+          <div className="py-20 text-center text-gray-400 font-bold">
+            No contests found matching your search.
+          </div>
+        )}
       </div>
 
-      {/* Contest Details Modal */}
       {selectedContest && (
         <ContestDetails
           contest={selectedContest}
-          onClose={() => setSelectedContest(null)}
+          onClose={() => {
+            setSelectedContest(null)
+            loadContests() // Refresh to update Joined status if they applied
+          }}
         />
       )}
     </section>

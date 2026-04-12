@@ -9,7 +9,7 @@ import { PastContestsTable } from '../features/student-dashboard/dashboard/PastC
 export function StudentDashboard() {
   return (
     <DashboardLayout userRole="student">
-      <WelcomeBanner userName="Alex Rivera" earnings="₹1,420" />
+      <WelcomeBanner userName="Priyankar Mondal" earnings="₹1,420" />
       <StudentStats />
 
       <div className="flex flex-col xl:flex-row xl:items-start gap-8">

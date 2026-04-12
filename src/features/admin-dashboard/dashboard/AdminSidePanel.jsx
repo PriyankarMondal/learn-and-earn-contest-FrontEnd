@@ -20,21 +20,21 @@ export function AdminSidePanel() {
           <div className="flex items-center justify-between p-2.5 rounded-lg bg-[#e4e9d3] ring-1 ring-[#c0d892]">
             <div className="flex items-center gap-3">
               <span className="text-xs font-black text-amber-500">01</span>
-              <span className="text-sm font-bold text-gray-900">Alex Rivera</span>
+              <span className="text-sm font-bold text-gray-900">Arjun Mehra</span>
             </div>
             <span className="bg-[#82C600] text-white text-[10px] font-bold px-2 py-0.5 rounded">₹500</span>
           </div>
           <div className="flex items-center justify-between p-2.5 rounded-lg">
             <div className="flex items-center gap-3">
               <span className="text-xs font-bold text-gray-400">02</span>
-              <span className="text-sm font-semibold text-gray-700">Elena Ruiz</span>
+              <span className="text-sm font-semibold text-gray-700">Ishani Sharma</span>
             </div>
             <span className="text-gray-500 text-[10px] font-bold">₹300</span>
           </div>
           <div className="flex items-center justify-between p-2.5 rounded-lg">
             <div className="flex items-center gap-3">
               <span className="text-xs font-bold text-gray-400">03</span>
-              <span className="text-sm font-semibold text-gray-700">Marcus Thorne</span>
+              <span className="text-sm font-semibold text-gray-700">Siddharth Verma</span>
             </div>
             <span className="text-gray-500 text-[10px] font-bold">₹200</span>
           </div>
@@ -47,14 +47,14 @@ export function AdminSidePanel() {
           <div className="flex items-center justify-between p-2.5 rounded-lg bg-[#e4e9d3] ring-1 ring-[#c0d892]">
             <div className="flex items-center gap-3">
               <span className="text-xs font-black text-amber-500">01</span>
-              <span className="text-sm font-bold text-gray-900">Sarah Chen</span>
+              <span className="text-sm font-bold text-gray-900">Aditi Rao</span>
             </div>
             <span className="bg-[#82C600] text-white text-[10px] font-bold px-2 py-0.5 rounded">₹750</span>
           </div>
           <div className="flex items-center justify-between p-2.5 rounded-lg">
             <div className="flex items-center gap-3">
               <span className="text-xs font-bold text-gray-400">02</span>
-              <span className="text-sm font-semibold text-gray-700">David Kim</span>
+              <span className="text-sm font-semibold text-gray-700">Rohan Gupta</span>
             </div>
             <span className="text-gray-500 text-[10px] font-bold">₹450</span>
           </div>
@@ -71,7 +71,7 @@ export function AdminSidePanel() {
           <ClipboardEdit className="h-4 w-4" />
           Score Submission
         </h3>
-        <p className="text-[9px] font-bold text-gray-500 uppercase tracking-widest mb-6">Evaluating: Alex Rivera</p>
+        <p className="text-[9px] font-bold text-gray-500 uppercase tracking-widest mb-6">Evaluating: Arjun Mehra</p>
 
         <div className="space-y-4 mb-6">
           <div className="flex justify-between items-end border-b border-[#c8d4a3] pb-1">

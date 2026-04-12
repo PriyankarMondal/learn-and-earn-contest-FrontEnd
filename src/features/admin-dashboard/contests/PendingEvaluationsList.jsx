@@ -2,25 +2,25 @@ import { Code, ExternalLink } from 'lucide-react'
 
 const pendingData = [
   {
-    student: 'Alex Rivera', id: '#4421',
+    student: 'Arjun Mehra', id: '#4421',
     contest: 'Quantum Physics',
     date: 'Today, 2:45 PM',
     github: true, live: true,
-    avatar: 'https://ui-avatars.com/api/?name=Alex+Rivera&background=0284c7&color=fff'
+    avatar: 'https://ui-avatars.com/api/?name=Arjun+Mehra&background=0284c7&color=fff'
   },
   {
-    student: 'Sofia Chen', id: '#4419',
+    student: 'Aditi Rao', id: '#4419',
     contest: 'Classical Lit',
     date: 'Oct 24, 11:20 AM',
     github: true, live: true,
-    avatar: 'https://ui-avatars.com/api/?name=Sofia+Chen&background=c2410c&color=fff'
+    avatar: 'https://ui-avatars.com/api/?name=Aditi+Rao&background=c2410c&color=fff'
   },
   {
-    student: 'Marcus Thorne', id: '#4392',
+    student: 'Siddharth Verma', id: '#4392',
     contest: 'Algorithmic Efficiency',
     date: 'Oct 23, 09:15 AM',
     github: true, live: true,
-    avatar: 'https://ui-avatars.com/api/?name=Marcus+Thorne&background=0f766e&color=fff'
+    avatar: 'https://ui-avatars.com/api/?name=Siddharth+Verma&background=0f766e&color=fff'
   }
 ]
 

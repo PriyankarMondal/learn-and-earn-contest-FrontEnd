@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Clock, Award, Loader2, Send, Trophy } from 'lucide-react'
+import { Clock, Award, Loader2, Send, Trophy, Eye } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { SubmissionForm } from '../all-contests/SubmissionForm'
 import { ContestDetails } from '../all-contests/ContestDetails'
@@ -15,7 +15,7 @@ export function ActiveContestsList() {
   const loadContests = async () => {
     try {
       const data = await fetchContests()
-      // Filter for 'running' contests (assuming active means running and joined)
+      // Filter for 'running' contests
       setContests(data.filter(c => c.status === 'running'))
     } catch (error) {
       toast.error('Failed to load active contests')
@@ -43,7 +43,7 @@ export function ActiveContestsList() {
           <svg className="w-5 h-5 text-lime-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
           </svg>
-          Active Contests
+          Discover New Challenges
         </h2>
         <Link to="/all-contests" className="text-[10px] font-extrabold uppercase tracking-widest text-[#5c8020] hover:underline">
           View All
@@ -97,19 +97,27 @@ export function ActiveContestsList() {
                 </div>
               </div>
 
-              <div className="w-full sm:w-auto mt-4 sm:mt-0 sm:pl-4 sm:border-l border-gray-100">
+              <div className="w-full sm:w-auto mt-4 sm:mt-0 sm:pl-4 sm:border-l border-gray-100 flex flex-col gap-2">
                 <button
-                  onClick={() => setSelectedForSubmission(contest)}
-                  className="bg-[#F9BD1C] hover:bg-[#e6ae1a] text-amber-950 w-full sm:w-auto px-6 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all shadow-md active:scale-95 flex items-center justify-center gap-2"
+                  onClick={() => setSelectedForDetails(contest)}
+                  className="bg-[#82C600] hover:bg-[#71ac00] text-white w-full sm:w-auto px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all shadow-md active:scale-95 flex items-center justify-center gap-2"
                 >
                   <Send className="w-3.5 h-3.5" />
-                  SUBMIT WORK
+                  PARTICIPATE
+                </button>
+                <button
+                  onClick={() => setSelectedForDetails(contest)}
+                  className="w-full py-2 flex items-center justify-center gap-2 text-[10px] font-black text-gray-400 hover:text-[#82C600] uppercase tracking-widest transition-all hover:bg-slate-50 rounded-xl"
+                >
+                  <Eye className="w-3.5 h-3.5" />
+                  See Details
                 </button>
               </div>
             </div>
           ))
         )}
       </div>
+
 
       {/* Submission Form Modal */}
       {selectedForSubmission && (

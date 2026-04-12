@@ -146,7 +146,7 @@ export function Login() {
                       type="email"
                       value={form.email}
                       onChange={updateField('email')}
-                      placeholder="scholar@vanguard.edu"
+                      placeholder="priya@gmail.com"
                       disabled={isLoading}
                       className="w-full bg-slate-50 border-transparent pr-10 focus:border-lime-500 focus:bg-white"
                       required
