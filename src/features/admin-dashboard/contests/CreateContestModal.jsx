@@ -2,6 +2,7 @@ import { useState, useRef } from 'react'
 import { X, Plus, Trash2, Trophy, Users, Target, Calendar, HelpCircle, Layers, ShieldCheck } from 'lucide-react'
 import { Button } from '../../../components/ui/Button'
 import { toast } from 'react-toastify'
+import { createContest } from '../../../api/admin.api'
 
 export function CreateContestModal({ onClose }) {
   const [formData, setFormData] = useState({
@@ -17,6 +18,7 @@ export function CreateContestModal({ onClose }) {
     requirements: [''],
     // criteria: ''
   })
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   // Close modal when clicking on backdrop
   const handleBackdropClick = (e) => {
@@ -52,9 +54,31 @@ export function CreateContestModal({ onClose }) {
       return
     }
 
-    // Success simulation (Payload includes contestType: 'single'|'team'|'both')
-    toast.success('Contest created successfully!')
-    onClose()
+    setIsSubmitting(true)
+    try {
+      // Data Cleaning & Formatting
+      const submissionData = {
+        ...formData,
+        prizeMoney: Number(formData.prizeMoney.toString().replace(/,/g, '')),
+        requirements: formData.requirements
+          .filter(r => r.trim() !== '')
+          .map(r => `• ${r}`)
+          .join('\n')
+      }
+
+      await createContest(submissionData)
+      
+      toast.success('Contest published successfully!')
+      onClose()
+      
+      // Optionally reload the page to refresh statistics and tables
+      window.location.reload() 
+    } catch (error) {
+      console.error('Failed to create contest:', error)
+      toast.error(error.message || 'Failed to establish challenge')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -115,11 +139,13 @@ export function CreateContestModal({ onClose }) {
                     onChange={(e) => updateField('category', e.target.value)}
                     className="w-full px-5 py-3.5 bg-slate-50 border border-transparent rounded-xl focus:border-[#82C600] focus:bg-white outline-none transition-all text-sm font-bold"
                   >
+                    <option>MERN Stack</option>
+                    <option>UI/UX Design</option>
+                    <option>Web Development</option>
+                    <option>Graphics Design</option>
                     <option>ML/AI</option>
-                    <option>Design</option>
-                    <option>Development</option>
                     <option>BlockChain</option>
-                    <option>Cloud Computing</option>
+                    <option>Digital Marketing</option>
                   </select>
                 </div>
                 {/* <div>
@@ -310,9 +336,19 @@ export function CreateContestModal({ onClose }) {
             variant="amber" 
             className="flex-1 py-4 text-[11px] font-black tracking-widest uppercase rounded-2xl shadow-md flex items-center justify-center gap-2"
             onClick={handleSubmit}
+            disabled={isSubmitting}
           >
-            <ShieldCheck className="w-4 h-4" />
-            Publish Contest
+            {isSubmitting ? (
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 border-2 border-slate-900/20 border-t-slate-900 rounded-full animate-spin" />
+                <span>Publishing...</span>
+              </div>
+            ) : (
+              <>
+                <ShieldCheck className="w-4 h-4" />
+                Publish Contest
+              </>
+            )}
           </Button>
         </footer>
 

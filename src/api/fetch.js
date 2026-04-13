@@ -1,4 +1,3 @@
-// const BASE_URL = "http://localhost:8000";
 const BASE_URL = "https://learn-and-earn-contest-backend.onrender.com";
 
 // generic request function
@@ -27,37 +26,3 @@ export const apiRequest = async (url, method = "GET", body = null) => {
   return data;
 };
 
-
-
-
-
-
-
-
-
-// const BASE_URL = "http://localhost:8000";
-
-// export const apiRequest = async (url, method = "GET", body = null) => {
-//   const res = await fetch(`${BASE_URL}${url}`, {
-//     method,
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//     credentials: "include",
-//     body: body ? JSON.stringify(body) : null,
-//   });
-
-//   let data;
-
-//   try {
-//     data = await res.json();
-//   } catch {
-//     throw new Error("Server returned invalid response");
-//   }
-
-//   if (!res.ok) {
-//     throw new Error(data?.message || `Error ${res.status}`);
-//   }
-
-//   return data;
-// };
