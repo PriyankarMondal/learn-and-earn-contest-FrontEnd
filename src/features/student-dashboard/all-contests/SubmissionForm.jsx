@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { X, Send, Globe, User, Mail, ShieldCheck, Code } from 'lucide-react'
+import { X, Send, Globe, Code, FileText, User, Mail, ShieldCheck } from 'lucide-react'
 import { Button } from '../../../components/ui/Button'
 import { apiRequest } from '../../../api/fetch'
 import { toast } from 'react-toastify'
@@ -9,7 +9,8 @@ export function SubmissionForm({ contest, onClose }) {
     name: '',
     email: '',
     githubLink: '',
-    liveLink: ''
+    liveLink: '',
+    description: ''
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -25,15 +26,14 @@ export function SubmissionForm({ contest, onClose }) {
     e.preventDefault()
     
     // Basic validation
-    if (!formData.name || !formData.email || !formData.githubLink || !formData.liveLink) {
-      toast.error('Please fill in Name, Email, GitHub and Live links')
+    if (!formData.name || !formData.email || !formData.githubLink || !formData.liveLink || !formData.description) {
+      toast.error('Please fill in Name, Email, GitHub link, Live link, and Description')
       return
     }
 
     setIsSubmitting(true)
     
     try {
-      // Backend expects contestId, githubLink, liveLink, name, email
       await apiRequest('/student/v1/submit', 'POST', {
         contestId: contest._id || contest.id,
         ...formData
@@ -155,6 +155,27 @@ export function SubmissionForm({ contest, onClose }) {
                       className="w-full pl-11 pr-5 py-3.5 bg-slate-50 border border-transparent rounded-xl focus:border-[#F9BD1C] focus:bg-white outline-none transition-all text-sm font-bold"
                     />
                   </div>
+                </div>
+              </div>
+            </section>
+
+            {/* 2. Project Description */}
+            <section>
+              <div className="flex items-center gap-3 mb-6">
+                <FileText className="w-5 h-5 text-gray-400" />
+                <h3 className="text-[11px] font-black uppercase tracking-widest text-gray-900">Project Overview</h3>
+              </div>
+              <div>
+                <label className="block text-[10px] font-black uppercase tracking-widest text-[#5c8020] mb-2">Detailed Description</label>
+                <div className="relative">
+                  <textarea 
+                    required
+                    rows={4}
+                    value={formData.description}
+                    onChange={(e) => updateField('description', e.target.value)}
+                    placeholder="Describe your solution, technologies used, and any specific features..."
+                    className="w-full px-5 py-4 bg-slate-50 border border-transparent rounded-2xl focus:border-[#F9BD1C] focus:bg-white outline-none transition-all text-sm font-bold min-h-[120px] resize-none"
+                  />
                 </div>
               </div>
             </section>

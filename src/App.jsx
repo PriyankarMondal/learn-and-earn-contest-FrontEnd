@@ -51,31 +51,35 @@ function HomeLayout() {
 
 // --- Main App ---
 
+import { SearchProvider } from './context/SearchContext'
+
 function App() {
   return (
     <HashRouter>
-      <Routes>
-        {/* Landing Page & Auth Modals */}
-        <Route path="/" element={<HomeLayout />} />
-        <Route path="/login" element={<HomeLayout />} />
-        <Route path="/register" element={<HomeLayout />} />
-        <Route path="/logout" element={<Logout />} />
+      <SearchProvider>
+        <Routes>
+          {/* Landing Page & Auth Modals */}
+          <Route path="/" element={<HomeLayout />} />
+          <Route path="/login" element={<HomeLayout />} />
+          <Route path="/register" element={<HomeLayout />} />
+          <Route path="/logout" element={<Logout />} />
 
-        {/* Admin Dashboard Routes */}
-        <Route path="/admin" element={<AdminDashboard />} />
-        <Route path="/admin/contests" element={<AdminContests />} />
-        <Route path="/admin/submissions" element={<AdminSubmissions />} />
-        <Route path="/admin/users" element={<AdminUsers />} />
-        <Route path="/admin/leaderboard" element={<AdminLeaderboard />} />
-        <Route path="/admin/profile" element={<AdminProfile />} />
+          {/* Admin Dashboard Routes */}
+          <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/admin/contests" element={<AdminContests />} />
+          <Route path="/admin/submissions" element={<AdminSubmissions />} />
+          <Route path="/admin/users" element={<AdminUsers />} />
+          <Route path="/admin/leaderboard" element={<AdminLeaderboard />} />
+          <Route path="/admin/profile" element={<AdminProfile />} />
 
-        {/* Student Dashboard Routes */}
-        <Route path="/dashboard" element={<StudentDashboard />} />
-        <Route path="/all-contests" element={<AllContests />} />
-        <Route path="/my-contests" element={<MyContests />} />
-        <Route path="/submissions" element={<Submissions />} />
-        <Route path="/profile" element={<Profile />} />
-      </Routes>
+          {/* Student Dashboard Routes */}
+          <Route path="/dashboard" element={<StudentDashboard />} />
+          <Route path="/all-contests" element={<AllContests />} />
+          <Route path="/my-contests" element={<MyContests />} />
+          <Route path="/submissions" element={<Submissions />} />
+          <Route path="/profile" element={<Profile />} />
+        </Routes>
+      </SearchProvider>
     </HashRouter>
   )
 }

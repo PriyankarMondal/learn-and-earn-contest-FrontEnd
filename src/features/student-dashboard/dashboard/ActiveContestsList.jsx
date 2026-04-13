@@ -5,18 +5,20 @@ import { SubmissionForm } from '../all-contests/SubmissionForm'
 import { ContestDetails } from '../all-contests/ContestDetails'
 import { fetchContests } from '../../../api/student.api'
 import { toast } from 'react-toastify'
+import { useSearch } from '../../../context/SearchContext'
 
 export function ActiveContestsList() {
   const [contests, setContests] = useState([])
   const [loading, setLoading] = useState(true)
   const [selectedForSubmission, setSelectedForSubmission] = useState(null)
   const [selectedForDetails, setSelectedForDetails] = useState(null)
+  const { searchQuery } = useSearch()
 
   const loadContests = async () => {
     try {
       const data = await fetchContests()
-      // Filter for 'running' contests
-      setContests(data.filter(c => c.status === 'running'))
+      // Filter for 'running' contests AND only those NOT joined yet
+      setContests(data.filter(c => c.status === 'running' && !c.isJoined))
     } catch (error) {
       toast.error('Failed to load active contests')
     } finally {
@@ -27,6 +29,13 @@ export function ActiveContestsList() {
   useEffect(() => {
     loadContests()
   }, [])
+
+  const filteredContests = contests.filter(c => {
+    const title = c.title || ''
+    const desc = c.description || ''
+    const query = (searchQuery || '').toLowerCase()
+    return title.toLowerCase().includes(query) || desc.toLowerCase().includes(query)
+  })
 
   if (loading) {
     return (
@@ -51,12 +60,14 @@ export function ActiveContestsList() {
       </div>
 
       <div className="flex flex-col gap-4">
-        {contests.length === 0 ? (
+        {filteredContests.length === 0 ? (
           <div className="bg-white rounded-xl p-8 border border-gray-100 text-center">
-            <p className="text-sm font-medium text-gray-500">No active contests found. Check back later!</p>
+            <p className="text-sm font-medium text-gray-500">
+              {searchQuery ? "No results match your search." : "No active contests found. Check back later!"}
+            </p>
           </div>
         ) : (
-          contests.map((contest) => (
+          filteredContests.map((contest) => (
             <div key={contest._id} className="flex flex-col sm:flex-row gap-5 rounded-xl bg-white p-4 sm:pr-6 shadow-sm border border-gray-100 items-start sm:items-center overflow-hidden transition-all hover:shadow-md text-left">
               <div 
                 className="h-24 w-full sm:w-24 shrink-0 rounded-lg bg-slate-900 relative overflow-hidden flex items-center justify-center cursor-pointer group"
@@ -131,7 +142,10 @@ export function ActiveContestsList() {
       {selectedForDetails && (
         <ContestDetails 
           contest={selectedForDetails}
-          onClose={() => setSelectedForDetails(null)}
+          onClose={() => {
+            setSelectedForDetails(null)
+            loadContests() // Refresh to remove contests once joined
+          }}
         />
       )}
     </div>

@@ -5,6 +5,7 @@ import { Database, Palette, Globe, Layout, Megaphone, Code2, Loader2, Eye, Check
 import { ContestDetails } from './ContestDetails'
 import { apiRequest } from '../../../api/fetch'
 import { toast } from 'react-toastify'
+import { useSearch } from '../../../context/SearchContext'
 
 const categoryIcons = {
   'MERN Stack': { icon: Database, bg: 'bg-lime-100 text-lime-700' },
@@ -27,7 +28,7 @@ export function AllContestsList() {
   const [contests, setContests] = useState([])
   const [loading, setLoading] = useState(true)
   const [selectedContest, setSelectedContest] = useState(null)
-  const [searchQuery, setSearchQuery] = useState('')
+  const { searchQuery, setSearchQuery } = useSearch()
 
   const loadContests = async () => {
     try {
@@ -45,10 +46,14 @@ export function AllContestsList() {
     loadContests()
   }, [])
 
-  const filteredContests = contests.filter(c => 
-    c.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    c.category.toLowerCase().includes(searchQuery.toLowerCase())
-  )
+  const filteredContests = contests.filter(c => {
+    const title = c.title || ''
+    const category = c.category || ''
+    const query = (searchQuery || '').toLowerCase()
+    
+    return title.toLowerCase().includes(query) || 
+           category.toLowerCase().includes(query)
+  })
 
   if (loading) {
     return (

@@ -1,6 +1,6 @@
 import { ListFilter, ArrowDownWideNarrow } from 'lucide-react'
 
-export function SubmissionsHeader() {
+export function SubmissionsHeader({ count = 0 }) {
   return (
     <div className="mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
       <div>
@@ -8,7 +8,7 @@ export function SubmissionsHeader() {
           Academic Portfolio
         </div>
         <h1 className="text-3xl font-bold tracking-tight text-gray-900">
-          My Submissions
+          My Submissions ({count})
         </h1>
       </div>
       

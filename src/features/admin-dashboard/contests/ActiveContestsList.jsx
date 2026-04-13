@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Plus, Edit2, Eye, Clipboard, Trash2, FlaskConical, Link2, Code2 } from 'lucide-react'
 import { CreateContestModal } from './CreateContestModal'
+import { useSearch } from '../../../context/SearchContext'
 
 const activeContestsData = [
   { 
@@ -34,6 +35,13 @@ const activeContestsData = [
 
 export function ActiveContestsList() {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false)
+  const { searchQuery } = useSearch()
+
+  const filteredContests = activeContestsData.filter(contest => {
+    const name = contest.name || ''
+    const query = (searchQuery || '').toLowerCase()
+    return name.toLowerCase().includes(query)
+  })
 
   return (
     <div className="mb-8">
@@ -65,42 +73,50 @@ export function ActiveContestsList() {
             </tr>
           </thead>
           <tbody className="space-y-2 relative">
-            {activeContestsData.map((row, i) => (
-              <tr key={i} className="group relative">
-                <td className="px-2" colSpan="7">
-                  <div className="flex items-center justify-between bg-[#f4f8eb] rounded-xl p-4 transition-colors mb-2">
-                    <div className="flex items-center gap-4 w-[25%]">
-                      <div className={`p-2 rounded-lg ${row.iconColor}`}>
-                        <row.icon className="w-4 h-4" />
-                      </div>
-                      <div className="font-bold text-gray-900 text-sm whitespace-nowrap">{row.name}</div>
-                    </div>
-                    
-                    <div className="w-[12%]">
-                       <span className={`px-2 py-0.5 rounded text-[9px] font-black tracking-widest ${row.diffColor}`}>{row.diff}</span>
-                    </div>
-
-                    <div className="text-xs font-semibold text-gray-600 w-[15%]">{row.date}</div>
-                    
-                    <div className="text-sm font-bold text-gray-900 w-[12%]">{row.participants}</div>
-                    
-                    <div className="text-sm font-bold text-gray-900 w-[12%]">{row.subs}</div>
-                    
-                    <div className="flex items-center gap-2 w-[10%]">
-                      <div className={`w-2 h-2 rounded-full ${row.statusColor}`}></div>
-                      <span className={`text-xs font-bold ${row.status === 'Active' ? 'text-lime-600' : 'text-gray-500'}`}>{row.status}</span>
-                    </div>
-
-                    <div className="flex items-center justify-end gap-3 flex-1">
-                      <button className="text-gray-400 hover:text-gray-700 transition-colors"><Edit2 className="w-4 h-4" /></button>
-                      <button className="text-gray-400 hover:text-gray-700 transition-colors"><Eye className="w-4 h-4" /></button>
-                      <button className="text-gray-400 hover:text-gray-700 transition-colors"><Clipboard className="w-4 h-4" /></button>
-                      <button className="text-gray-400 hover:text-red-500 transition-colors"><Trash2 className="w-4 h-4" /></button>
-                    </div>
-                  </div>
+            {filteredContests.length === 0 ? (
+              <tr>
+                <td colSpan="7" className="py-8 text-center text-gray-500 font-bold text-sm">
+                  {searchQuery ? "No matches found." : "No active contests."}
                 </td>
               </tr>
-            ))}
+            ) : (
+              filteredContests.map((row, i) => (
+                <tr key={i} className="group relative">
+                  <td className="px-2" colSpan="7">
+                    <div className="flex items-center justify-between bg-[#f4f8eb] rounded-xl p-4 transition-colors mb-2">
+                      <div className="flex items-center gap-4 w-[25%]">
+                        <div className={`p-2 rounded-lg ${row.iconColor}`}>
+                          <row.icon className="w-4 h-4" />
+                        </div>
+                        <div className="font-bold text-gray-900 text-sm whitespace-nowrap">{row.name}</div>
+                      </div>
+                      
+                      <div className="w-[12%]">
+                         <span className={`px-2 py-0.5 rounded text-[9px] font-black tracking-widest ${row.diffColor}`}>{row.diff}</span>
+                      </div>
+
+                      <div className="text-xs font-semibold text-gray-600 w-[15%]">{row.date}</div>
+                      
+                      <div className="text-sm font-bold text-gray-900 w-[12%]">{row.participants}</div>
+                      
+                      <div className="text-sm font-bold text-gray-900 w-[12%]">{row.subs}</div>
+                      
+                      <div className="flex items-center gap-2 w-[10%]">
+                        <div className={`w-2 h-2 rounded-full ${row.statusColor}`}></div>
+                        <span className={`text-xs font-bold ${row.status === 'Active' ? 'text-lime-600' : 'text-gray-500'}`}>{row.status}</span>
+                      </div>
+
+                      <div className="flex items-center justify-end gap-3 flex-1">
+                        <button className="text-gray-400 hover:text-gray-700 transition-colors"><Edit2 className="w-4 h-4" /></button>
+                        <button className="text-gray-400 hover:text-gray-700 transition-colors"><Eye className="w-4 h-4" /></button>
+                        <button className="text-gray-400 hover:text-gray-700 transition-colors"><Clipboard className="w-4 h-4" /></button>
+                        <button className="text-gray-400 hover:text-red-500 transition-colors"><Trash2 className="w-4 h-4" /></button>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>

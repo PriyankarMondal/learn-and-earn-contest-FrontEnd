@@ -1,6 +1,10 @@
 import { Award } from 'lucide-react'
 
-export function TopSubmissionCard() {
+export function TopSubmissionCard({ submission }) {
+  if (!submission) return null;
+
+  const isReviewed = submission.status === 'reviewed';
+
   return (
     <div className="relative mb-8 overflow-hidden rounded-2xl bg-gradient-to-br from-[#689f00] to-[#82C600] p-6 sm:p-8 text-white shadow-md">
       {/* Abstract Background Icon */}
@@ -9,51 +13,52 @@ export function TopSubmissionCard() {
       </div>
 
       <div className="relative z-10 flex flex-col lg:flex-row gap-8 items-stretch">
-        {/* Decorative Placeholder Image for Data Viz */}
         <div className="w-full lg:w-[320px] shrink-0 h-[200px] rounded-xl bg-gray-900 overflow-hidden relative shadow-lg flex items-center justify-center">
-          <div className="absolute inset-0 bg-blue-500/20 mix-blend-overlay"></div>
-          {/* Mock Globe Wireframe */}
-          <div className="h-32 w-32 rounded-full border border-blue-400/30 flex items-center justify-center">
-             <div className="h-full w-full rounded-full border border-blue-300/20 rotate-45"></div>
-             <div className="absolute h-full w-full rounded-full border border-blue-300/20 -rotate-45"></div>
+          <div className="absolute inset-0 bg-[#F9BD1C]/20 mix-blend-overlay"></div>
+          <div className="h-32 w-32 rounded-full border border-white/10 flex items-center justify-center">
+             <div className="h-full w-full rounded-full border border-white/5 rotate-45"></div>
+             <div className="absolute h-full w-full rounded-full border border-white/5 -rotate-45"></div>
           </div>
+          <Award className="absolute w-12 h-12 text-[#F9BD1C] opacity-50" />
         </div>
 
         <div className="flex-1 flex flex-col justify-center py-2">
           <div className="flex flex-wrap gap-2 mb-4">
-            <span className="rounded bg-[#F9BD1C] px-3 py-1 text-[9px] font-black uppercase tracking-widest text-amber-950 shadow-sm">
-              3rd Place Winner
-            </span>
+            {isReviewed && submission.score >= 90 && (
+              <span className="rounded bg-[#F9BD1C] px-3 py-1 text-[9px] font-black uppercase tracking-widest text-amber-950 shadow-sm">
+                Top Performance
+              </span>
+            )}
             <span className="rounded bg-white/20 px-3 py-1 text-[9px] font-black uppercase tracking-widest text-white backdrop-blur-sm">
-              Graded
+              {isReviewed ? 'Graded' : 'Pending Evaluation'}
             </span>
           </div>
 
-          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight mb-2">
-            Sustainability Report Design
+          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight mb-2 uppercase">
+            {submission.contest?.title || 'Contest Submission'}
           </h2>
-          <p className="max-w-xl text-white/90 text-sm leading-relaxed mb-8 font-medium">
-            Global climate initiative visualizing the path to carbon neutrality through innovative graphic storytelling and data architecture.
+          <p className="max-w-xl text-white/90 text-sm leading-relaxed mb-8 font-medium line-clamp-2 italic">
+            "{submission.description || 'No description provided'}"
           </p>
 
           <div className="flex flex-wrap items-center gap-12 mb-8">
             <div>
               <div className="text-[10px] font-extrabold uppercase tracking-widest text-white/60 mb-1">Score</div>
-              <div className="text-2xl font-black">95/100</div>
+              <div className="text-2xl font-black">{isReviewed ? `${submission.score}/100` : '---'}</div>
             </div>
             <div>
-              <div className="text-[10px] font-extrabold uppercase tracking-widest text-white/60 mb-1">Rank</div>
-              <div className="text-2xl font-black">#3</div>
+              <div className="text-[10px] font-extrabold uppercase tracking-widest text-white/60 mb-1">Status</div>
+              <div className="text-2xl font-black uppercase text-[15px]">{submission.status}</div>
             </div>
             <div>
               <div className="text-[10px] font-extrabold uppercase tracking-widest text-white/60 mb-1">Earnings</div>
-              <div className="text-2xl font-black">₹450</div>
+              <div className="text-2xl font-black">₹{isReviewed && submission.score > 80 ? 'Pending' : '0'}</div>
             </div>
           </div>
 
           <div>
             <button className="rounded-lg bg-[#F9BD1C] px-8 py-3.5 text-xs font-black uppercase tracking-widest text-amber-950 transition-colors hover:bg-[#e6ae1a] shadow-sm">
-              View Results
+              {isReviewed ? 'View Results' : 'Review Details'}
             </button>
           </div>
         </div>

@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react'
 import { Eye, Edit2, Slash, ChevronLeft, ChevronRight, Loader2, UserX, UserCheck } from 'lucide-react'
 import { apiRequest } from '../../../api/fetch'
+import { useSearch } from '../../../context/SearchContext'
 
 export function UsersTable() {
   const [users, setUsers] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [processingId, setProcessingId] = useState(null)
+  const { searchQuery } = useSearch()
 
   useEffect(() => {
     fetchUsers()
@@ -36,6 +38,17 @@ export function UsersTable() {
     }
   }
 
+  const filteredUsers = users.filter(user => {
+    const name = user.name || ''
+    const email = user.email || ''
+    const username = user.username || ''
+    const query = (searchQuery || '').toLowerCase()
+    
+    return name.toLowerCase().includes(query) || 
+           email.toLowerCase().includes(query) || 
+           username.toLowerCase().includes(query)
+  })
+
   if (loading) {
     return (
       <div className="flex h-64 items-center justify-center rounded-2xl border border-gray-100 bg-white shadow-sm">
@@ -59,12 +72,12 @@ export function UsersTable() {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-50">
-            {users.map((user) => (
+            {filteredUsers.map((user) => (
               <tr key={user._id} className="hover:bg-gray-50/30 transition-colors">
                 <td className="py-5 px-6">
                   <div className="flex items-center gap-3">
                     <img 
-                      src={`https://ui-avatars.com/api/?name=${user.name.split(' ').join('+')}&background=${user.role === 'Admin' ? '111827' : '82C600'}&color=fff`} 
+                      src={`https://ui-avatars.com/api/?name=${(user.name || 'User').split(' ').join('+')}&background=${user.role === 'Admin' ? '111827' : '82C600'}&color=fff`} 
                       alt="Avatar" 
                       className="w-10 h-10 rounded-full border-2 border-white shadow-sm" 
                     />
@@ -120,16 +133,16 @@ export function UsersTable() {
         </table>
       </div>
 
-      {users.length === 0 && (
+      {filteredUsers.length === 0 && (
          <div className="py-12 text-center text-gray-500 font-bold text-sm">
-           No users found in the system.
+           {searchQuery ? "No records found matching your search." : "No users found in the system."}
          </div>
       )}
 
       {/* Pagination Footer (Static visual) */}
       <div className="bg-white px-6 py-4 flex items-center justify-between border-t border-gray-100">
         <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
-            Total {users.length} registered users
+            Total {filteredUsers.length} records found
         </span>
       </div>
     </div>

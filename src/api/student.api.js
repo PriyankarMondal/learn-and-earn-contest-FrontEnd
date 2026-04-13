@@ -19,3 +19,8 @@ export const submitWork = (data) => {
 export const fetchLeaderboard = (contestId) => {
   return apiRequest(`/student/v1/leaderboard/${contestId}`, "GET");
 };
+
+// GET MY SUBMISSIONS
+export const fetchMySubmissions = () => {
+  return apiRequest("/student/v1/my-submissions", "GET");
+};

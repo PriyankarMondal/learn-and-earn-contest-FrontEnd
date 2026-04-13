@@ -2,9 +2,11 @@ import { Link } from 'react-router-dom'
 import { Bell, Search, Menu, X } from 'lucide-react'
 import { useState } from 'react'
 import { BrandLogo } from '../common/BrandLogo'
+import { useSearch } from '../../context/SearchContext'
 
 export function DashboardTopbar({ className = '', rightNav, userRole = 'student', searchPlaceholder, userName, userSubtext, userAvatarUrl, onMenuClick, isSidebarOpen }) {
   const [isSearchOpen, setIsSearchOpen] = useState(false)
+  const { searchQuery, setSearchQuery } = useSearch()
 
   const defaultPlaceholder = userRole === 'admin' ? "Command Search..." : "Explore contests, skills, or mentors..."
   const displayTitle = userName || (userRole === 'admin' ? 'Priyankar Mondal' : 'Priyankar Mondal')
@@ -44,14 +46,19 @@ export function DashboardTopbar({ className = '', rightNav, userRole = 'student'
             <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
             <input
               type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
               autoFocus={isSearchOpen}
               placeholder={searchPlaceholder || defaultPlaceholder}
               className="w-full rounded-full border border-transparent bg-[#e4e9d3] py-2.5 pl-11 pr-10 text-sm tracking-wide text-gray-800 placeholder-gray-500 outline-none transition-all focus:border-lime-500/30 focus:bg-white focus:ring-4 focus:ring-lime-500/10"
             />
-            {isSearchOpen && (
+            {(isSearchOpen || searchQuery) && (
               <button
-                onClick={() => setIsSearchOpen(false)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full p-1 text-gray-400 hover:bg-gray-200 md:hidden"
+                onClick={() => {
+                  setSearchQuery('')
+                  setIsSearchOpen(false)
+                }}
+                className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full p-1 text-gray-400 hover:bg-gray-200"
               >
                 <X className="h-4 w-4" />
               </button>

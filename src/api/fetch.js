@@ -1,4 +1,5 @@
-const BASE_URL = "https://learn-and-earn-contest-backend.onrender.com";
+const BASE_URL = "http://localhost:8000";
+// const BASE_URL = "https://learn-and-earn-contest-backend.onrender.com";
 
 // generic request function
 export const apiRequest = async (url, method = "GET", body = null) => {
@@ -7,7 +8,7 @@ export const apiRequest = async (url, method = "GET", body = null) => {
     headers: {
       "Content-Type": "application/json",
     },
-    credentials: "include", // 🔥 VERY IMPORTANT (cookies)
+    credentials: "include", // ?? VERY IMPORTANT (cookies)
     body: body ? JSON.stringify(body) : null,
   });
 
@@ -25,4 +26,3 @@ export const apiRequest = async (url, method = "GET", body = null) => {
 
   return data;
 };
-

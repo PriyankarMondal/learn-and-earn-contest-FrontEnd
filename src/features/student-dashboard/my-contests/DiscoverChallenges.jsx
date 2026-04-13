@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Database, Monitor, Palette, Megaphone, Eye, Loader2, Globe, Layout, Code2 } from 'lucide-react'
+import { Database, Monitor, Palette, Megaphone, CheckCircle2, Eye, Loader2, Globe, Layout, Code2 } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { ContestDetails } from '../all-contests/ContestDetails'
 import { fetchContests } from '../../../api/student.api'
@@ -22,9 +22,9 @@ export function DiscoverChallenges() {
   const loadDiscoverContests = async () => {
     try {
       const data = await fetchContests()
-      // Show latest 4 'running' or 'upcoming' contests
+      // Show latest 4 'running' or 'upcoming' contests NOT joined yet
       const filtered = data
-        .filter(c => c.status !== 'ended')
+        .filter(c => c.status !== 'ended' && !c.isJoined)
         .slice(0, 4)
       setContests(filtered)
     } catch (error) {
@@ -68,7 +68,7 @@ export function DiscoverChallenges() {
           contests.map((item) => {
             const config = categoryIcons[item.category] || categoryIcons['Web Development']
             const Icon = config.icon
-            
+
             return (
               <div key={item._id} className="flex flex-col justify-between rounded-2xl bg-white p-6 shadow-sm border border-gray-100 h-full transition-all hover:shadow-md">
                 <div>
@@ -101,15 +101,24 @@ export function DiscoverChallenges() {
                       </div>
                     </div>
                   </div>
-                  
+
                   <div className="space-y-2">
-                    <button 
-                      onClick={() => setSelectedContest(item)}
-                      className={`w-full rounded-xl bg-[#F9BD1C] hover:bg-[#e6ae1a] text-amber-950 py-3 text-[11px] font-black uppercase tracking-widest transition-all active:scale-95 shadow-sm`}
-                    >
-                      Participate
-                    </button>
-                    <button 
+                    {item.isJoined ? (
+                      <button
+                        className="w-full rounded-xl bg-white border-2 border-[#F9BD1C] text-[#F9BD1C] py-2.5 text-[11px] font-black uppercase tracking-widest transition-all flex items-center justify-center gap-2 cursor-default"
+                      >
+                        Joined
+                        <CheckCircle2 className="w-4 h-4 text-[#82C600]" />
+                      </button>
+                    ) : (
+                      <button
+                        onClick={() => setSelectedContest(item)}
+                        className="w-full rounded-xl bg-[#F9BD1C] hover:bg-[#e6ae1a] text-amber-950 py-3 text-[11px] font-black uppercase tracking-widest transition-all active:scale-95 shadow-sm"
+                      >
+                        Participate
+                      </button>
+                    )}
+                    <button
                       onClick={() => setSelectedContest(item)}
                       className="w-full py-2.5 flex items-center justify-center gap-2 text-[10px] font-black text-gray-400 hover:text-gray-900 uppercase tracking-widest transition-all hover:bg-slate-50 rounded-xl"
                     >
@@ -128,7 +137,10 @@ export function DiscoverChallenges() {
       {selectedContest && (
         <ContestDetails
           contest={selectedContest}
-          onClose={() => setSelectedContest(null)}
+          onClose={() => {
+            setSelectedContest(null)
+            loadDiscoverContests() // Refresh to update Joined status if they applied
+          }}
         />
       )}
     </div>
