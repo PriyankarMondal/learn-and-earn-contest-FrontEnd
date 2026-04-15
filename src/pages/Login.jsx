@@ -5,6 +5,7 @@ import registerBGImg from '../assets/registerBGimg.png'
 import { Button } from '../components/ui/Button'
 import { Input } from '../components/ui/Input'
 import { loginUser } from '../api/auth.api'
+import { useUser } from '../context/UserContext'
 import { toast } from 'react-toastify'
 
 
@@ -30,6 +31,7 @@ const RibbonIcon = ({ className }) => (
 
 export function Login() {
   const navigate = useNavigate()
+  const { setUser } = useUser()
   const [showPassword, setShowPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [form, setForm] = useState({
@@ -52,10 +54,22 @@ export function Login() {
     try {
       const res = await loginUser(form);
       toast.success(res.message);
+      
+      // Set localStorage
       localStorage.setItem("isLoggedIn", "true");
       localStorage.setItem("userRole", res.user.role === "Admin" ? "admin" : "student");
       localStorage.setItem("userId", res.user.id);
       
+      // Immediately set user in context to avoid loading spinner
+      setUser({
+        id: res.user.id || res.user._id,
+        name: res.user.name || res.user.username || 'User',
+        email: res.user.email || '',
+        role: res.user.role || 'Student',
+        avatar: res.user.avatar || null,
+      });
+      
+      // Navigate to appropriate dashboard
       if (res.user.role === "Admin") {
         navigate('/admin')
       } else {

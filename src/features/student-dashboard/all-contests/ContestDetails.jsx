@@ -74,39 +74,49 @@ export function ContestDetails({ contest, onClose }) {
                 </div>
               </div>
 
-              {/* Requirement Sections */}
+              {/* Description & Requirements — only real DB data */}
               <section>
                 <div className="mb-4 flex items-center gap-2">
                   <div className="w-1.5 h-1.5 rounded-full bg-[#82C600]" />
                   <h3 className="text-[11px] font-black text-gray-900 uppercase tracking-widest">
-                    Description & Requirements
+                    Description
                   </h3>
                 </div>
                 <p className="text-sm text-gray-700 leading-relaxed font-medium mb-6">
-                  {contest.description}
+                  {contest.description
+                    ? contest.description
+                    : <span className="text-gray-400 italic">No description provided by admin.</span>
+                  }
                 </p>
-                <ul className="space-y-4 ml-1">
-                  {(contest.requirements?.split('\n') || ['Responsive design for mobile and tablet', 'Clean and documented source code', 'Integration with provided mock APIs']).map((item, i) => (
-                    <li key={i} className="flex gap-3 text-sm text-gray-700 font-medium items-center">
-                      <div className="bg-lime-100 rounded-full p-0.5">
-                        <CheckCircle2 className="w-4 h-4 text-lime-600 shrink-0" />
-                      </div>
-                      {item}
-                    </li>
-                  ))}
-                </ul>
               </section>
 
+              {/* Requirements — from DB only */}
               <section>
                 <div className="mb-4 flex items-center gap-2">
                   <div className="w-1.5 h-1.5 rounded-full bg-[#82C600]" />
                   <h3 className="text-[11px] font-black text-gray-900 uppercase tracking-widest">
-                    Evaluation Criteria
+                    Requirements
                   </h3>
                 </div>
-                <p className="text-sm text-gray-500 leading-relaxed font-medium ml-1 text-left">
-                  Entries will be judged based on 40% code quality, 30% user experience design, 20% innovation in features, and 10% documentation depth.
-                </p>
+                {contest.requirements ? (
+                  <ul className="space-y-3 ml-1">
+                    {contest.requirements
+                      .split('\n')
+                      .filter(item => item.trim() !== '')
+                      .map((item, i) => (
+                        <li key={i} className="flex gap-3 text-sm text-gray-700 font-medium items-start">
+                          <div className="bg-lime-100 rounded-full p-0.5 mt-0.5 shrink-0">
+                            <CheckCircle2 className="w-4 h-4 text-lime-600" />
+                          </div>
+                          {item.trim()}
+                        </li>
+                      ))}
+                  </ul>
+                ) : (
+                  <p className="text-sm text-gray-400 italic ml-1">
+                    No specific requirements provided by admin.
+                  </p>
+                )}
               </section>
             </div>
           </div>

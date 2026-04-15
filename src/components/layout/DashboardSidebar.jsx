@@ -53,7 +53,7 @@ export function DashboardSidebar({ links, bottomLinks, userRole = 'student', isO
   }
 
   return (
-    <aside className={`fixed inset-y-0 left-0 z-50 flex w-[260px] transform flex-col justify-between bg-[#f0f6e6] px-4 py-8 transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : '-translate-x-full'
+    <aside className={`fixed inset-y-0 left-0 z-50 flex w-[260px] transform flex-col justify-between bg-[#f0f6e6] px-4 py-8 transition-transform duration-300 ease-in-out lg:hidden ${isOpen ? 'translate-x-0' : '-translate-x-full'
       } ${userRole === 'admin' ? '' : 'border-r border-[#e2e8d5]'}`}>
       <div>
         <div className="mb-8 flex items-center justify-between px-2">

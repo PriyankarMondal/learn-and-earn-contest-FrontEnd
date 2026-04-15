@@ -57,7 +57,7 @@ export function Hero() {
 
   return (
     <section className="px-3 pt-2 sm:px-4 sm:pt-4 md:px-6">
-      <div className="relative mx-auto w-full min-w-0 max-w-6xl overflow-hidden rounded-xl min-h-[420px] sm:min-h-[480px] sm:rounded-2xl md:min-h-[520px] lg:min-h-[580px]">
+      <div className="relative w-full min-w-0 overflow-hidden rounded-xl min-h-[420px] sm:min-h-[480px] sm:rounded-2xl md:min-h-[520px] lg:min-h-[580px]">
         <div className="absolute inset-0 overflow-hidden rounded-xl sm:rounded-2xl">
           <div
             className="flex h-full w-full min-w-0 transition-transform duration-700 ease-out"

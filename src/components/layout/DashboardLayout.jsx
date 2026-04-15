@@ -23,7 +23,7 @@ export function DashboardLayout({ children, userRole = 'student', links: customL
 
   return (
     <div className="flex h-screen overflow-hidden bg-[#f6f9f3] font-sans text-gray-800">
-      {/* Sidebar Component */}
+      {/* Sidebar Component - Mobile only */}
       <DashboardSidebar 
         links={links} 
         bottomLinks={bottomLinks} 
@@ -35,7 +35,7 @@ export function DashboardLayout({ children, userRole = 'student', links: customL
       {/* Backdrop for all screen sizes */}
       {isSidebarOpen && (
         <div 
-          className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm transition-opacity"
+          className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm transition-opacity lg:hidden"
           onClick={closeSidebar}
         />
       )}
@@ -45,12 +45,13 @@ export function DashboardLayout({ children, userRole = 'student', links: customL
           userRole={userRole} 
           onMenuClick={toggleSidebar}
           isSidebarOpen={isSidebarOpen}
+          navLinks={links}
           className="sticky top-0 z-20"
           {...props}
         />
 
-        <div className="flex-1 overflow-y-auto overflow-x-hidden p-3 sm:p-6 lg:p-8">
-          <div className="mx-auto w-full max-w-6xl">
+        <div className="flex-1 overflow-y-auto overflow-x-hidden p-3 sm:p-4 lg:p-6">
+          <div className="w-full">
             {children}
           </div>
         </div>

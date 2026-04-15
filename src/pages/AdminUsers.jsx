@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom'
 import { DashboardLayout } from '../components/layout/DashboardLayout'
 import { UsersHeader } from '../features/admin-dashboard/users/UsersHeader'
 import { UsersStats } from '../features/admin-dashboard/users/UsersStats'
@@ -13,13 +12,6 @@ export function AdminUsers() {
       userName="Priyankar Mondal"
       userSubtext="SYSTEM ADMINISTRATOR"
       userAvatarUrl={`https://ui-avatars.com/api/?name=Priyankar+Mondal&background=446611&color=fff`}
-      rightNav={
-        <nav className="flex items-center gap-6 pt-1 mr-8">
-           <Link to="/admin/users" className="text-[11px] font-black text-[#82C600] border-b-2 border-[#82C600] pb-2 px-1 uppercase tracking-widest">Overview</Link>
-           <Link to="/admin/users" className="text-[11px] font-black text-gray-400 hover:text-gray-800 border-b-2 border-transparent pb-2 px-1 transition-colors uppercase tracking-widest">Reports</Link>
-           <Link to="/admin/users" className="text-[11px] font-black text-gray-400 hover:text-gray-800 border-b-2 border-transparent pb-2 px-1 transition-colors uppercase tracking-widest">Support</Link>
-        </nav>
-      } 
     >
       <div className="flex flex-col min-h-full">
         <div className="flex-1">

@@ -7,15 +7,6 @@ import { PendingEvaluationsList } from './PendingEvaluationsList'
 import { EliteWinnersPanel } from './EliteWinnersPanel'
 import { CreateContestModal } from './CreateContestModal'
 import { Plus } from 'lucide-react'
-import { Link } from 'react-router-dom'
-
-const AdminTopbarTabs = () => (
-  <nav className="flex items-center gap-6 pt-1">
-    <Link to="/admin" className="text-sm font-bold text-gray-500 hover:text-gray-800 border-b-2 border-transparent pb-2 px-1 transition-colors">Overview</Link>
-    <Link to="/admin/contests" className="text-sm font-bold text-[#82C600] border-b-2 border-[#82C600] pb-2 px-1">Contests</Link>
-    <Link to="/admin" className="text-sm font-bold text-gray-500 hover:text-gray-800 border-b-2 border-transparent pb-2 px-1 transition-colors">Reports</Link>
-  </nav>
-)
 
 export function AdminContests() {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false)
@@ -36,7 +27,6 @@ export function AdminContests() {
     <DashboardLayout 
       userRole="admin" 
       bottomLinks={contestsBottomLinks}
-      rightNav={<AdminTopbarTabs />}
     >
       <ContestsMetrics />
 

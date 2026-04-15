@@ -28,6 +28,7 @@ export function AllContestsList() {
   const [contests, setContests] = useState([])
   const [loading, setLoading] = useState(true)
   const [selectedContest, setSelectedContest] = useState(null)
+  const [detailLoading, setDetailLoading] = useState(null)
   const { searchQuery, setSearchQuery } = useSearch()
 
   const loadContests = async () => {
@@ -42,6 +43,22 @@ export function AllContestsList() {
     }
   }
 
+  // Fetch FULL contest details by ID when user clicks the card
+  const handleOpenContest = async (contestId) => {
+    try {
+      setDetailLoading(contestId)
+      const fullContest = await apiRequest(`/student/v1/contest/${contestId}`, 'GET')
+      setSelectedContest(fullContest)
+    } catch (err) {
+      console.error('Failed to load contest details:', err)
+      // Fallback: use the list data we already have
+      const fallback = contests.find(c => c._id === contestId)
+      if (fallback) setSelectedContest(fallback)
+    } finally {
+      setDetailLoading(null)
+    }
+  }
+
   useEffect(() => {
     loadContests()
   }, [])
@@ -50,9 +67,9 @@ export function AllContestsList() {
     const title = c.title || ''
     const category = c.category || ''
     const query = (searchQuery || '').toLowerCase()
-    
-    return title.toLowerCase().includes(query) || 
-           category.toLowerCase().includes(query)
+
+    return title.toLowerCase().includes(query) ||
+      category.toLowerCase().includes(query)
   })
 
   if (loading) {
@@ -65,7 +82,7 @@ export function AllContestsList() {
 
   return (
     <section className="bg-transparent pb-12 sm:pb-16 lg:pb-20 text-left">
-      <div className="mx-auto max-w-6xl text-left">
+      <div className="w-full text-left">
         <p className="text-[10px] font-semibold uppercase tracking-widest text-lime-600 sm:text-xs">
           Discover opportunities
         </p>
@@ -94,19 +111,19 @@ export function AllContestsList() {
           {filteredContests.map((c) => {
             const config = categoryIcons[c.category] || categoryIcons['Web Development']
             const Icon = config.icon
-            
+
             return (
               <article
                 key={c._id}
-                className="flex flex-col rounded-2xl bg-white p-4 shadow-sm ring-1 ring-gray-100 sm:p-5 transition-transform hover:-translate-y-1 hover:shadow-md duration-300 text-left"
+                onClick={() => handleOpenContest(c._id)}
+                className="flex flex-col rounded-2xl bg-white p-4 shadow-sm ring-1 ring-gray-100 sm:p-5 transition-transform hover:-translate-y-1 hover:shadow-md duration-300 text-left cursor-pointer"
               >
                 <div className="flex items-start justify-between gap-2 text-left">
                   <span className={`flex h-10 w-10 items-center justify-center rounded-lg ${config.bg}`}>
                     <Icon className="h-5 w-5" />
                   </span>
-                  <span className={`rounded-full px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider ${
-                    c.isJoined ? 'bg-amber-100 text-amber-700' : 'bg-lime-100 text-lime-700'
-                  }`}>
+                  <span className={`rounded-full px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider ${c.isJoined ? 'bg-amber-100 text-amber-700' : 'bg-lime-100 text-lime-700'
+                    }`}>
                     {c.isJoined ? 'Joined' : c.category}
                   </span>
                 </div>
@@ -124,26 +141,35 @@ export function AllContestsList() {
 
                 <div className="mt-6 flex flex-col gap-2">
                   <Button
+                    type="button"
                     variant={c.isJoined ? 'outline' : 'amber'}
                     className="w-full py-3 text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2"
-                    onClick={() => setSelectedContest(c)}
-                    disabled={c.status !== 'running'}
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      handleOpenContest(c._id)
+                    }}
+                    disabled={c.status !== 'running' || detailLoading === c._id}
                   >
-                    {c.isJoined ? (
-                      <>
-                        Joined <CheckCircle2 className="w-3 h-3" />
-                      </>
+                    {detailLoading === c._id ? (
+                      <><Loader2 className="w-3 h-3 animate-spin" /> Loading...</>
+                    ) : c.isJoined ? (
+                      <>Joined <CheckCircle2 className="w-3 h-3" /></>
                     ) : (
                       c.status === 'running' ? 'Participate' : 'Closed'
                     )}
                   </Button>
 
                   <button
-                    onClick={() => setSelectedContest(c)}
-                    className="w-full py-2.5 flex items-center justify-center gap-2 text-[11px] font-black text-gray-500 hover:text-[#82C600] uppercase tracking-widest transition-all hover:bg-slate-50 rounded-xl"
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      handleOpenContest(c._id)
+                    }}
+                    disabled={detailLoading === c._id}
+                    className="w-full py-2.5 flex items-center justify-center gap-2 text-[11px] font-black text-gray-500 hover:text-[#82C600] uppercase tracking-widest transition-all hover:bg-slate-50 rounded-xl disabled:opacity-50"
                   >
                     <Eye className="w-4 h-4" />
-                    See Details
+                    {detailLoading === c._id ? 'Loading...' : 'See Details'}
                   </button>
                 </div>
               </article>
@@ -163,7 +189,7 @@ export function AllContestsList() {
           contest={selectedContest}
           onClose={() => {
             setSelectedContest(null)
-            loadContests() // Refresh to update Joined status if they applied
+            loadContests()
           }}
         />
       )}

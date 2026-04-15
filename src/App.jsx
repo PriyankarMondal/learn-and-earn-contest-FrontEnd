@@ -1,8 +1,10 @@
 import { HashRouter, Routes, Route, useLocation, useNavigate } from 'react-router-dom'
 import { Navbar } from './components/layout/Navbar'
+import { ProtectedRoute } from './components/ProtectedRoute'
 import { Hero } from './features/home/Hero'
 import { HowItWorks } from './features/home/HowItWorks'
 import { FeaturedContests } from './features/home/FeaturedContests'
+import { MarqueeBanner } from './features/home/MarqueeBanner'
 import { Testimonials } from './features/home/Testimonials'
 import { CtaBanner } from './features/home/CtaBanner'
 import { Footer } from './components/layout/Footer'
@@ -20,6 +22,8 @@ import { Profile } from './pages/Profile'
 import { AllContests } from './pages/AllContests'
 import { AdminProfile } from './pages/AdminProfile'
 import { Logout } from './pages/Logout'
+import { Leaderboard } from './pages/Leaderboard'
+import { Rewards } from './pages/Rewards'
 
 // --- Layouts ---
 
@@ -36,6 +40,7 @@ function HomeLayout() {
       <main className="flex-1 overflow-y-auto">
         <Hero />
         <HowItWorks />
+        <MarqueeBanner />
         <FeaturedContests />
         <Testimonials />
         <CtaBanner />
@@ -64,20 +69,57 @@ function App() {
           <Route path="/register" element={<HomeLayout />} />
           <Route path="/logout" element={<Logout />} />
 
-          {/* Admin Dashboard Routes */}
-          <Route path="/admin" element={<AdminDashboard />} />
-          <Route path="/admin/contests" element={<AdminContests />} />
-          <Route path="/admin/submissions" element={<AdminSubmissions />} />
-          <Route path="/admin/users" element={<AdminUsers />} />
-          <Route path="/admin/leaderboard" element={<AdminLeaderboard />} />
-          <Route path="/admin/profile" element={<AdminProfile />} />
+          {/* Public Pages - Accessible to all */}
+          <Route path="/leaderboard" element={<Leaderboard />} />
+          <Route path="/rewards" element={<Rewards />} />
 
-          {/* Student Dashboard Routes */}
-          <Route path="/dashboard" element={<StudentDashboard />} />
-          <Route path="/all-contests" element={<AllContests />} />
-          <Route path="/my-contests" element={<MyContests />} />
-          <Route path="/submissions" element={<Submissions />} />
-          <Route path="/profile" element={<Profile />} />
+          {/* Admin Dashboard Routes - Protected */}
+          <Route 
+            path="/admin" 
+            element={<ProtectedRoute requiredRole="Admin"><AdminDashboard /></ProtectedRoute>} 
+          />
+          <Route 
+            path="/admin/contests" 
+            element={<ProtectedRoute requiredRole="Admin"><AdminContests /></ProtectedRoute>} 
+          />
+          <Route 
+            path="/admin/submissions" 
+            element={<ProtectedRoute requiredRole="Admin"><AdminSubmissions /></ProtectedRoute>} 
+          />
+          <Route 
+            path="/admin/users" 
+            element={<ProtectedRoute requiredRole="Admin"><AdminUsers /></ProtectedRoute>} 
+          />
+          <Route 
+            path="/admin/leaderboard" 
+            element={<ProtectedRoute requiredRole="Admin"><AdminLeaderboard /></ProtectedRoute>} 
+          />
+          <Route 
+            path="/admin/profile" 
+            element={<ProtectedRoute requiredRole="Admin"><AdminProfile /></ProtectedRoute>} 
+          />
+
+          {/* Student Dashboard Routes - Protected */}
+          <Route 
+            path="/dashboard" 
+            element={<ProtectedRoute requiredRole="Student"><StudentDashboard /></ProtectedRoute>} 
+          />
+          <Route 
+            path="/all-contests" 
+            element={<ProtectedRoute requiredRole="Student"><AllContests /></ProtectedRoute>} 
+          />
+          <Route 
+            path="/my-contests" 
+            element={<ProtectedRoute requiredRole="Student"><MyContests /></ProtectedRoute>} 
+          />
+          <Route 
+            path="/submissions" 
+            element={<ProtectedRoute requiredRole="Student"><Submissions /></ProtectedRoute>} 
+          />
+          <Route 
+            path="/profile" 
+            element={<ProtectedRoute requiredRole="Student"><Profile /></ProtectedRoute>} 
+          />
         </Routes>
       </SearchProvider>
     </HashRouter>

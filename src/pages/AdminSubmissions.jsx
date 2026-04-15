@@ -18,14 +18,6 @@ export function AdminSubmissions() {
     <DashboardLayout 
       userRole="admin" 
       bottomLinks={submissionsBottomLinks}
-      rightNav={
-        <div className="flex items-center gap-4">
-           <div className="text-right">
-              <div className="text-xs font-black text-gray-900 uppercase tracking-tight">Admin User</div>
-              <div className="text-[9px] font-bold text-gray-500 uppercase tracking-widest">Chief Academic Officer</div>
-           </div>
-        </div>
-      } 
     >
       <SubmissionsHeader />
       <SubmissionsStats />

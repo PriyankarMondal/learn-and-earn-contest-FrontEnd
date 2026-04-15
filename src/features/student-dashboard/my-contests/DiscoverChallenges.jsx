@@ -70,7 +70,11 @@ export function DiscoverChallenges() {
             const Icon = config.icon
 
             return (
-              <div key={item._id} className="flex flex-col justify-between rounded-2xl bg-white p-6 shadow-sm border border-gray-100 h-full transition-all hover:shadow-md">
+              <div 
+                key={item._id} 
+                onClick={() => setSelectedContest(item)}
+                className="flex flex-col justify-between rounded-2xl bg-white p-6 shadow-sm border border-gray-100 h-full transition-all hover:shadow-md cursor-pointer"
+              >
                 <div>
                   <div className="flex justify-between items-start mb-6">
                     <div className={`flex h-12 w-12 items-center justify-center rounded-xl border ${config.bg}`}>
@@ -112,14 +116,20 @@ export function DiscoverChallenges() {
                       </button>
                     ) : (
                       <button
-                        onClick={() => setSelectedContest(item)}
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          setSelectedContest(item)
+                        }}
                         className="w-full rounded-xl bg-[#F9BD1C] hover:bg-[#e6ae1a] text-amber-950 py-3 text-[11px] font-black uppercase tracking-widest transition-all active:scale-95 shadow-sm"
                       >
                         Participate
                       </button>
                     )}
                     <button
-                      onClick={() => setSelectedContest(item)}
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        setSelectedContest(item)
+                      }}
                       className="w-full py-2.5 flex items-center justify-center gap-2 text-[10px] font-black text-gray-400 hover:text-gray-900 uppercase tracking-widest transition-all hover:bg-slate-50 rounded-xl"
                     >
                       <Eye className="w-4 h-4" />

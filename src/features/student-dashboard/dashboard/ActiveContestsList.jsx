@@ -68,7 +68,11 @@ export function ActiveContestsList() {
           </div>
         ) : (
           filteredContests.map((contest) => (
-            <div key={contest._id} className="flex flex-col sm:flex-row gap-5 rounded-xl bg-white p-4 sm:pr-6 shadow-sm border border-gray-100 items-start sm:items-center overflow-hidden transition-all hover:shadow-md text-left">
+            <div 
+              key={contest._id} 
+              onClick={() => setSelectedForDetails(contest)}
+              className="flex flex-col sm:flex-row gap-5 rounded-xl bg-white p-4 sm:pr-6 shadow-sm border border-gray-100 items-start sm:items-center overflow-hidden transition-all hover:shadow-md text-left cursor-pointer"
+            >
               <div 
                 className="h-24 w-full sm:w-24 shrink-0 rounded-lg bg-slate-900 relative overflow-hidden flex items-center justify-center cursor-pointer group"
                 onClick={() => setSelectedForDetails(contest)}
@@ -110,14 +114,20 @@ export function ActiveContestsList() {
 
               <div className="w-full sm:w-auto mt-4 sm:mt-0 sm:pl-4 sm:border-l border-gray-100 flex flex-col gap-2">
                 <button
-                  onClick={() => setSelectedForDetails(contest)}
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    setSelectedForDetails(contest)
+                  }}
                   className="bg-[#82C600] hover:bg-[#71ac00] text-white w-full sm:w-auto px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all shadow-md active:scale-95 flex items-center justify-center gap-2"
                 >
                   <Send className="w-3.5 h-3.5" />
                   PARTICIPATE
                 </button>
                 <button
-                  onClick={() => setSelectedForDetails(contest)}
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    setSelectedForDetails(contest)
+                  }}
                   className="w-full py-2 flex items-center justify-center gap-2 text-[10px] font-black text-gray-400 hover:text-[#82C600] uppercase tracking-widest transition-all hover:bg-slate-50 rounded-xl"
                 >
                   <Eye className="w-3.5 h-3.5" />

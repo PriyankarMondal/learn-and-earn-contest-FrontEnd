@@ -16,7 +16,7 @@ const stories = [
 export function Testimonials() {
   return (
     <section className="bg-white py-12 sm:py-16 lg:py-20" id="rewards">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+      <div className="w-full px-4 sm:px-6">
         <p className="text-center text-[10px] font-semibold uppercase tracking-widest text-lime-600 sm:text-xs">
           Success stories
         </p>
