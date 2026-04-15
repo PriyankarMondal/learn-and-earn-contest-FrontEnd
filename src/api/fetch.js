@@ -1,5 +1,5 @@
-const BASE_URL = "http://localhost:8000";
-// const BASE_URL = "https://learn-and-earn-contest-backend.onrender.com";
+// const BASE_URL = "http://localhost:8000";
+const BASE_URL = "https://learn-and-earn-contest-backend.onrender.com";
 
 
 // generic request function
