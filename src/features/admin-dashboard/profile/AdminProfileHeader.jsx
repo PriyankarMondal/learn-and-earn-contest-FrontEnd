@@ -1,6 +1,9 @@
 import { Pencil, ShieldCheck } from 'lucide-react'
+import { useUser } from '../../../context/UserContext'
 
 export function AdminProfileHeader() {
+  const { user } = useUser()
+
   return (
     <div className="relative mb-8 overflow-hidden rounded-2xl bg-[#f0f6e6] p-6 shadow-sm border border-[#e2e8d5]">
       {/* Abstract Background Design right side */}
@@ -11,8 +14,8 @@ export function AdminProfileHeader() {
         <div className="relative">
           <div className="h-28 w-28 overflow-hidden rounded-2xl border-4 border-white shadow-sm bg-slate-900">
             <img 
-              src="https://ui-avatars.com/api/?name=Priyankar+Mondal&background=111827&color=fff&size=200" 
-              alt="Priyankar Mondal"
+              src={`https://ui-avatars.com/api/?name=${(user?.name || 'User').split(' ').join('+')}&background=111827&color=fff&size=200`} 
+              alt={user?.name || 'Admin'}
               className="h-full w-full object-cover"
             />
           </div>
@@ -25,10 +28,10 @@ export function AdminProfileHeader() {
         <div className="flex-1 text-center md:text-left text-left">
           <div className="inline-flex items-center gap-1.5 rounded bg-[#82C600]/10 px-2.5 py-1 text-[9px] font-black uppercase tracking-widest text-[#5c8020] mb-3">
             <ShieldCheck className="w-3 h-3" />
-            System Administrator
+            {user?.role || 'System Administrator'}
           </div>
           <h1 className="text-3xl font-bold tracking-tight text-gray-900 mb-1">
-            Priyankar Mondal
+            {user?.name}
           </h1>
           <p className="text-sm font-medium text-gray-600">
             Lead Administrator & Developer Relations

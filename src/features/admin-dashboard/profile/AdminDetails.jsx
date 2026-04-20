@@ -1,6 +1,9 @@
 import { User, Mail, Phone, MapPin } from 'lucide-react'
+import { useUser } from '../../../context/UserContext'
 
 export function AdminDetails() {
+  const { user } = useUser()
+
   return (
     <div className="rounded-2xl border border-[#e2e8d5] bg-[#f0f6e6] p-8 shadow-sm text-left font-sans">
       <h2 className="mb-6 flex items-center gap-2 text-lg font-bold text-gray-900 justify-start">
@@ -14,7 +17,7 @@ export function AdminDetails() {
             Full Name
           </label>
           <div className="rounded-xl border border-transparent bg-[#e4ebce] px-4 py-3 text-sm font-semibold text-gray-900 shadow-sm focus-within:border-[#82C600] focus-within:ring-1 focus-within:ring-[#82C600]">
-            <input type="text" defaultValue="Priyankar Mondal" className="w-full bg-transparent outline-none" />
+            <input type="text" defaultValue={user?.name} className="w-full bg-transparent outline-none" />
           </div>
         </div>
 
@@ -23,7 +26,7 @@ export function AdminDetails() {
             Work Email
           </label>
           <div className="rounded-xl border border-transparent bg-[#e4ebce] px-4 py-3 text-sm font-semibold text-gray-900 shadow-sm focus-within:border-[#82C600] focus-within:ring-1 focus-within:ring-[#82C600]">
-            <input type="email" defaultValue="p.mondal@desun.in" className="w-full bg-transparent outline-none text-left" />
+            <input type="email" defaultValue={user?.email} className="w-full bg-transparent outline-none text-left" />
           </div>
         </div>
 
@@ -32,7 +35,7 @@ export function AdminDetails() {
             Official Contact
           </label>
           <div className="rounded-xl border border-transparent bg-[#e4ebce] px-4 py-3 text-sm font-semibold text-gray-900 shadow-sm focus-within:border-[#82C600] focus-within:ring-1 focus-within:ring-[#82C600]">
-            <input type="text" defaultValue="+91 98765 43210" className="w-full bg-transparent outline-none text-gray-500" />
+            <input type="text" defaultValue={user?.number} className="w-full bg-transparent outline-none" />
           </div>
         </div>
 

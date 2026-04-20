@@ -65,6 +65,7 @@ export function UsersTable() {
             <tr className="bg-gray-50/50 border-b border-gray-100">
               <th className="py-4 px-6 text-[10px] font-black uppercase tracking-widest text-gray-400">Full Name</th>
               <th className="py-4 px-4 text-[10px] font-black uppercase tracking-widest text-gray-400">Access Email</th>
+              <th className="py-4 px-4 text-[10px] font-black uppercase tracking-widest text-gray-400">Mobile No.</th>
               <th className="py-4 px-4 text-[10px] font-black uppercase tracking-widest text-gray-400 text-center">Role</th>
               <th className="py-4 px-4 text-[10px] font-black uppercase tracking-widest text-gray-400">Status</th>
               <th className="py-4 px-4 text-[10px] font-black uppercase tracking-widest text-gray-400">Joined Date</th>
@@ -88,6 +89,9 @@ export function UsersTable() {
                   </div>
                 </td>
                 <td className="py-5 px-4 text-[13px] font-semibold text-gray-600">{user.email}</td>
+                <td className="py-5 px-4 text-[13px] font-bold text-gray-800 font-mono italic">
+                   {user.number || 'N/A'}
+                </td>
                 <td className="py-5 px-4 text-center">
                   <span className={`px-3 py-1 rounded text-[9px] font-black uppercase tracking-widest ${
                     user.role === 'Admin' ? 'bg-gray-800 text-white' : 'bg-lime-100 text-lime-700'
@@ -102,7 +106,7 @@ export function UsersTable() {
                   </div>
                 </td>
                 <td className="py-5 px-4 text-[13px] font-semibold text-gray-500">
-                  {new Date(user.createdAt).toLocaleDateString()}
+                  {new Date(user.createdAt).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}
                 </td>
                 <td className="py-5 px-6 text-right">
                   <div className="flex items-center justify-end gap-3">

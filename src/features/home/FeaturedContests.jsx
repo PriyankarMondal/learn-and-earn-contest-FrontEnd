@@ -10,7 +10,9 @@ const categoryIcons = {
   'UI/UX Design': { icon: Palette, bg: 'bg-violet-100 text-violet-700' },
   'Web Development': { icon: Globe, bg: 'bg-sky-100 text-sky-700' },
   'Graphics Design': { icon: Layout, bg: 'bg-amber-100 text-amber-700' },
-  'Marketing': { icon: Megaphone, bg: 'bg-cyan-100 text-cyan-700' },
+  'Digital Marketing': { icon: Megaphone, bg: 'bg-cyan-100 text-cyan-700' },
+  'ML/AI': { icon: Code2, bg: 'bg-indigo-100 text-indigo-700' },
+  'BlockChain': { icon: Trophy, bg: 'bg-lime-100 text-lime-700' },
   'Fullstack': { icon: Code2, bg: 'bg-indigo-100 text-indigo-700' },
   'default': { icon: Trophy, bg: 'bg-lime-100 text-lime-700' },
 }
@@ -150,12 +152,17 @@ export function FeaturedContests() {
                     ₹{(c.prizeMoney || 0).toLocaleString()} PRIZE POOL
                   </p>
 
-                  <p className="mt-2 flex items-center gap-1.5 text-[11px] font-medium text-gray-500">
-                    <ClockIcon />
-                    {c.endDate
-                      ? (isRunning ? `Ends ${new Date(c.endDate).toLocaleDateString()}` : c.status.toUpperCase())
-                      : 'TBD'}
-                  </p>
+                  <div className="mt-2 flex items-center justify-between">
+                    <p className="flex items-center gap-1.5 text-[11px] font-medium text-gray-500">
+                      <ClockIcon />
+                      {c.endDate
+                        ? (isRunning ? `Ends ${new Date(c.endDate).toLocaleDateString()}` : c.status.toUpperCase())
+                        : 'TBD'}
+                    </p>
+                    <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 bg-slate-50 px-2 py-1 rounded-md border border-slate-100">
+                      Member: {c.teamSize}
+                    </p>
+                  </div>
 
                   <div className="mt-5 flex flex-col gap-2 sm:mt-6">
                     <Button

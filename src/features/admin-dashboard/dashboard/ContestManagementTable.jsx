@@ -74,7 +74,7 @@ export function ContestManagementTable({ onCreateContest }) {
                   </td>
                   <td className="py-4 text-xs font-semibold text-gray-600">{new Date(row.endDate).toLocaleDateString()}</td>
                   <td className="py-4 text-sm font-bold text-gray-900 hidden lg:table-cell">{row.participantsCount || 0}</td>
-                  <td className="py-4 text-sm font-bold text-gray-900 hidden sm:table-cell">0</td>
+                  <td className="py-4 text-sm font-bold text-gray-900 hidden sm:table-cell">{row.submissionsCount || 0}</td>
                   <td className="py-4">
                     <span className={`px-2.5 py-1 rounded text-[9px] font-extrabold uppercase tracking-widest ${row.status === 'running' ? 'bg-lime-100 text-lime-700' : 'bg-gray-100 text-gray-500'}`}>
                       {row.status}

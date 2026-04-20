@@ -1,24 +1,36 @@
-// const BASE_URL = "http://localhost:8000";
-const BASE_URL = "https://learn-and-earn-contest-backend.onrender.com";
+const BASE_URL = "http://localhost:8000";
+// const BASE_URL = "https://learn-and-earn-contest-backend.onrender.com";
 
 
 // generic request function
 export const apiRequest = async (url, method = "GET", body = null) => {
-  const res = await fetch(`${BASE_URL}${url}`, {
+  // 🔥 CHECK IF BODY IS FORMDATA (FOR FILE UPLOADS)
+  const isFormData = body instanceof FormData;
+  
+  const requestConfig = {
     method,
-    headers: {
+    credentials: "include", // VERY IMPORTANT (cookies)
+  };
+
+  // 🔥 SET HEADERS - DON'T SET Content-Type FOR FORMDATA (browser handles it with boundary)
+  if (!isFormData) {
+    requestConfig.headers = {
       "Content-Type": "application/json",
-    },
-    credentials: "include", // ?? VERY IMPORTANT (cookies)
-    body: body ? JSON.stringify(body) : null,
-  });
+    };
+    requestConfig.body = body ? JSON.stringify(body) : null;
+  } else {
+    // For FormData, don't set Content-Type header - browser will automatically set it
+    requestConfig.body = body;
+  }
+
+  const res = await fetch(`${BASE_URL}${url}`, requestConfig);
 
   let data;
   try {
-    data = await res.json();
+    const text = await res.text();
+    data = text ? JSON.parse(text) : {};
   } catch (error) {
-    // If the response is not valid JSON (e.g. 404 HTML page), throw a clear error
-    throw new Error(`Server returned an invalid response (not JSON). Status: ${res.status}`);
+    data = {};
   }
 
   // Handle 401 Unauthorized - token expired or invalid
@@ -38,7 +50,10 @@ export const apiRequest = async (url, method = "GET", body = null) => {
   }
 
   if (!res.ok) {
-    throw new Error(data.message || "Something went wrong");
+    const errorMsg = data?.message || res.statusText || 'Unknown Connection Error';
+    const error = new Error(errorMsg);
+    error.status = res.status;
+    throw error;
   }
 
   return data;

@@ -39,3 +39,8 @@ export const fetchLeaderboard = (contestId) => {
 export const fetchMySubmissions = () => {
   return apiRequest("/student/v1/my-submissions", "GET");
 };
+
+// GET DASHBOARD STATS
+export const fetchDashboardStats = () => {
+  return apiRequest("/student/v1/dashboard-stats", "GET");
+};

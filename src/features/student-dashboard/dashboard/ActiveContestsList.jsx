@@ -54,8 +54,12 @@ export function ActiveContestsList() {
           </svg>
           Discover New Challenges
         </h2>
-        <Link to="/all-contests" className="text-[10px] font-extrabold uppercase tracking-widest text-[#5c8020] hover:underline">
-          View All
+        <Link 
+          to="/all-contests" 
+          className="text-[11px] font-black uppercase tracking-widest text-[#82C600] flex items-center gap-1 hover:gap-2 transition-all group"
+        >
+          View All 
+          <span className="transition-transform group-hover:translate-x-1">→</span>
         </Link>
       </div>
 
@@ -67,7 +71,7 @@ export function ActiveContestsList() {
             </p>
           </div>
         ) : (
-          filteredContests.map((contest) => (
+          filteredContests.slice(0, 3).map((contest) => (
             <div 
               key={contest._id} 
               onClick={() => setSelectedForDetails(contest)}

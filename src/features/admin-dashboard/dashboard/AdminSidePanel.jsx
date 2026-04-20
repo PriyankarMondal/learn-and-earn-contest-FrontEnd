@@ -1,64 +1,54 @@
-import { useState } from 'react'
-import { Trophy, ClipboardEdit, CheckCircle } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import { Trophy, ClipboardEdit, CheckCircle, Loader2 } from 'lucide-react'
+import { apiRequest } from '../../../api/fetch'
 
 export function AdminSidePanel() {
   const [selectedPlace, setSelectedPlace] = useState(null)
+  const [eliteStudents, setEliteStudents] = useState([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const fetchElite = async () => {
+      try {
+        const data = await apiRequest('/student/v1/global-leaderboard')
+        setEliteStudents(data.slice(0, 3)) // Show top 3
+      } catch (err) {
+        console.error('Failed to fetch elite leaderboard:', err)
+      } finally {
+        setLoading(false)
+      }
+    }
+    fetchElite()
+  }, [])
 
   return (
     <div className="flex flex-col gap-6">
       {/* Elite Leaderboard */}
-      <div className="rounded-xl border border-gray-100/50 bg-[#f4f8eb] p-6 shadow-[inset_0_1px_rgba(255,255,255,0.8)]">
+      <div className="rounded-xl border border-gray-100/50 bg-[#f4f8eb] p-6 shadow-[inset_0_1px_rgba(255,255,255,0.8)] min-h-[200px]">
         <h3 className="mb-5 flex items-center gap-2 text-[11px] font-extrabold uppercase tracking-widest text-[#d97706]">
           <Trophy className="h-4 w-4" />
           Elite Leaderboard
         </h3>
 
-        <div className="mb-2 text-[10px] font-extrabold uppercase tracking-widest text-[#82C600]">
-          Cloud Architecture 2024
-        </div>
-        <div className="flex flex-col gap-2 mb-6">
-          <div className="flex items-center justify-between p-2.5 rounded-lg bg-[#e4e9d3] ring-1 ring-[#c0d892]">
-            <div className="flex items-center gap-3">
-              <span className="text-xs font-black text-amber-500">01</span>
-              <span className="text-sm font-bold text-gray-900">Arjun Mehra</span>
-            </div>
-            <span className="bg-[#82C600] text-white text-[10px] font-bold px-2 py-0.5 rounded">₹500</span>
+        {loading ? (
+          <div className="flex items-center justify-center py-10">
+            <Loader2 className="w-5 h-5 animate-spin text-amber-500" />
           </div>
-          <div className="flex items-center justify-between p-2.5 rounded-lg">
-            <div className="flex items-center gap-3">
-              <span className="text-xs font-bold text-gray-400">02</span>
-              <span className="text-sm font-semibold text-gray-700">Ishani Sharma</span>
-            </div>
-            <span className="text-gray-500 text-[10px] font-bold">₹300</span>
+        ) : eliteStudents.length === 0 ? (
+          <p className="text-center text-xs font-bold text-gray-400 py-10 italic">No winners declared yet.</p>
+        ) : (
+          <div className="flex flex-col gap-2">
+            {eliteStudents.map((s, idx) => (
+              <div key={s._id} className={`flex items-center justify-between p-2.5 rounded-lg ${idx === 0 ? 'bg-[#e4e9d3] ring-1 ring-[#c0d892]' : ''}`}>
+                <div className="flex items-center gap-3">
+                  <span className={`text-xs font-black ${idx === 0 ? 'text-amber-500' : 'text-gray-400'}`}>0{idx + 1}</span>
+                  <span className={`text-sm ${idx === 0 ? 'font-bold text-gray-900' : 'font-semibold text-gray-700'}`}>{s.name}</span>
+                </div>
+                <span className={`${idx === 0 ? 'bg-[#82C600] text-white' : 'text-gray-500'} text-[10px] font-bold px-2 py-0.5 rounded`}>{s.score}</span>
+              </div>
+            ))}
           </div>
-          <div className="flex items-center justify-between p-2.5 rounded-lg">
-            <div className="flex items-center gap-3">
-              <span className="text-xs font-bold text-gray-400">03</span>
-              <span className="text-sm font-semibold text-gray-700">Siddharth Verma</span>
-            </div>
-            <span className="text-gray-500 text-[10px] font-bold">₹200</span>
-          </div>
-        </div>
-
-        <div className="mb-2 text-[10px] font-extrabold uppercase tracking-widest text-[#82C600]">
-          React Systems Design
-        </div>
-        <div className="flex flex-col gap-2">
-          <div className="flex items-center justify-between p-2.5 rounded-lg bg-[#e4e9d3] ring-1 ring-[#c0d892]">
-            <div className="flex items-center gap-3">
-              <span className="text-xs font-black text-amber-500">01</span>
-              <span className="text-sm font-bold text-gray-900">Aditi Rao</span>
-            </div>
-            <span className="bg-[#82C600] text-white text-[10px] font-bold px-2 py-0.5 rounded">₹750</span>
-          </div>
-          <div className="flex items-center justify-between p-2.5 rounded-lg">
-            <div className="flex items-center gap-3">
-              <span className="text-xs font-bold text-gray-400">02</span>
-              <span className="text-sm font-semibold text-gray-700">Rohan Gupta</span>
-            </div>
-            <span className="text-gray-500 text-[10px] font-bold">₹450</span>
-          </div>
-        </div>
+        )}
       </div>
 
       {/* Score Submission */}

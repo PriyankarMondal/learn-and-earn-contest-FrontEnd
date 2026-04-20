@@ -5,9 +5,7 @@ import { joinContest } from '../../../api/student.api'
 import { toast } from 'react-toastify'
 
 export function ApplyForm({ contest, onClose }) {
-  const [participationType, setParticipationType] = useState(
-    contest.contestType === 'both' ? 'single' : contest.contestType
-  )
+  const [participationType] = useState('team')
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -25,6 +23,16 @@ export function ApplyForm({ contest, onClose }) {
   }
 
   const addMember = () => {
+    // 🔥 ENFORCE TEAM SIZE LIMIT
+    // total members = 1 (leader) + members.length
+    const currentTotal = 1 + formData.members.length
+    const limit = contest.teamSize || 1
+
+    if (currentTotal >= limit) {
+      toast.error(`This contest only allows up to ${limit} member${limit > 1 ? 's' : ''} per team.`)
+      return
+    }
+
     setFormData(prev => ({
       ...prev,
       members: [...prev.members, { name: '', email: '' }]
@@ -52,7 +60,7 @@ export function ApplyForm({ contest, onClose }) {
       return
     }
 
-    if (participationType === 'team' && !formData.teamName) {
+    if (participationType === 'team' && (contest.teamSize || 1) > 1 && !formData.teamName) {
       toast.error('Team name is required for team participation')
       return
     }
@@ -60,12 +68,13 @@ export function ApplyForm({ contest, onClose }) {
     setIsSubmitting(true)
 
     try {
-      // In a real app, we'd send all formData. 
-      // For now, our backend 'join' only takes contestId and creates a record for the logged-in user.
-      // We will simulate the data preparation and call the API.
-      await joinContest(contest._id)
+      await joinContest({
+        contestId: contest._id,
+        teamName: formData.teamName,
+        teamMembers: formData.members
+      })
       
-      toast.success(`Successfully joined as ${participationType === 'team' ? 'a Team' : 'an Individual'}!`)
+      toast.success('Successfully joined the contest!')
       onClose()
     } catch (error) {
       toast.error(error.message || 'Failed to join contest')
@@ -108,31 +117,19 @@ export function ApplyForm({ contest, onClose }) {
         <form onSubmit={handleSubmit} className="flex-1 overflow-y-auto p-8 custom-scrollbar text-left font-sans">
           <div className="space-y-8">
             
-            {/* Participation Type Selection (if Both) */}
-            {contest.contestType === 'both' && (
-              <section>
-                <div className="flex items-center gap-3 mb-4">
-                  <Users className="w-5 h-5 text-gray-400" />
-                  <h3 className="text-[11px] font-black uppercase tracking-widest text-gray-900">Choose Participation Mode</h3>
-                </div>
-                <div className="flex gap-4 bg-slate-50 p-2 rounded-2xl border border-gray-100">
-                  <button 
-                    type="button"
-                    onClick={() => setParticipationType('single')}
-                    className={`flex-1 py-3 px-4 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${participationType === 'single' ? 'bg-[#82C600] text-white shadow-md' : 'text-gray-400 hover:text-gray-600'}`}
-                  >
-                    Individual
-                  </button>
-                  <button 
-                    type="button"
-                    onClick={() => setParticipationType('team')}
-                    className={`flex-1 py-3 px-4 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${participationType === 'team' ? 'bg-[#82C600] text-white shadow-md' : 'text-gray-400 hover:text-gray-600'}`}
-                  >
-                    Team
-                  </button>
-                </div>
-              </section>
-            )}
+            {/* Participation Mode Note */}
+            <section>
+              <div className="flex items-center gap-3 mb-4">
+                <Users className="w-5 h-5 text-gray-400" />
+                <h3 className="text-[11px] font-black uppercase tracking-widest text-gray-900">Participation Mode</h3>
+              </div>
+              <div className="bg-[#82C600]/5 border border-[#82C600]/20 p-4 rounded-2xl">
+                <p className="text-xs font-bold text-[#5c8020] flex items-center gap-2">
+                  <ShieldCheck className="w-4 h-4" />
+                  Team Participation ({contest.teamSize || 1} Member{contest.teamSize > 1 ? 's' : ''} Max)
+                </p>
+              </div>
+            </section>
 
             {/* Individual Info */}
             <section>
@@ -175,7 +172,7 @@ export function ApplyForm({ contest, onClose }) {
             </section>
 
             {/* Team Specific Info */}
-            {participationType === 'team' && (
+            {participationType === 'team' && (contest.teamSize || 1) > 1 && (
               <section className="animate-in slide-in-from-top duration-300">
                 <div className="flex items-center gap-3 mb-6">
                   <Users className="w-5 h-5 text-gray-400" />
@@ -244,7 +241,7 @@ export function ApplyForm({ contest, onClose }) {
             <div className="bg-amber-50 p-5 rounded-2xl border border-amber-100 flex items-start gap-4">
               <ShieldCheck className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
               <p className="text-[11px] font-bold text-amber-700 leading-relaxed text-left">
-                By applying, you agree to the contest rules and timeline. {participationType === 'team' ? 'Your team members will receive invitations via email.' : 'You will be registered as a single participant.'}
+                By applying, you agree to the contest rules and guidelines. Make sure all member details are correct.
               </p>
             </div>
           </div>

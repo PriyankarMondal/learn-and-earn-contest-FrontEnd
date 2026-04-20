@@ -21,10 +21,10 @@ export function AdminStats() {
   }, [])
 
   const statsItems = [
-    { label: 'Platform Contests', value: stats?.totalContests || 0, icon: Layout, color: 'text-lime-600', bg: 'bg-lime-50' },
-    { label: 'Active Challenges', value: stats?.activeContests || 0, icon: CheckCircle, color: 'text-amber-600', bg: 'bg-amber-50' },
-    { label: 'Total Submissions', value: stats?.submissions || 0, icon: FileText, color: 'text-violet-600', bg: 'bg-violet-50' },
-    { label: 'Pending Reviews', value: stats?.pendingSubmissions || 0, icon: Users, color: 'text-sky-600', bg: 'bg-sky-50' },
+    { label: 'Pending Evaluations', value: stats?.pendingEvaluations || 0, icon: FileText, color: 'text-red-600', bg: 'bg-red-50' },
+    { label: 'Total Participants', value: stats?.totalParticipants || 0, icon: Users, color: 'text-amber-600', bg: 'bg-amber-50' },
+    { label: 'Elite Winners', value: stats?.eliteWinners || 0, icon: CheckCircle, color: 'text-lime-600', bg: 'bg-lime-50' },
+    { label: 'Active Challenges', value: stats?.activeContestsCount || 0, icon: Layout, color: 'text-violet-600', bg: 'bg-violet-50' },
   ]
 
   if (loading) {

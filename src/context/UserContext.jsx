@@ -23,6 +23,7 @@ export function UserProvider({ children }) {
           name: data.name || data.username || 'User',
           email: data.email || '',
           role: data.role || 'Student',
+          number: data.number || '',
           avatar: data.avatar || null,
         })
       } catch (error) {

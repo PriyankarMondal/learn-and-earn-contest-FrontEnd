@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button } from '../../../components/ui/Button'
-import { Database, Palette, Globe, Layout, Megaphone, Code2, Loader2, Eye, CheckCircle2 } from 'lucide-react'
+import { Database, Palette, Globe, Layout, Megaphone, Code2, Loader2, Eye, CheckCircle2, Trophy } from 'lucide-react'
 import { ContestDetails } from './ContestDetails'
 import { apiRequest } from '../../../api/fetch'
 import { toast } from 'react-toastify'
@@ -12,8 +12,11 @@ const categoryIcons = {
   'UI/UX Design': { icon: Palette, bg: 'bg-violet-100 text-violet-700' },
   'Web Development': { icon: Globe, bg: 'bg-sky-100 text-sky-700' },
   'Graphics Design': { icon: Layout, bg: 'bg-amber-100 text-amber-700' },
-  'Marketing': { icon: Megaphone, bg: 'bg-cyan-100 text-cyan-700' },
-  'Fullstack': { icon: Code2, bg: 'bg-indigo-100 text-indigo-700' }
+  'Digital Marketing': { icon: Megaphone, bg: 'bg-cyan-100 text-cyan-700' },
+  'ML/AI': { icon: Code2, bg: 'bg-indigo-100 text-indigo-700' },
+  'BlockChain': { icon: Trophy, bg: 'bg-lime-100 text-lime-700' },
+  'Fullstack': { icon: Code2, bg: 'bg-indigo-100 text-indigo-700' },
+  'default': { icon: Trophy, bg: 'bg-lime-100 text-lime-700' }
 }
 
 function ClockIcon() {
@@ -37,7 +40,8 @@ export function AllContestsList() {
       const data = await apiRequest('/student/v1/contests')
       setContests(data)
     } catch (error) {
-      toast.error('Failed to load contests')
+      console.error('AllContestsList Error:', error)
+      toast.error(error.message || 'Failed to load contests')
     } finally {
       setLoading(false)
     }
@@ -109,7 +113,7 @@ export function AllContestsList() {
 
         <div className="mt-8 grid grid-cols-1 gap-5 sm:mt-10 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 xl:grid-cols-4 text-left">
           {filteredContests.map((c) => {
-            const config = categoryIcons[c.category] || categoryIcons['Web Development']
+            const config = categoryIcons[c.category] || categoryIcons['default']
             const Icon = config.icon
 
             return (
@@ -134,10 +138,15 @@ export function AllContestsList() {
 
                 <p className="mt-2 text-sm font-semibold text-lime-600 tracking-tight">₹{c.prizeMoney || 0} PRIZE POOL</p>
 
-                <p className="mt-2 flex items-center gap-1.5 text-[11px] font-medium text-gray-500 text-left">
-                  <ClockIcon />
-                  {c.status === 'running' ? `Ends ${new Date(c.endDate).toLocaleDateString()}` : c.status.toUpperCase()}
-                </p>
+                <div className="mt-2 flex items-center justify-between text-left">
+                  <p className="flex items-center gap-1.5 text-[11px] font-medium text-gray-500">
+                    <ClockIcon />
+                    {c.status === 'running' ? `Ends ${new Date(c.endDate).toLocaleDateString()}` : c.status.toUpperCase()}
+                  </p>
+                  <p className="text-[10px] font-black uppercase tracking-widest text-[#82C600] bg-[#82C600]/5 px-2 py-1 rounded-md border border-[#82C600]/10">
+                    Roster: {c.teamSize || 1} Member{c.teamSize > 1 ? 's' : ''}
+                  </p>
+                </div>
 
                 <div className="mt-6 flex flex-col gap-2">
                   <Button

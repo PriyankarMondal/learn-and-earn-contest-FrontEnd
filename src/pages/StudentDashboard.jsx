@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import { DashboardLayout } from '../components/layout/DashboardLayout'
 import { WelcomeBanner } from '../features/student-dashboard/dashboard/WelcomeBanner'
 import { StudentStats } from '../features/student-dashboard/dashboard/StudentStats'
@@ -5,11 +6,31 @@ import { ActiveContestsList } from '../features/student-dashboard/dashboard/Acti
 import { SubmissionsSidePanel } from '../features/student-dashboard/dashboard/SubmissionsSidePanel'
 import { RecentActivity } from '../features/student-dashboard/dashboard/RecentActivity'
 import { PastContestsTable } from '../features/student-dashboard/dashboard/PastContestsTable'
+import { useUser } from '../context/UserContext'
+import { fetchDashboardStats } from '../api/student.api'
 
 export function StudentDashboard() {
+  const { user } = useUser()
+  const [dashboardStats, setDashboardStats] = useState(null)
+
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        const data = await fetchDashboardStats()
+        setDashboardStats(data.stats)
+      } catch (err) {
+        console.error('Failed to load dashboard data:', err)
+      }
+    }
+    loadData()
+  }, [])
+
   return (
     <DashboardLayout userRole="student">
-      <WelcomeBanner userName="Priyankar Mondal" earnings="₹1,420" />
+      <WelcomeBanner 
+        userName={user?.name || 'Student'} 
+        earnings={dashboardStats?.earnings || '₹0'} 
+      />
       <StudentStats />
 
       <div className="flex flex-col xl:flex-row xl:items-start gap-8">
