@@ -44,3 +44,24 @@ export const fetchMySubmissions = () => {
 export const fetchDashboardStats = () => {
   return apiRequest("/student/v1/dashboard-stats", "GET");
 };
+
+// 🔔 NOTIFICATION APIs
+export const fetchMyNotifications = () => {
+  return apiRequest("/student/v1/notifications", "GET");
+};
+
+export const fetchUnreadNotificationCount = () => {
+  return apiRequest("/student/v1/notifications/unread-count", "GET");
+};
+
+export const acceptTeamInvitation = (notificationId) => {
+  return apiRequest("/student/v1/notifications/accept", "POST", { notificationId });
+};
+
+export const rejectTeamInvitation = (notificationId) => {
+  return apiRequest("/student/v1/notifications/reject", "POST", { notificationId });
+};
+
+export const markNotificationAsRead = (notificationId) => {
+  return apiRequest("/student/v1/notifications/read", "POST", { notificationId });
+};

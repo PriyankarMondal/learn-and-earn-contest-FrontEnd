@@ -55,29 +55,71 @@ export function ApplyForm({ contest, onClose }) {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
+    // 🔥 BASIC VALIDATION
     if (!formData.name || !formData.email) {
-      toast.error('Basic information is required')
+      toast.error('Your basic information (name & email) is required')
       return
     }
 
-    if (participationType === 'team' && (contest.teamSize || 1) > 1 && !formData.teamName) {
-      toast.error('Team name is required for team participation')
-      return
+    // 🔥 TEAM VALIDATION FOR MULTI-MEMBER CONTESTS
+    if ((contest.teamSize || 1) > 1) {
+      if (!formData.teamName) {
+        toast.error('Team name is required for team participation')
+        return
+      }
+
+      if (formData.members.length === 0) {
+        toast.error(`You need to add ${contest.teamSize - 1} team member${contest.teamSize - 1 > 1 ? 's' : ''}`)
+        return
+      }
+
+      // Check all members have complete information
+      const incompleteMembers = formData.members.filter(m => !m.name || !m.email)
+      if (incompleteMembers.length > 0) {
+        toast.error('All team members must have both name and email address')
+        return
+      }
+
+      // Check for duplicate emails
+      const emails = [formData.email, ...formData.members.map(m => m.email)]
+      const uniqueEmails = new Set(emails)
+      if (uniqueEmails.size !== emails.length) {
+        toast.error('Team members must have unique email addresses')
+        return
+      }
+
+      // Check for duplicate names
+      const memberNames = formData.members.map(m => m.name)
+      const uniqueNames = new Set(memberNames)
+      if (uniqueNames.size !== memberNames.length) {
+        toast.warning('Some team members have the same name - please verify this is intentional')
+      }
+
+      if (formData.members.length !== contest.teamSize - 1) {
+        toast.error(`This contest requires exactly ${contest.teamSize - 1} additional team member${contest.teamSize - 1 > 1 ? 's' : ''}`)
+        return
+      }
     }
 
     setIsSubmitting(true)
 
     try {
-      await joinContest({
+      const response = await joinContest({
         contestId: contest._id,
         teamName: formData.teamName,
         teamMembers: formData.members
       })
       
-      toast.success('Successfully joined the contest!')
+      if ((contest.teamSize || 1) > 1) {
+        toast.success(`Team "${formData.teamName}" created! Invitations sent to ${formData.members.length} member${formData.members.length > 1 ? 's' : ''}`)
+      } else {
+        toast.success('Successfully joined the contest!')
+      }
+      
       onClose()
     } catch (error) {
-      toast.error(error.message || 'Failed to join contest')
+      const errorMsg = error.message || error.response?.data?.message || 'Failed to join contest'
+      toast.error(errorMsg)
     } finally {
       setIsSubmitting(false)
     }

@@ -1,16 +1,42 @@
 import { Bell, Search, Menu, X } from 'lucide-react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { BrandLogo } from '../common/BrandLogo'
 import { useSearch } from '../../context/SearchContext'
 import { UserProfileDropdown } from '../common/UserProfileDropdown'
+import { fetchUnreadNotificationCount } from '../../api/student.api'
+import { NotificationPanel } from '../../features/student-dashboard/profile/NotificationPanel'
 
 export function DashboardTopbar({ className = '', rightNav, userRole = 'student', searchPlaceholder, onMenuClick, isSidebarOpen, navLinks = [] }) {
   const [isSearchOpen, setIsSearchOpen] = useState(false)
+  const [isNotificationOpen, setIsNotificationOpen] = useState(false)
+  const [unreadCount, setUnreadCount] = useState(0)
+  const [refreshKey, setRefreshKey] = useState(0)
   const { searchQuery, setSearchQuery } = useSearch()
   const location = useLocation()
 
   const defaultPlaceholder = userRole === 'admin' ? "Command Search..." : "Explore contests, skills, or mentors..."
+
+  // Load unread notification count on mount and when refreshing
+  useEffect(() => {
+    if (userRole === 'student') {
+      loadUnreadCount()
+    }
+  }, [userRole, refreshKey])
+
+  const loadUnreadCount = async () => {
+    try {
+      const data = await fetchUnreadNotificationCount()
+      setUnreadCount(data.unreadCount || 0)
+    } catch (error) {
+      console.error('Failed to load unread count:', error)
+    }
+  }
+
+  const handleNotificationRefresh = () => {
+    setRefreshKey(prev => prev + 1)
+    loadUnreadCount()
+  }
 
   return (
     <header className={`flex h-20 shrink-0 items-center bg-[#f6f9f3] px-4 sm:px-6 lg:px-8 ${userRole === 'admin' ? '' : 'border-b border-[#e2e8d5]'} ${className}`}>
@@ -102,10 +128,33 @@ export function DashboardTopbar({ className = '', rightNav, userRole = 'student'
               <div className="hidden lg:block mr-2">{rightNav}</div>
             )}
 
-            <button className="relative p-2 text-gray-500 hover:text-lime-600 transition-colors" aria-label="Notifications">
-              <Bell className="h-5 w-5" />
-              <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-red-500 ring-2 ring-[#f6f9f3]"></span>
-            </button>
+            {/* 🔔 NOTIFICATION BELL - ONLY FOR STUDENTS */}
+            {userRole === 'student' && (
+              <>
+                <button 
+                  onClick={() => setIsNotificationOpen(true)}
+                  className="relative p-2 text-gray-500 hover:text-lime-600 transition-colors rounded-lg hover:bg-white/50" 
+                  aria-label="Notifications"
+                >
+                  <Bell className="h-5 w-5" />
+                  {unreadCount > 0 && (
+                    <div className="absolute right-1 top-1 flex items-center justify-center">
+                      <span className="absolute inline-flex h-5 w-5 animate-pulse rounded-full bg-red-500 opacity-75"></span>
+                      <span className="relative inline-flex h-5 w-5 items-center justify-center rounded-full bg-red-600 text-xs font-bold text-white">
+                        {unreadCount > 9 ? '9+' : unreadCount}
+                      </span>
+                    </div>
+                  )}
+                </button>
+
+                {/* Notification Panel Slide-out */}
+                <NotificationPanel 
+                  isOpen={isNotificationOpen} 
+                  onClose={() => setIsNotificationOpen(false)}
+                  onRefresh={handleNotificationRefresh}
+                />
+              </>
+            )}
 
             <div className="border-l border-gray-200 pl-2 sm:pl-4 lg:pl-6">
               <UserProfileDropdown />

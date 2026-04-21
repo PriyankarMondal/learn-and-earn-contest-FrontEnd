@@ -4,7 +4,6 @@ import { adminBottomLinks } from '../../../components/layout/DashboardSidebar'
 import { ContestsMetrics } from './ContestsMetrics'
 import { ActiveContestsList } from './ActiveContestsList'
 import { PendingEvaluationsList } from './PendingEvaluationsList'
-import { EliteWinnersPanel } from './EliteWinnersPanel'
 import { CreateContestModal } from './CreateContestModal'
 import { Plus } from 'lucide-react'
 
@@ -35,11 +34,6 @@ export function AdminContests() {
         <div className="flex-1 min-w-0">
           <ActiveContestsList />
           <PendingEvaluationsList />
-        </div>
-
-        {/* Right Column */}
-        <div className="w-full xl:w-[320px] shrink-0">
-          <EliteWinnersPanel />
         </div>
       </div>
 

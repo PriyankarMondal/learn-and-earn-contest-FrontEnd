@@ -1,7 +1,6 @@
 import { DashboardLayout } from '../components/layout/DashboardLayout'
 import { adminSidebarLinks, adminBottomLinks } from '../components/layout/DashboardSidebar'
 import { SubmissionsHeader } from '../features/admin-dashboard/submissions/SubmissionsHeader'
-import { SubmissionsStats } from '../features/admin-dashboard/submissions/SubmissionsStats'
 import { SubmissionsFilters } from '../features/admin-dashboard/submissions/SubmissionsFilters'
 import { SubmissionsTable } from '../features/admin-dashboard/submissions/SubmissionsTable'
 import { SubmissionsFooter } from '../features/admin-dashboard/submissions/SubmissionsFooter'
@@ -20,7 +19,6 @@ export function AdminSubmissions() {
       bottomLinks={submissionsBottomLinks}
     >
       <SubmissionsHeader />
-      <SubmissionsStats />
       <SubmissionsFilters />
       <SubmissionsTable />
       <SubmissionsFooter />

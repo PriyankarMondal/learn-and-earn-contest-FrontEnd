@@ -33,6 +33,11 @@ export const apiRequest = async (url, method = "GET", body = null) => {
     data = {};
   }
 
+  // Throw error for any non-200 status
+  if (!res.ok) {
+    throw new Error(`HTTP ${res.status}: ${data.message || data || 'Unknown error'}`);
+  }
+
   // Handle 401 Unauthorized - token expired or invalid
   if (res.status === 401) {
     console.warn('Unauthorized (401): Token expired or invalid. Clearing auth state.');

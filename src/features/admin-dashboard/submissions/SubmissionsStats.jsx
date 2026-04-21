@@ -1,10 +1,52 @@
+import { useEffect, useState } from 'react'
+import { fetchDashboardStats } from '../../../api/admin.api'
+
 export function SubmissionsStats() {
-  const stats = [
-    { label: 'TOTAL SUBMISSIONS', value: '1,234', trend: '~12%', trendColor: 'text-lime-600', accent: 'bg-lime-500' },
-    { label: 'PENDING EVALUATION', value: '89', tag: 'CRITICAL', tagBg: 'bg-[#dc2626]', accent: 'bg-[#dc2626]' },
-    { label: 'EVALUATED TODAY', value: '24', subtext: '/ daily goal 30', accent: 'bg-lime-500' },
-    { label: 'WINNER SLOTS FILLED', value: '12/42', progress: 30, accent: 'bg-amber-400' },
-  ]
+  const [stats, setStats] = useState([
+    { label: 'TOTAL SUBMISSIONS', value: '0', trend: '~0%', trendColor: 'text-lime-600', accent: 'bg-lime-500' },
+    { label: 'PENDING EVALUATION', value: '0', tag: 'CRITICAL', tagBg: 'bg-[#dc2626]', accent: 'bg-[#dc2626]' },
+    { label: 'EVALUATED TODAY', value: '0', subtext: '/ daily goal 30', accent: 'bg-lime-500' },
+    { label: 'WINNER SLOTS FILLED', value: '0/42', progress: 0, accent: 'bg-amber-400' },
+  ])
+
+  useEffect(() => {
+    const loadStats = async () => {
+      try {
+        const data = await fetchDashboardStats()
+        setStats([
+          { 
+            label: 'TOTAL SUBMISSIONS', 
+            value: data.totalSubmissions?.toLocaleString() || '0', 
+            trend: '~12%', 
+            trendColor: 'text-lime-600', 
+            accent: 'bg-lime-500' 
+          },
+          { 
+            label: 'PENDING EVALUATION', 
+            value: data.pendingEvaluations?.toString() || '0', 
+            tag: data.pendingEvaluations > 50 ? 'CRITICAL' : null, 
+            tagBg: 'bg-[#dc2626]', 
+            accent: 'bg-[#dc2626]' 
+          },
+          { 
+            label: 'EVALUATED TODAY', 
+            value: data.evaluatedToday?.toString() || '0', 
+            subtext: '/ daily goal 30', 
+            accent: 'bg-lime-500' 
+          },
+          { 
+            label: 'WINNER SLOTS FILLED', 
+            value: data.winnerSlotsFilled || '0/42', 
+            progress: data.winnerProgress || 0, 
+            accent: 'bg-amber-400' 
+          },
+        ])
+      } catch (error) {
+        console.error('Failed to load dashboard stats:', error)
+      }
+    }
+    loadStats()
+  }, [])
 
   return (
     <div className="mb-10 grid grid-cols-1 md:grid-cols-4 gap-6">
@@ -24,7 +66,7 @@ export function SubmissionsStats() {
                <p className="text-4xl font-black text-gray-900 leading-none">{stat.value}</p>
                {stat.subtext && <p className="text-[11px] font-bold text-gray-400 pb-1">{stat.subtext}</p>}
              </div>
-             {stat.progress && (
+             {stat.progress !== undefined && (
                <div className="mt-3 h-1.5 w-24 bg-gray-200 rounded-full overflow-hidden">
                  <div className="h-full bg-amber-400" style={{ width: `${stat.progress}%` }}></div>
                </div>
