@@ -7,12 +7,14 @@ import {
   rejectTeamInvitation,
   markNotificationAsRead
 } from '../../../api/student.api'
+import { useParticipationRefresh } from '../../../context/ParticipationRefreshContext'
 import { toast } from 'react-toastify'
 
 export function NotificationPanel({ isOpen, onClose, onRefresh }) {
   const [notifications, setNotifications] = useState([])
   const [loading, setLoading] = useState(false)
   const [actingOn, setActingOn] = useState(null)
+  const { triggerRefresh } = useParticipationRefresh()
 
   useEffect(() => {
     if (isOpen) {
@@ -43,6 +45,7 @@ export function NotificationPanel({ isOpen, onClose, onRefresh }) {
       toast.success('Invitation accepted! Waiting for other team members...')
       await markNotificationAsRead(notificationId)
       loadNotifications()
+      triggerRefresh()  // 🔥 Trigger refresh for participations
       onRefresh?.()
     } catch (error) {
       toast.error(error.message || 'Failed to accept invitation')

@@ -1,12 +1,12 @@
 import { Award } from 'lucide-react'
 
-export function TopSubmissionCard({ submission }) {
+export function TopSubmissionCard({ submission, onViewResults }) {
   if (!submission) return null;
 
   const isReviewed = submission.status === 'reviewed';
 
   return (
-    <div className="relative mb-8 overflow-hidden rounded-2xl bg-gradient-to-br from-[#689f00] to-[#82C600] p-6 sm:p-8 text-white shadow-md">
+    <div className="relative mb-8 overflow-hidden rounded-2xl bg-gradient-to-br from-[#689f00] to-[#82C600] p-6 sm:p-8 text-white shadow-md transition-all duration-300 hover:shadow-lg">
       {/* Abstract Background Icon */}
       <div className="pointer-events-none absolute -right-4 top-1/2 -translate-y-1/2 opacity-20 hidden sm:block">
         <Award className="h-64 w-64" strokeWidth={1} />
@@ -57,7 +57,10 @@ export function TopSubmissionCard({ submission }) {
           </div>
 
           <div>
-            <button className="rounded-lg bg-[#F9BD1C] px-8 py-3.5 text-xs font-black uppercase tracking-widest text-amber-950 transition-colors hover:bg-[#e6ae1a] shadow-sm">
+            <button 
+              onClick={onViewResults}
+              className="rounded-lg bg-[#F9BD1C] px-8 py-3.5 text-xs font-black uppercase tracking-widest text-amber-950 transition-all hover:bg-[#e6ae1a] hover:shadow-lg active:scale-95 shadow-sm"
+            >
               {isReviewed ? 'View Results' : 'Review Details'}
             </button>
           </div>

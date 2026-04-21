@@ -2,16 +2,18 @@ import { useState, useEffect } from 'react'
 import { ArrowRight, Code2, Palette, Loader2, CheckCircle2, Trophy, Clock } from 'lucide-react'
 import { SubmissionForm } from '../all-contests/SubmissionForm'
 import { apiRequest } from '../../../api/fetch'
+import { useParticipationRefresh } from '../../../context/ParticipationRefreshContext'
 
 export function ActiveParticipations() {
   const [participations, setParticipations] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [selectedForSubmission, setSelectedForSubmission] = useState(null)
+  const { refreshTrigger } = useParticipationRefresh()
 
   useEffect(() => {
     fetchParticipations()
-  }, [])
+  }, [refreshTrigger])  // 🔥 Re-fetch when refresh is triggered
 
   const fetchParticipations = async () => {
     try {

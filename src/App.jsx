@@ -57,11 +57,13 @@ function HomeLayout() {
 // --- Main App ---
 
 import { SearchProvider } from './context/SearchContext'
+import { ParticipationRefreshProvider } from './context/ParticipationRefreshContext'
 
 function App() {
   return (
     <HashRouter>
-      <SearchProvider>
+      <ParticipationRefreshProvider>
+        <SearchProvider>
         <Routes>
           {/* Landing Page & Auth Modals */}
           <Route path="/" element={<HomeLayout />} />
@@ -122,6 +124,7 @@ function App() {
           />
         </Routes>
       </SearchProvider>
+      </ParticipationRefreshProvider>
     </HashRouter>
   )
 }

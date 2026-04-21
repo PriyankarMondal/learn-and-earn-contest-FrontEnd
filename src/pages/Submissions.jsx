@@ -4,12 +4,15 @@ import { SubmissionsHeader } from '../features/student-dashboard/submissions/Sub
 import { TopSubmissionCard } from '../features/student-dashboard/submissions/TopSubmissionCard'
 import { PreviousSubmissions } from '../features/student-dashboard/submissions/PreviousSubmissions'
 import { SubmissionsFooter } from '../features/student-dashboard/submissions/SubmissionsFooter'
+import { SubmissionResultsModal } from '../features/student-dashboard/submissions/SubmissionResultsModal'
 import { fetchMySubmissions } from '../api/student.api'
 import { Loader2 } from 'lucide-react'
 
 export function Submissions() {
   const [submissions, setSubmissions] = useState([])
   const [loading, setLoading] = useState(true)
+  const [selectedSubmission, setSelectedSubmission] = useState(null)
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   useEffect(() => {
     const loadData = async () => {
@@ -25,8 +28,19 @@ export function Submissions() {
     loadData()
   }, [])
 
+  // Set initial selected submission to the top reviewed one
+  useEffect(() => {
+    if (submissions.length > 0 && !selectedSubmission) {
+      const topReviewed = [...submissions]
+        .filter(s => s.status === 'reviewed')
+        .sort((a, b) => b.score - a.score)[0]
+      
+      setSelectedSubmission(topReviewed || submissions[0])
+    }
+  }, [submissions, selectedSubmission])
+
   // Find the top submission (highest score)
-  const topSubmission = [...submissions]
+  const topSubmission = selectedSubmission || [...submissions]
     .filter(s => s.status === 'reviewed')
     .sort((a, b) => b.score - a.score)[0]
 
@@ -44,14 +58,34 @@ export function Submissions() {
     <DashboardLayout userRole="student">
        <SubmissionsHeader count={submissions.length} />
        
-       {topSubmission && <TopSubmissionCard submission={topSubmission} />}
+       {topSubmission && (
+         <TopSubmissionCard 
+           submission={topSubmission}
+           onViewResults={() => {
+             setSelectedSubmission(topSubmission)
+             setIsModalOpen(true)
+           }}
+         />
+       )}
        
        <PreviousSubmissions 
-         submissions={submissions} 
-         loading={false} 
+         submissions={submissions}
+         loading={false}
+         onSelectSubmission={setSelectedSubmission}
+         onViewResults={(submission) => {
+           setSelectedSubmission(submission)
+           setIsModalOpen(true)
+         }}
        />
        
        <SubmissionsFooter count={submissions.length} />
+
+       {/* Results Modal */}
+       <SubmissionResultsModal 
+         submission={selectedSubmission}
+         isOpen={isModalOpen}
+         onClose={() => setIsModalOpen(false)}
+       />
     </DashboardLayout>
   )
 }

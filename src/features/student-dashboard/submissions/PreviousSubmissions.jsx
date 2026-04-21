@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Brain, TrendingUp, Code2, ArrowRight, Eye, Loader2, Database, Globe, Layout, Megaphone } from 'lucide-react'
+import { Brain, TrendingUp, Code2, ArrowRight, Eye, Loader2, Database, Globe, Layout, Megaphone, Palette } from 'lucide-react'
 import { fetchMySubmissions } from '../../../api/student.api'
 import { toast } from 'react-toastify'
 
@@ -12,9 +12,7 @@ const categoryIcons = {
   'Fullstack': { icon: Code2, bg: 'bg-indigo-50 text-indigo-500 border-indigo-100' }
 }
 
-import { Palette } from 'lucide-react' // Palette was missing in the top but used in map
-
-export function PreviousSubmissions({ submissions = [], loading = false }) {
+export function PreviousSubmissions({ submissions = [], loading = false, onSelectSubmission, onViewResults }) {
   if (loading) {
     return (
       <div className="flex items-center justify-center p-20">
@@ -39,10 +37,14 @@ export function PreviousSubmissions({ submissions = [], loading = false }) {
         const isReviewed = item.status === 'reviewed'
 
         return (
-          <div key={item._id} className="flex flex-col justify-between rounded-2xl bg-white p-6 shadow-sm border border-gray-100 h-full transition-all hover:shadow-md">
+          <div 
+            key={item._id} 
+            className="flex flex-col justify-between rounded-2xl bg-white p-6 shadow-sm border border-gray-100 h-full transition-all hover:shadow-md hover:border-[#82C600] cursor-pointer group"
+            onClick={() => onSelectSubmission?.(item)}
+          >
             <div>
               <div className="flex justify-between items-start mb-6">
-                <div className={`flex h-10 w-10 items-center justify-center rounded-xl border ${config.bg}`}>
+                <div className={`flex h-10 w-10 items-center justify-center rounded-xl border ${config.bg} transition-all group-hover:scale-110`}>
                   <Icon className="h-5 w-5" />
                 </div>
                 <span className={`px-2 py-1 rounded-md text-[8px] font-black uppercase tracking-widest shadow-sm ${
@@ -52,7 +54,7 @@ export function PreviousSubmissions({ submissions = [], loading = false }) {
                 </span>
               </div>
 
-              <h3 className="text-lg font-bold text-gray-900 leading-snug mb-1 line-clamp-2 min-h-[3rem]">
+              <h3 className="text-lg font-bold text-gray-900 leading-snug mb-1 line-clamp-2 min-h-[3rem] group-hover:text-[#82C600] transition-colors">
                 {item.contest?.title || 'Unknown Contest'}
               </h3>
               <div className="text-[11px] font-bold text-gray-400 mb-6">
@@ -74,9 +76,14 @@ export function PreviousSubmissions({ submissions = [], loading = false }) {
                 </div>
               </div>
 
-              <button className={`w-full flex items-center justify-center gap-2 rounded-xl py-3.5 text-[10px] font-black uppercase tracking-widest transition-all ${
-                isReviewed ? 'bg-[#e4e9d3] hover:bg-[#d6e0b7] text-gray-700' : 'bg-[#F9BD1C] hover:bg-[#e6ae1a] text-amber-950 shadow-sm'
-              }`}>
+              <button 
+                onClick={(e) => {
+                  e.stopPropagation()
+                  onViewResults?.(item)
+                }}
+                className={`w-full flex items-center justify-center gap-2 rounded-xl py-3.5 text-[10px] font-black uppercase tracking-widest transition-all ${
+                  isReviewed ? 'bg-[#e4e9d3] hover:bg-[#82C600] hover:text-white text-gray-700' : 'bg-[#F9BD1C] hover:bg-[#e6ae1a] text-amber-950 shadow-sm'
+                }`}>
                 {isReviewed ? 'View Results' : 'View Submission'}
                 {isReviewed ? <Eye className="h-4 w-4" /> : <ArrowRight className="h-4 w-4" />}
               </button>
