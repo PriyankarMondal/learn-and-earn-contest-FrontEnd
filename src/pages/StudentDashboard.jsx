@@ -4,8 +4,6 @@ import { WelcomeBanner } from '../features/student-dashboard/dashboard/WelcomeBa
 import { StudentStats } from '../features/student-dashboard/dashboard/StudentStats'
 import { ActiveContestsList } from '../features/student-dashboard/dashboard/ActiveContestsList'
 import { SubmissionsSidePanel } from '../features/student-dashboard/dashboard/SubmissionsSidePanel'
-import { RecentActivity } from '../features/student-dashboard/dashboard/RecentActivity'
-import { PastContestsTable } from '../features/student-dashboard/dashboard/PastContestsTable'
 import { useUser } from '../context/UserContext'
 import { fetchDashboardStats } from '../api/student.api'
 
@@ -37,8 +35,6 @@ export function StudentDashboard() {
         {/* Left Column (Main Content) */}
         <div className="flex-1 min-w-0">
           <ActiveContestsList />
-          <RecentActivity />
-          <PastContestsTable />
         </div>
 
         {/* Right Column (Side Panels) */}

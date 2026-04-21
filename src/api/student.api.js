@@ -35,6 +35,11 @@ export const fetchLeaderboard = (contestId) => {
   return apiRequest(`/student/v1/leaderboard/${contestId}`, "GET");
 };
 
+// GET GLOBAL LEADERBOARD
+export const fetchGlobalLeaderboard = () => {
+  return apiRequest("/student/v1/global-leaderboard", "GET");
+};
+
 // GET MY SUBMISSIONS
 export const fetchMySubmissions = () => {
   return apiRequest("/student/v1/my-submissions", "GET");
